@@ -84,11 +84,60 @@
 
 \subsection{Archétype}
 
+Le jeu est un tactical RPG, basé sur des jeux tels que Final Fantasy
+tactics, Fae tactics ou encore la série des Fire Emblem.
 
 \subsection{Règles du jeu}
 
+Le jeu se déroule sur une map la forme d'une grille, celle-ci voit 
+s'affronter 2 équipes de plusieurs personnages. Chaque personnage peut se 
+déplacer et interagir (attaquer, soigner, etc\dots) avec les autres sur la map.
+La victoire est déclarée quand l'ensemble des membres d'une équipes 
+sont KO (PV = 0). \\
+Les personnages commencent avec 0 de mana et en gagnent un peu en début de chaque tour, les sorts ont différents couts de mana en fonction de leur puissance.
+
+\subsubsection{Stat des personnages}
+
+\begin{tabular}{|l|l|}
+  \hline
+  Nom en jeu & Effet \\
+  \hline
+  \hline
+  PV(Point de Vie) & Point de vie du personnage, il est KO s'ils tombent a 0.\\
+  \hline
+  PM(Point de Mana) & Point de Mana, consommés par les capacités. \\
+  \hline
+  Attaque & Attaque physique d'un personnage. \\
+  \hline
+  Armure & Défense physique d'un personnage. Résiste aux dégats physique.\\
+  \hline 
+  Magie & Puissance d'effets des capacités qui consomme du mana. \\
+  \hline 
+  Ténacité & Défense magique d'un personnage. Résiste au dégats magique \\
+  \hline 
+  Vitesse & Permet de déterminer l'ordre des tours \\
+  \hline
+  Mobilité & Nombre de case pouvant être parcouru en 1 seul tour. \\
+  \hline
+  Esquive & Chance d'esquive du personnage. \\
+  \hline
+\end{tabular}
+
+\subsubsection{Classe des personnage}
+
+Les classes sont reparties en plusieurs categories selon leur utilités (degat, tank, support) et leur portées (mêlé et porté).
+De base il y aurait 3 classes : 
+
+\begin{itemize}
+    \item un guerrier tank : peu de mobilité, vitesse, beaucoup de défense et de vie. Son attaque de base est un coup d'épée au corps a corps, avec un sort de protection, et un sort qui force un ennemi a l'attaquer.
+    \item un mage support : peu de mobilité, peu de défense, peu de dégat, moyenne portée, ses sorts permêttent d'augmenter les stats des alliées et de les soignées.
+    \item un archer qui fait des dégats : peu de défense, vitesse moyenne, beaucopu de portée et de dégats, un sort qui fait beaucoup de dégat sur une seule cible, et un sort qui fait des dégat de zone.
+\end{itemize}
+
 \subsection{Ressources}
 
+Pour les ressources de ce projet, nous avons réaliser la carte du jeu avec le logiciel Tiled 
+(Voir dossier res).
 
 
 \clearpage
