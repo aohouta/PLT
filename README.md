@@ -49,8 +49,8 @@ The [*PLT*] **P**rojet **L**ogiciel **T**ransversal (Transversal Software Projec
 
 ## Presentation
 
-* Genre : ?
-* Players : ? to N players
+* Genre : Tactical RPG
+* Players : 0 to N players
 
 *Game presentation here ...*
 

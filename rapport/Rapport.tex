@@ -145,16 +145,68 @@ Pour les ressources de ce projet, nous avons réaliser la carte du jeu avec le l
 
 \subsection{Description des états}
 
+Un état de jeu a besoin de 3 informations, la carte du actuelle du jeu,
+les personnages et leur état, ainsi que les joueurs et leur état.
+
+\subsubsection{L'état de la carte du jeu}
+
+La carte du jeu est composé d'une liste de cellule, qui compose la carte.
+Chaque cellule peut être, soit :
+\begin{itemize}
+  \item Être vide, juste le sol de la case, avec rien dessus
+  \item Avoir un personnage dessus, peut importe son état
+  \item Avoir un obstacle (arbre, rocher, ou autre)
+\end{itemize}
+
+Il y a plusieurs carte de jeu prédéfini.
+
+\subsubsection{L'état du joueur}
+
+Le joueur possède une liste de personnage qu'il possède, avec lesquels il peut jouer.
+Il possède aussi un état, qui indique si :
+\begin{itemize}
+  \item il est encore en jeu
+  \item il a gagné sa partie
+  \item il a perdu sa partie
+  \item il ne joue plus au jeu  (un timer compte, si le joueur prend trop de temps à jouer)
+\end{itemize}
+
+\subsubsection{L'état des personnages}
+
+Les personnages de chaque joueur possède un ensemble de statistiques :
+\begin{itemize}
+  \item Leur point de vie (PV), permet de déterminer combien de coup le personnage peut prendre avant de mourrir
+  \item Leur attaque (ATK), permet de déterminer combien de dégats le personnage va faire avec son attaque de base
+  \item Leur attaque magique (MAG), permet de déterminer combien de dégats le personnage va faire avec ses sorts
+  \item Leur défense magique (RM), permet de réduire les dégats pris par les sorts
+  \item Leur défense physique (DEF), permet de réduire les dégats pris par les attaques de base
+  \item Leur vitesse (VIT), permet de déterminer l'ordre des personnages
+  \item Leur mobilité (MOB), permet de déterminer la quantité de case que le personnage peut se déplacer
+  \item Leur esquive (ESQ), permet d'éviter les attaques et les sorts
+\end{itemize}
+
+Chaque personnage possède également un nom, un compteurs de tours, ainsi qu'une liste
+de sorts qu'il peut lancer. Il possède aussi une liste d'effets qui va être remplie aux cours de la partie,
+au fur et a mesure que des effets lui sont appliqué.
+
+\subsubsection{L'état général du jeu}
+
+L'état général du jeu permet de compter le nombre de tours passé, de joueurs encore en jeu.
+Ainsi que l'index du joueur qui est en train de jouer, et une liste de tout les personnages encore en jeu.
 
 \subsection{Conception Logiciel}
 
+Le diagramme des classes pour les états est présenté en Figure \ref{uml:state}. En rouge foncé
+on distingue la classe "état" principal, alors qu'en rouge plus clair on voit les classes lié aux personnages 
+et la carte du jeu. En blance on a les énumerations, qui sont utilisé pour ne pas utiliser de "magic numbers", 
+et de permettre une transparence sur l'utilisation des variables et de leur différents états.
 
-%\begin{landscape}
-%\begin{figure}[p]
-%\includegraphics[width=0.9\paperheight]{state.pdf}
-%\caption{\label{uml:state}Diagramme des classes d'état.} 
-%\end{figure}
-%\end{landscape}
+\begin{landscape}
+\begin{figure}[p]
+\includegraphics[width=0.8\paperwidth,angle=270]{StateUML_1.pdf}
+\caption{\label{uml:state}Diagramme des classes d'état.} 
+\end{figure}
+\end{landscape}
 
 \clearpage
 \section{Rendu: Stratégie et Conception}

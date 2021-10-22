@@ -8,6 +8,8 @@ BOOST_AUTO_TEST_CASE(TestStaticAssert)
   BOOST_CHECK(1);
 }
 
+//Test la bibliothèque SFML, qui sera utilisé pour l'interface graphique, ultérieurement
+
 BOOST_AUTO_TEST_CASE(TestSFML)
 {
   {
