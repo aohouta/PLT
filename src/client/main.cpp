@@ -24,12 +24,13 @@ int main(int argc,char* argv[])
     string stat = "state";
 
     //testc();
-
-    if(argv[1] == hi){
-        cout << "Bonjour le monde !" << endl;
-    }
-    else if(argv[1] == stat){
-        cout << "Pas encore de test :/" << endl;
+    if(argc >= 2){
+        if(argv[1] == hi){
+            cout << "Bonjour le monde !" << endl;
+        }
+        else if(argv[1] == stat){
+            cout << "Pas encore de test :/" << endl;
+        }
     }
     cout << "test\n";
     return 0;
