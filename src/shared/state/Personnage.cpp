@@ -1,9 +1,21 @@
-/*#include "Personnage.h"
+#include "Personnage.h"
 #include <iostream>
+
+using namespace std;
 namespace state {
 
-void testc(){
-    std::cout << "test";
+vector<int> Personnage::getStats(){
+    cout << "fromage\n";
+    vector<int> fze = {4,2};
+    return fze;
 }
 
-}*/
+Personnage::Personnage(ID_PType PType){
+    this->PType = PType;
+}
+
+Personnage::~Personnage(){
+    
+}
+
+}
