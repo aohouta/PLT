@@ -22,7 +22,7 @@ int main(int argc,char* argv[])
     string stat = "state";
     std::vector<int> temp;
 
-    Personnage perso(Guerrier);
+    Personnage perso(Archer);
     temp = perso.getStats();
 
     if(argc >= 2){
@@ -33,6 +33,6 @@ int main(int argc,char* argv[])
             cout << "Pas encore de test :/" << endl;
         }
     }
-    cout << "test\n";
+    cout << temp[1];
     return 0;
 }
