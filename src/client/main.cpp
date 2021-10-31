@@ -9,9 +9,7 @@ void testSFML() {
 
 // Fin test SFML
 
-#include <state.h>
-
-//void testc();
+#include "../shared/state.h"
 
 using namespace std;
 using namespace state;
@@ -22,8 +20,11 @@ int main(int argc,char* argv[])
     //exemple.setX(53);
     string hi = "hello";
     string stat = "state";
+    std::vector<int> temp;
 
-    //testc();
+    Personnage perso(Archer);
+    temp = perso.getStats();
+
     if(argc >= 2){
         if(argv[1] == hi){
             cout << "Bonjour le monde !" << endl;
@@ -32,6 +33,6 @@ int main(int argc,char* argv[])
             cout << "Pas encore de test :/" << endl;
         }
     }
-    cout << "test\n";
+    cout << temp[1];
     return 0;
 }
