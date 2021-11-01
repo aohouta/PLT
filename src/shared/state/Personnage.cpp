@@ -6,6 +6,8 @@ namespace state {
 
 Personnage::Personnage(ID_PType PType){
     this->PType = PType;
+    Position = {0,0};
+    
     if(PType == Guerrier){
         PV = 90;
         ATK = 30;

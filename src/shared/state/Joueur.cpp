@@ -2,14 +2,11 @@
 #include <iostream>
 namespace state {
 
-void testc(){
-    std::cout << "test";
-}
 
 Joueur::Joueur (std::string IDPlayer, ID_PlayerType PlayerType){
     this->PlayerType = PlayerType;
     this->IDPlayer = IDPlayer;
-    
+    GameStatus = Joue;
 
 }
 
