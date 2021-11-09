@@ -7,7 +7,10 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
-# ENSEA PLT Project 2021-2022: Projet IS jeu vidéo en collaboration avec Bastien Guillard, Willian Duval et Patrick Contin
+
+
+
+# Unoriginal and generic tactical (UAGT) : Projet IS jeu vidéo en collaboration avec Bastien Guillard, Willian Duval et Patrick Contin
 
 <p align="center">
  
