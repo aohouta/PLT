@@ -9,6 +9,8 @@ void testSFML() {
 
 // Fin test SFML
 
+#include "Affichage.cpp"
+
 #include "../shared/state.h"
 
 using namespace std;
@@ -20,6 +22,7 @@ int main(int argc,char* argv[])
     //exemple.setX(53);
     string hi = "hello";
     string stat = "state";
+    string rend = "render";
     std::vector<int> temp;
 
     Personnage perso(Archer);
@@ -30,7 +33,10 @@ int main(int argc,char* argv[])
             cout << "Bonjour le monde !" << endl;
         }
         else if(argv[1] == stat){
-            cout << "Pas encore de test :/" << endl;
+            cout << "go faire make test" << endl;
+        }
+        else if(argv[1] == rend){
+            afficheState();
         }
     }
     cout << temp[1];
