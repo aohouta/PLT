@@ -32,7 +32,9 @@ int main(int argc,char* argv[])
         else if(argv[1] == stat){
             cout << "Pas encore de test :/" << endl;
         }
-    }
+        else if (strcmp(argv[1], "render") == 0){
+            
+        }
     cout << temp[1];
     return 0;
 }
