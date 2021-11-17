@@ -12,7 +12,7 @@ bool loadTextures (state::State& state, sf::Texture& Tile_texture, sf::Vector2u 
     sf::Texture texture = Tile_texture;
 
     // on redimensionne le tableau de vertex pour qu'il puisse contenir tout le niveau
-    quads.setPrimitiveType(sf::VertexArray);
+    quads.setPrimitiveType(sf::Quads);
     quads.resize(width * height * 4);
 
     // on remplit le tableau de vertex, avec un quad par tuile
