@@ -21,6 +21,8 @@ int main(int argc,char* argv[])
     string hi = "hello";
     string stat = "state";
     std::vector<int> temp;
+    
+    it
 
     Personnage perso(Archer);
     temp = perso.getStats();
