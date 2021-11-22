@@ -3,7 +3,6 @@ set(lib_shared_target shared_static)
 
 # Generate header files from dia UML files
 generate_dia_header("${CMAKE_CURRENT_SOURCE_DIR}/../state.dia")
-generate_dia_header("${CMAKE_CURRENT_SOURCE_DIR}/../render.dia")
 #generate_dia_header("${CMAKE_CURRENT_SOURCE_DIR}/../engine.dia")
 #generate_dia_header("${CMAKE_CURRENT_SOURCE_DIR}/../ai.dia")
 
