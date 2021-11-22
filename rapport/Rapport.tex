@@ -228,8 +228,51 @@ et de permettre une transparence sur l'utilisation des variables et de leur diff
 
 \subsection{Règles}
 
+\subsubsection{Actualisation}
+
+L'engine est complètement indépendant du render, le mmoteur de jeu
+ne sert qu'à mettre a jour l'état du jeu, en fonction des commandes exterieurs 
+(Clavier, souris ou serveur), et des règles automatiques, qui sont vérifer a chaque 
+changement d'état. Le moteur de jeu effectue une mise a jour de l'état a chaque
+commande exterieur, les règles autonomes n'ont besoin de s'activer qu'uniquement s'y 
+il y a un changement d'état (jeu tour par tour).
+
+\subsubsection{Règles extérieurs}
+
+Les règles extérieurs sont provoqué par les cliques de souris a diffrénts endroit, 
+ou les ordres reçue par le réseau.
+
+\begin{itemize}
+  \item Selectionner un personnage, afin d'afficher les statistiques du personnage
+  \item Déplacer les personnages
+  \item Attaquer un ennemi
+  \item Lancer un sort
+\end{itemize}
+
+\subsubsection{Règles autonomes}
+
+Les règles autonomes sont les checks qui sont lancés a chaque fois que l'ont veut faire
+une action, afin de savoir si l'action est valide. Ainsi que la barre d'action qui détermine
+l'ordre des tours.
+
+Les différentes règles suivant les actions sont :
+
+\begin{itemize}
+  \item Tester les positions relatives des personnages
+  \item Calculer les dégats d'une attaque
+  \item Infliger les dégats d'une attaque 
+  \item Appliquer les effets des sorts
+  \item Vérifier la possibililté des déplacements
+\end{itemize}
+
 \clearpage
 \subsection{Conception logiciel}
+
+Le diagramme de classe de moteur de jeu est reprsenté sur la figure %\ref{uml:engine}.
+Le jeu repose sur un patron de conception de type Command.
+
+La classe commande est une classe abstraite qui parentes toutes les autres classe commande
+
 
 
 %\begin{landscape}
