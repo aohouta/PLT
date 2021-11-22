@@ -22,7 +22,7 @@ BOOST_AUTO_TEST_CASE(TestState)
         Personnage Attila(Guerrier);
         
         //test constructeur stat guerrier
-        vector<int> statsguer = {90,30,30,50,90,90,3,30};
+        vector<int> statsguer = {90,90,0,50,30,30,50,90,90,3,30};
         vector<int> Astats = Attila.getStats();
         BOOST_CHECK_EQUAL_COLLECTIONS(Astats.begin(),Astats.end(),statsguer.begin(),statsguer.end());
 
@@ -108,18 +108,32 @@ BOOST_AUTO_TEST_CASE(TestState)
 
         //test setter et getter Sorts
         
+        //test recevoirDMG
+        Attila.recevoirDMG(20); //on repasse de 110 à 90 PV
+        BOOST_CHECK_EQUAL(Attila.getPV(), 90);
+        Attila.recevoirDMG(999); 
+        BOOST_CHECK_EQUAL(Attila.getPV(), 0);
+        BOOST_CHECK_EQUAL(Attila.getEtatPerso(), OnTheGround);
         
+        //test recevoirSoin
+        Attila.recevoirSoin(999);
+        BOOST_CHECK_EQUAL(Attila.getPV(), 0); //attila est dans l'état Ontheground
+        Attila.setEtatPerso(Alive);
+        Attila.recevoirSoin(50);
+        BOOST_CHECK_EQUAL(Attila.getPV(), 50);
+        Attila.recevoirSoin(999);
+        BOOST_CHECK_EQUAL(Attila.getPV(), 90);
 
 
 
         Personnage MagicienDesTenebres{Mage};
-        vector<int> statsmag = {50,30,90,90,30,50,5,50};
+        vector<int> statsmag = {50,50,0,100,30,90,90,30,50,5,50};
         vector<int> Mstats = MagicienDesTenebres.getStats();
         BOOST_CHECK_EQUAL_COLLECTIONS(Mstats.begin(),Mstats.end(),statsmag.begin(),statsmag.end());
         
         
         Personnage Legolas{Archer};
-        vector<int> statsarcher = {30,90,50,30,50,30,9,90};
+        vector<int> statsarcher = {30,30,0,70,90,50,30,50,30,9,90};
         vector<int> Lstats = Legolas.getStats();
         BOOST_CHECK_EQUAL_COLLECTIONS(Lstats.begin(),Lstats.end(),statsarcher.begin(),statsarcher.end());
      

@@ -11,6 +11,9 @@ Personnage::Personnage(ID_PType PType){
     
     if(PType == Guerrier){
         PV = 90;
+        PVmax = 90;
+        Mana =0;
+        ManaMax = 50;
         ATK = 30;
         MAG = 30;
         RM = 50;
@@ -18,9 +21,13 @@ Personnage::Personnage(ID_PType PType){
         VIT = 90;
         MOB = 3;
         ESQ = 30;
+        
     }
     else if(PType == Mage){
         PV = 50;
+        PVmax = 50;
+        Mana =0;
+        ManaMax = 100;
         ATK = 30;
         MAG = 90;
         RM = 90;
@@ -31,6 +38,9 @@ Personnage::Personnage(ID_PType PType){
     }
     else if(PType == Archer){
         PV = 30;
+        PVmax = 30;
+        Mana =0;
+        ManaMax = 70;
         ATK = 90;
         MAG = 50;
         RM = 30;
@@ -42,7 +52,7 @@ Personnage::Personnage(ID_PType PType){
 }
 
 vector<int> Personnage::getStats(){
-    return {PV, ATK, MAG, RM, DEF, VIT, MOB, ESQ};
+    return {PV,PVmax ,Mana, ManaMax, ATK, MAG, RM, DEF, VIT, MOB, ESQ};
 }
 
 ID_Orientation Personnage::getOrientation(){
@@ -104,6 +114,30 @@ int Personnage::getPV() const{
 void Personnage::setPV(int PV){
     this->PV = PV;
 }
+int Personnage::getPVmax() const{
+   return PVmax; 
+}
+
+void Personnage::setPVmax(int PVmax){
+    this->PVmax = PVmax;
+}
+
+int Personnage::getMana() const{
+    return Mana;
+}
+
+void Personnage::setMana(int Mana){
+    this->Mana = Mana;
+}
+
+int Personnage::getManaMax() const{
+    return ManaMax;
+}
+
+void Personnage::setManaMax(int ManaMax){
+    this->ManaMax = ManaMax;
+}
+
 
 int Personnage::getATK() const{
     return ATK;
@@ -175,5 +209,30 @@ void Personnage::setListeSort(const std::vector<Sorts>& ListeSort){
     this->ListeSort = ListeSort;
 }
     
+void Personnage::recevoirDMG(int nbDegat){
+    int pvActuel = this->getPV();
+    if (nbDegat < pvActuel ){
+        pvActuel = pvActuel - nbDegat;
+        this->setPV(pvActuel);
+    }
+    else{
+        this->setPV(0);
+        this->setEtatPerso(ID_EtatPerso::OnTheGround);
+    }
+}
+
+void Personnage::recevoirSoin (int nbSoin){ //a rediscuter
+    if(this->getEtatPerso() == ID_EtatPerso::Alive){
+        int pvMax = this->getPVmax();
+        int nouveauPV = this->getPV()+nbSoin;
+        if(nouveauPV > pvMax){
+            this->setPV(pvMax);
+        }
+        else{
+            this->setPV(nouveauPV);
+        }
+    }    
+
+}
 
 }
