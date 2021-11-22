@@ -6,6 +6,7 @@ namespace state {
 
 Personnage::Personnage(ID_PType PType){
     this->PType = PType;
+    this->EtatPerso = ID_EtatPerso::Alive;
     Position = {0,0};
     
     if(PType == Guerrier){
