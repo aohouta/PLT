@@ -1,7 +1,7 @@
 #include "../state.h"
 
 namespace state{
-
+/*
 std::vector<std::vector<std::unique_ptr<Map>>>& State::getMap (){
     
     
@@ -12,7 +12,7 @@ void State::InitMap (std::string mapResource = "res/MapTest.txt"){
         // mapping (this will be dependent on the choosed resource)
         // dictionary to signalize the type of each tileset by his id
         // (tile id defined by the position of the tile in de resource, we dont define it)
-        std::map<int, SpaceMapCellID> mapp_spaces;
+        /*std::map<int, SpaceMapCellID> mapp_spaces;
         std::map<int, ObstacleMapCellID> mapp_obstacles;
 
         
@@ -74,6 +74,6 @@ void State::InitMap (std::string mapResource = "res/MapTest.txt"){
         }
         cout << "--- map created succesfully ---" << endl;
         return;
-}
+}*/
 
 }
