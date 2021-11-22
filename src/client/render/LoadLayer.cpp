@@ -7,9 +7,9 @@ using namespace sf;
 using namespace state;
 namespace render{
 
-bool loadTextures (state::State& state, sf::Texture& Tile_texture, sf::Vector2u tile_Size, unsigned int width, unsigned int height)
+bool LoadLayer::loadTextures (state::State& state, sf::Texture& Tile_texture, sf::Vector2u tile_Size, unsigned int width, unsigned int height)
 {
-    texture = Tile_texture;
+    sf::Texture& texture = Tile_texture;
 
     // on redimensionne le tableau de vertex pour qu'il puisse contenir tout le niveau
     quads.setPrimitiveType(sf::Quads);
@@ -21,7 +21,7 @@ bool loadTextures (state::State& state, sf::Texture& Tile_texture, sf::Vector2u 
         for (unsigned int j = 0; j < state.getMap()[0].size(); j++)
         {
             // get the current tile number
-            int tileNumber = state.getMap()[i][j]->getTileCode();
+            int tileNumber = state.getMap()[i][j]->getMType();
             // on en déduit sa position dans la texture du tileset
             int tu = tileNumber % (texture.getSize().x / tile_Size.x);
             int tv = tileNumber / (texture.getSize().x / tile_Size.x);
@@ -38,7 +38,7 @@ bool loadTextures (state::State& state, sf::Texture& Tile_texture, sf::Vector2u 
             // define its 4 texture coordinates
             quad[0].texCoords = sf::Vector2f(tu * tile_Size.x, tv * tile_Size.y);
             quad[1].texCoords = sf::Vector2f((tu + 1) * tile_Size.x, tv * tile_Size.y);
-            quad[2].texCoords = sf::Vector2f((tu + 1) * tile_Size.x, (tv + 1) * tileSize.y);
+            quad[2].texCoords = sf::Vector2f((tu + 1) * tile_Size.x, (tv + 1) * tile_Size.y);
             quad[3].texCoords = sf::Vector2f(tu * tile_Size.x, (tv + 1) * tile_Size.y);
 
         }
@@ -47,7 +47,7 @@ bool loadTextures (state::State& state, sf::Texture& Tile_texture, sf::Vector2u 
 }
       
 
-void draw (sf::RenderTarget& target, sf::RenderStates states){
+void LoadLayer::draw (sf::RenderTarget& target, sf::RenderStates states){
     {
         // apply the transform
         states.transform *= Transform();

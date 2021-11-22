@@ -22,10 +22,7 @@ int main(int argc,char* argv[])
     string stat = "state";
     std::vector<int> temp;
     
-    it
 
-    Personnage perso(Archer);
-    temp = perso.getStats();
 
     if(argc >= 2){
         if(argv[1] == hi){
