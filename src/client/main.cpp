@@ -33,7 +33,7 @@ int main(int argc,char* argv[])
         }
         else if (strcmp(argv[1], "render") == 0)
         {
-            cout << "--- Render ---" << endl;
+            /*cout << "--- Render ---" << endl;
             State state{"render"};
             state.initMap();
             sf::RenderWindow window(sf::VideoMode(state.getMap()[0].size() * 32 + 256, state.getMap().size() * 32 + 32, 32), "map");
@@ -52,7 +52,7 @@ int main(int argc,char* argv[])
                 layer.draw(window);
             }
             return 0;
-        }
+        } */
             
         }
     cout << temp[1];
