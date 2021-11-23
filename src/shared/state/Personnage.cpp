@@ -12,7 +12,6 @@ Personnage::Personnage(ID_PType PType){
     if(PType == Guerrier){
         PV = 90;
         PVmax = 90;
-        Mana =0;
         ManaMax = 50;
         ATK = 30;
         MAG = 30;
@@ -26,7 +25,6 @@ Personnage::Personnage(ID_PType PType){
     else if(PType == Mage){
         PV = 50;
         PVmax = 50;
-        Mana =0;
         ManaMax = 100;
         ATK = 30;
         MAG = 90;
@@ -39,7 +37,6 @@ Personnage::Personnage(ID_PType PType){
     else if(PType == Archer){
         PV = 30;
         PVmax = 30;
-        Mana =0;
         ManaMax = 70;
         ATK = 90;
         MAG = 50;
@@ -111,7 +108,7 @@ int Personnage::getPV() const{
     return PV;
 }
 
-void Personnage::setPV(int PV){
+void Personnage::setPV(int PV){ //attention à cette méthode, les PV max ne son pas prit en compte
     this->PV = PV;
 }
 int Personnage::getPVmax() const{
@@ -233,6 +230,31 @@ void Personnage::recevoirSoin (int nbSoin){ //a rediscuter
         }
     }    
 
+}
+
+void Personnage::recevoirMana (int nbMana){
+    if(this->getEtatPerso() == ID_EtatPerso::Alive){
+        int manaMax = this->getManaMax();
+        int nouveauMana = this->getMana()+nbMana;
+        if(nouveauMana > manaMax){
+            this->setMana(manaMax);
+        }
+        else{
+            this->setMana(nouveauMana);
+        }
+    }
+}
+
+void Personnage::retirerMana (int nbMana){ 
+    int manaActuel = this->getMana();
+    if (nbMana < manaActuel ){
+        manaActuel = manaActuel - nbMana;
+        this->setMana(manaActuel);
+    }
+    else{
+        this->setMana(0);
+    }
+    
 }
 
 }

@@ -66,10 +66,15 @@ BOOST_AUTO_TEST_CASE(TestState)
         Attila.setNbTours(10);
         BOOST_CHECK_EQUAL(Attila.getNbTours(),10);
 
+        //test setter et getter PVmax
+        BOOST_CHECK_EQUAL(Attila.getPVmax(), 90);
+        Attila.setPVmax(110);
+        BOOST_CHECK_EQUAL(Attila.getPVmax(), 110);
+
         //test setter et getter PV
         BOOST_CHECK_EQUAL(Attila.getPV(), 90);
         Attila.setPV(110);
-        BOOST_CHECK_EQUAL(Attila.getPV(), 110);
+        BOOST_CHECK_EQUAL(Attila.getPV(), 110);    
 
         //test setter et getter ATK
         BOOST_CHECK_EQUAL(Attila.getATK(), 30);
@@ -106,6 +111,17 @@ BOOST_AUTO_TEST_CASE(TestState)
         Attila.setESQ(25);
         BOOST_CHECK_EQUAL(Attila.getESQ(), 25);
 
+        //test setter et getter ManaMax
+        Attila.setManaMax(60);
+        BOOST_CHECK_EQUAL(Attila.getManaMax(),60);
+        Attila.setManaMax(50);
+
+        //test setter et getter Mana
+        Attila.setMana(30);
+        BOOST_CHECK_EQUAL(Attila.getMana(),30);
+        Attila.setMana(0);
+
+
         //test setter et getter Sorts
         
         //test recevoirDMG
@@ -122,7 +138,15 @@ BOOST_AUTO_TEST_CASE(TestState)
         Attila.recevoirSoin(50);
         BOOST_CHECK_EQUAL(Attila.getPV(), 50);
         Attila.recevoirSoin(999);
-        BOOST_CHECK_EQUAL(Attila.getPV(), 90);
+        BOOST_CHECK_EQUAL(Attila.getPV(), Attila.getPVmax());
+
+        //test recevoirMana
+        BOOST_CHECK_EQUAL(Attila.getMana(), 0); //0 mana de base
+        Attila.recevoirMana(20);
+        BOOST_CHECK_EQUAL(Attila.getMana(),20);
+        Attila.recevoirMana(999);
+        BOOST_CHECK_EQUAL(Attila.getMana(),Attila.getManaMax());
+
 
 
 
