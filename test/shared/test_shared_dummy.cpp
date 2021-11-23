@@ -39,12 +39,12 @@ BOOST_AUTO_TEST_CASE(TestState)
         BOOST_CHECK_EQUAL(AttilaOrientation,Face);
 
         //test setter et getter effets
-        /*vector<Effets> ListeEffets{Etourdissement,Ralentissement,BoostATK,BoostMag,BoostDef,Affaiblissement,Regeneration};
-        vector<Effets> ListeEffets{ID_Effet::Etourdissement};
-        Attila.setListeEffet(ListeEffets);
-        vector<Effets> effetsAttila = Attila.getListeEffet();
-        BOOST_CHECK_EQUAL_COLLECTIONS(ListeEffets.begin(),ListeEffets.end(),effetsAttila.begin(),effetsAttila.end());
-        */
+        //Effets stun;
+        //vector<Effets> ListeEffets{stun};
+        //Attila.setListeEffet(ListeEffets);
+        //vector<Effets> effetsAttila = Attila.getListeEffet();
+        //BOOST_CHECK_EQUAL_COLLECTIONS(ListeEffets.begin(),ListeEffets.end(),effetsAttila.begin(),effetsAttila.end());
+        
 
         //test setter et getter Type
         BOOST_CHECK_EQUAL(Attila.getPType(),Guerrier);
@@ -122,7 +122,13 @@ BOOST_AUTO_TEST_CASE(TestState)
         Attila.setMana(0);
 
 
-        //test setter et getter Sorts
+        //test setter et getter liste Sorts
+        //Sort foudreDeLaMortQuiTue;
+        //vector<Sort> listeSortAttila{foudreDeLaMortQuiTue};
+        //Attila.setListeSort(listeSortAttila);
+        //BOOST_CHECK_EQUAL(Attila.getListeSort(),listeSortAttila);
+        
+
         
         //test recevoirDMG
         Attila.recevoirDMG(20); //on repasse de 110 à 90 PV
@@ -172,6 +178,7 @@ BOOST_AUTO_TEST_CASE(TestState)
         Abdel.setPlayerType(BotDifficile);
         BOOST_CHECK_EQUAL(Abdel.getPlayerType(),Humain);
     }
+    
   /*{
     Exemple ex {};
     BOOST_CHECK_EQUAL(ex.x, 0);

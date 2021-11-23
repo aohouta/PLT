@@ -198,11 +198,11 @@ void Personnage::setListeEffet(const std::vector<Effets>& ListeEffet){
     this->ListeEffet = ListeEffet;
 }
 
-const std::vector<Sorts>& Personnage::getListeSort() const{
+const std::vector<Sort>& Personnage::getListeSort() const{
     return ListeSort;
 }
 
-void Personnage::setListeSort(const std::vector<Sorts>& ListeSort){
+void Personnage::setListeSort(const std::vector<Sort>& ListeSort){
     this->ListeSort = ListeSort;
 }
     
