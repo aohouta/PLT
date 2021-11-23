@@ -230,12 +230,14 @@ et de permettre une transparence sur l'utilisation des variables et de leur diff
 
 \subsubsection{Actualisation}
 
-L'engine est complètement indépendant du render, le mmoteur de jeu
+L'engine est complètement indépendant du render, le moteur de jeu
 ne sert qu'à mettre a jour l'état du jeu, en fonction des commandes exterieurs 
 (Clavier, souris ou serveur), et des règles automatiques, qui sont vérifer a chaque 
 changement d'état. Le moteur de jeu effectue une mise a jour de l'état a chaque
-commande exterieur, les règles autonomes n'ont besoin de s'activer qu'uniquement s'y 
-il y a un changement d'état (jeu tour par tour).
+commande exterieur, les règles automatiques n'ont besoin de s'activer qu'uniquement 
+dans le cas d'un changement d'état (jeu tour par tour). Il existe aussi une règle 
+autonome qui doit s'incrémenter entre les tours, afin de déterminer l'ordre de passage
+des tours des différents personnages. Cette commande sera appeler par une horloge.
 
 \subsubsection{Règles extérieurs}
 
@@ -249,11 +251,13 @@ ou les ordres reçue par le réseau.
   \item Lancer un sort
 \end{itemize}
 
-\subsubsection{Règles autonomes}
+\subsubsection{Règles automatiques}
 
-Les règles autonomes sont les checks qui sont lancés a chaque fois que l'ont veut faire
-une action, afin de savoir si l'action est valide. Ainsi que la barre d'action qui détermine
-l'ordre des tours.
+Les règles automatiques sont les checks qui sont lancés a chaque fois que l'ont veut faire
+une action, afin de savoir si l'action est valide, elles sont éxécuter en fonction de 
+la commande extérieur qui a été exécuté auparavant. Un autre type de règle automatique est 
+la barre d'action, qui détermine l'ordre des tours, cette barre d'actions est une commande
+qui va s'éxécuter a intervalles réguliers.
 
 Les différentes règles suivant les actions sont :
 
@@ -273,7 +277,7 @@ Le jeu repose sur un patron de conception de type Command.
 
 La classe commande est une classe abstraite qui parentes toutes les autres classe commande
 
-
+Les classes commandes, ce sont les classes qui représentent les différentes commandes.
 
 %\begin{landscape}
 %\begin{figure}[p]
