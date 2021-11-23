@@ -10,15 +10,15 @@ Tile::Tile (TileID tileID,  int Width, int Height){
     this->Height = Height;
     
     if (tileID == TileID::CHARACTER){
-        resourceFile = "../../../res/mage.png";
+        resourceFile = "res/mage.png";
     }
     
-    else if (tileID == TileID::HUD){
-        resourceFile = "../../../res/HUD.png";
-    }
+    //else if (tileID == TileID::HUD){
+    //    resourceFile = "../../../res/HUD.png";
+    //}
     
     else if (tileID == TileID::MAP){
-        resourceFile = "../../../res/Isometric_MedievalFantasy_Tiles.png";
+        resourceFile = "res/32x32map.png";
     }
     
     if (!textureTile.loadFromFile(resourceFile)){

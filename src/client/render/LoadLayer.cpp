@@ -21,7 +21,7 @@ bool LoadLayer::loadTextures (state::State& state, sf::Texture& Tile_texture, sf
         for (unsigned int j = 0; j < state.getMap()[0].size(); j++)
         {
             // get the current tile number
-            int tileNumber = state.getMap()[i][j]->getMType();
+            int tileNumber = state.getMap()[i][j]->getTileCode();
             // on en déduit sa position dans la texture du tileset
             int tu = tileNumber % (texture.getSize().x / tile_Size.x);
             int tv = tileNumber / (texture.getSize().x / tile_Size.x);

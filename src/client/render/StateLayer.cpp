@@ -14,7 +14,7 @@ using namespace state;
 namespace render{
 
 void StateLayer::initLayer (state::State& state){
-    /*render::LoadLayer LoadMap;
+    render::LoadLayer LoadMap;
     LoadMap.loadTextures(state, tile[0]->getTexture(), sf::Vector2u(tile[0]->getCellWidth(), tile[0]->getCellHeight()), state.getMap().size(), state.getMap()[0].size());
     std::unique_ptr<LoadLayer> ptrLoadMap(new LoadLayer(LoadMap));
 
@@ -36,7 +36,7 @@ StateLayer::StateLayer (state::State& state, sf::RenderWindow& window) : window(
     std::unique_ptr<Tile> tileMap(new Tile(TileID::MAP,32,32));
     tile.push_back(move(tileMap));
 
-*/
+
 
     
 }
