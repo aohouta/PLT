@@ -10,21 +10,24 @@ Tile::Tile (TileID tileID,  int Width, int Height){
     this->Height = Height;
     
     if (tileID == TileID::CHARACTER){
-        resourceFile = "../../../res/mage.png";
+        resourceFile = "res/mage.png";
     }
     
-    else if (tileID == TileID::HUD){
-        resourceFile = "../../../res/HUD.png";
-    }
+    //else if (tileID == TileID::HUD){
+    //    resourceFile = "../../../res/HUD.png";
+    //}
     
     else if (tileID == TileID::MAP){
-        resourceFile = "../../../res/Isometric_MedievalFantasy_Tiles.png";
+        resourceFile = "res/32x32map.png";
+        std::cout <<"\n success \n";
     }
     
     if (!textureTile.loadFromFile(resourceFile)){
         std::cout <<"\n FAILED \n";
     }
     
+    textureTile.loadFromFile(getImageFile());
+    std::cout <<"\n success \n";
 }
 
 const std::string Tile::getImageFile (){

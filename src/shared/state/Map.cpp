@@ -2,9 +2,13 @@
 
 namespace state{
 
-Map::Map(ID_MType MType){
-    this->MType = MType;
+int Map::getTileCode() {
+    return tileCode;
 }
 
+void Map::setTileCode(int tileCode){
+    this->tileCode = tileCode;
+    
+}
 
 }
