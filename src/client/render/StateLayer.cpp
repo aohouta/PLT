@@ -32,7 +32,6 @@ void StateLayer::initLayer (state::State& state){
 
 StateLayer::StateLayer (state::State& state, sf::RenderWindow& window) : window(window), currentState(state)
 {
-
     std::unique_ptr<Tile> tileMap(new Tile(TileID::MAP,32,32));
     tile.push_back(move(tileMap));
 

@@ -9,7 +9,7 @@ namespace render{
 
 bool LoadLayer::loadTextures (state::State& state, sf::Texture& Tile_texture, sf::Vector2u tile_Size, unsigned int width, unsigned int height)
 {
-    sf::Texture& texture = Tile_texture;
+    texture = Tile_texture;
 
     // on redimensionne le tableau de vertex pour qu'il puisse contenir tout le niveau
     quads.setPrimitiveType(sf::Quads);

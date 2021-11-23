@@ -19,12 +19,15 @@ Tile::Tile (TileID tileID,  int Width, int Height){
     
     else if (tileID == TileID::MAP){
         resourceFile = "res/32x32map.png";
+        std::cout <<"\n success \n";
     }
     
     if (!textureTile.loadFromFile(resourceFile)){
         std::cout <<"\n FAILED \n";
     }
     
+    textureTile.loadFromFile(getImageFile());
+    std::cout <<"\n success \n";
 }
 
 const std::string Tile::getImageFile (){

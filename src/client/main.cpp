@@ -52,9 +52,8 @@ int main(int argc,char* argv[])
             State state{"render"};
             state.initMap();
             sf::RenderWindow window(sf::VideoMode(state.getMap()[0].size() * 32 + 256, state.getMap().size() * 32 + 32, 32), "map");
-            StateLayer layer(state, window);
-            layer.initLayer(state);
-        
+            StateLayer Slayer(state, window);
+            Slayer.initLayer(state);
             while (window.isOpen())
             {
                 sf::Event event;
@@ -64,12 +63,12 @@ int main(int argc,char* argv[])
                         window.close();
                 }
                 // render
-                layer.draw(window);
+                Slayer.draw(window);
             }
             return 0;
         }
             
-        }
+    }
     cout << temp[1];
     return 0;
 }
