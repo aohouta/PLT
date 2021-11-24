@@ -259,14 +259,40 @@ la commande extérieur qui a été exécuté auparavant. Un autre type de règle
 la barre d'action, qui détermine l'ordre des tours, cette barre d'actions est une commande
 qui va s'éxécuter a intervalles réguliers.
 
-Les différentes règles suivant les actions sont :
+Les différentes règles suivant les actions sont, pour :
 
 \begin{itemize}
-  \item Tester les positions relatives des personnages
-  \item Calculer les dégats d'une attaque
-  \item Infliger les dégats d'une attaque 
-  \item Appliquer les effets des sorts
-  \item Vérifier la possibililté des déplacements
+  \item Incrémenter la barre d'action :
+  \begin{itemize}
+    \item Tester si un personnage est arrivé aux maximum de la barre
+    \item Si un personnage est arrivé au maximum : passer en mode tour par tour,
+    lui permettre de jouer et lui donner son mana.
+  \end{itemize}
+  \item Selectionner un personnage :
+  \begin{itemize}
+    \item Chercher les informations sur le personnage selectionner
+    \item Afficher les informations sur le personnage selectionner
+  \end{itemize}
+  \item Déplacer un personnage :
+  \begin{itemize}
+    \item Vérifier la disponibilité des cases 
+    \item Calculer le pathfinding
+    \item Effectuer le déplacement
+  \end{itemize}
+  \item Attaquer un personnage
+  \begin{itemize}
+    \item Tester la possibilité de l'attaque (porté, ligne de vue)
+    \item Calculer les positions relatives, pour les dégats directionnels
+    \item Calculer les dégats infligés (défense, crit et autre)
+    \item Appliquer les dégats au personnage
+    \item Tester si le personnage est mort
+  \end{itemize}
+  \item Lancer un sort
+  \begin{itemize}
+    \item Obtenir les informations sur le type de sort
+    \item Obtenir les informations sur la cible 
+    \item Réaliser l'action en fonction du sort (si c'est une attaque, on attaque, un soin, on soigne\dots)
+  \end{itemize}
 \end{itemize}
 
 \clearpage
