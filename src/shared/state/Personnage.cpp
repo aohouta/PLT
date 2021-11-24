@@ -59,7 +59,7 @@ ID_Orientation Personnage::getOrientation(){
     return Orientation;
 }
 
-vector<Effets> Personnage::getEffets(){
+vector<Effet> Personnage::getEffets(){
     return ListeEffet;
 }
 
@@ -200,11 +200,11 @@ int Personnage::getESQ() const{
 void Personnage::setESQ(int ESQ){
     this->ESQ = ESQ;
 }
-const std::vector<Effets>& Personnage::getListeEffet() const{
+const std::vector<Effet>& Personnage::getListeEffet() const{
     return ListeEffet;
 }
 
-void Personnage::setListeEffet(const std::vector<Effets>& ListeEffet){
+void Personnage::setListeEffet(const std::vector<Effet>& ListeEffet){
     this->ListeEffet = ListeEffet;
 }
 

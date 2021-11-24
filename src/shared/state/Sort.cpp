@@ -22,11 +22,11 @@ void Sort::setDescription(const std::string& Description){
     this->Description = Description;
 }
 
-const std::vector<Effets>& Sort::getEffetSort() const{
+const std::vector<Effet>& Sort::getEffetSort() const{
     return EffetSort;
 }
 
-void Sort::setEffetSort(const std::vector<Effets>& EffetSort){
+void Sort::setEffetSort(const std::vector<Effet>& EffetSort){
     this->EffetSort = EffetSort;
 }
 
