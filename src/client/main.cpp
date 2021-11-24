@@ -36,7 +36,6 @@ int main(int argc,char* argv[])
     //exemple.setX(53);
     string hi = "hello";
     string stat = "state";
-    std::vector<int> temp;
 
 
     if(argc >= 2){
@@ -69,7 +68,6 @@ int main(int argc,char* argv[])
         }
             
     }
-    cout << temp[1];
     return 0;
 }
 
