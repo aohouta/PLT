@@ -19,6 +19,7 @@ Personnage::Personnage(ID_PType PType){
         DEF = 90;
         VIT = 90;
         MOB = 3;
+        MOBrestante = 3;
         ESQ = 30;
         
     }
@@ -32,6 +33,7 @@ Personnage::Personnage(ID_PType PType){
         DEF = 30;
         VIT = 50;
         MOB = 5;
+        MOBrestante = 5;
         ESQ = 50;
     }
     else if(PType == Archer){
@@ -44,6 +46,7 @@ Personnage::Personnage(ID_PType PType){
         DEF = 50;
         VIT = 30;
         MOB = 9;
+        MOBrestante = 9;
         ESQ = 90;
     }    
 }
@@ -181,6 +184,13 @@ int Personnage::getMOB() const{
 
 void Personnage::setMOB(int MOB){
     this->MOB = MOB;
+}
+int Personnage::getMOBrestante() const{
+    return this->MOBrestante;
+}
+
+void Personnage::setMOBrestante(int MOBrestante){
+    this->MOBrestante = MOBrestante;
 }
 
 int Personnage::getESQ() const{
