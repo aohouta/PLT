@@ -55,7 +55,7 @@ const std::vector<std::unique_ptr<LoadLayer>>& StateLayer::getLayer () const{
 void StateLayer::draw (sf::RenderWindow& window){
     window.clear();
     // draw mapcells
-    window.draw(layer[0]->quads);
+    window.draw(layer[0]->quads,&(layer[0]->texture));
 
        
     for(auto& d : drawables){
