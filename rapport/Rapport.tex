@@ -301,9 +301,18 @@ Les différentes règles suivant les actions sont, pour :
 Le diagramme de classe de moteur de jeu est reprsenté sur la figure %\ref{uml:engine}.
 Le jeu repose sur un patron de conception de type Command.
 
-La classe commande est une classe abstraite qui parentes toutes les autres classe commande
+La classe commande est une classe abstraite qui parentes toutes les autres classe commande.
 
-Les classes commandes, ce sont les classes qui représentent les différentes commandes.
+Les classes commandes, ce sont les classes qui représentent les différentes commandes :
+
+\begin{itemize}
+  \item ShowInfoCommand, prend une case en argument et renvoie les informations sur le personnage qui s'y situe 
+  \item AttackCommand, prend une case en argument et lance une attaque sur cette case, en vérifiant les autres règles
+  \item MoveCommand, prend une case en argument est déplace, si possible, le personnage sur la case
+  \item SpellCommand, prend une case en argument, est lance le sort sur cette case 
+  \item TickCommand, incrémente les ticks de tour, afin de fire avancer la barre des tours
+\end{itemize}
+
 
 %\begin{landscape}
 %\begin{figure}[p]
