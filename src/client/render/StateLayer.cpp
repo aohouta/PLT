@@ -17,6 +17,10 @@ void StateLayer::initLayer (state::State& state){
     render::LoadLayer LoadMap;
     LoadMap.loadTextures(state, tile[0]->getTexture(), sf::Vector2u(tile[0]->getCellWidth(), tile[0]->getCellHeight()), state.getMap().size(), state.getMap()[0].size());
     std::unique_ptr<LoadLayer> ptrLoadMap(new LoadLayer(LoadMap));
+    
+    LoadLayer Personnages;
+    Personnages.loadPersonnage(state, tilesets[1]->getTexture(), sf::Vector2u(tilesets[1]->getCellWidth(), tilesets[1]->getCellHeight()), state.getPersonnage().size(), 1);
+    std::unique_ptr<LoadLayer> ptrPersonnage(new LoadLayer(Personnages));
 
 
     if (layer.size() != 0)
@@ -28,12 +32,16 @@ void StateLayer::initLayer (state::State& state){
     }
 
     layer.push_back(move(ptrLoadMap));
+    layer.push_back(move(ptrPersonnage));
 }
 
 StateLayer::StateLayer (state::State& state, sf::RenderWindow& window) : window(window), currentState(state)
 {
-    std::unique_ptr<Tile> tileMap(new Tile(TileID::MAP,32,32));
+    std::unique_ptr<Tile> tileMap(new Tile(TileID::MAP,16,16));
     tile.push_back(move(tileMap));
+    
+    std::unique_ptr<TileSet> tilesetCharacters(new TileSet(TileSetID::CHARACTER, env));
+    tilesets.push_back(move(tilesetCharacters));
 
 
 

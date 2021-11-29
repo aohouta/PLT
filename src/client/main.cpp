@@ -50,7 +50,8 @@ int main(int argc,char* argv[])
             cout << "--- Render ---" << endl;
             State state{"render"};
             state.initMap();
-            sf::RenderWindow window(sf::VideoMode(state.getMap()[0].size() * 32 + 256, state.getMap().size() * 32 + 32, 32), "map");
+            sf::RenderWindow window(sf::VideoMode(state.getMap()[0].size() * 16 + 256, state.getMap().size() * 16 + 16, 16), "map");
+            window.setSize(sf::Vector2u(800, 600));
             StateLayer Slayer(state, window);
             Slayer.initLayer(state);
             while (window.isOpen())

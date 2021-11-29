@@ -41,8 +41,8 @@ void State::initMap (){
     mapp_spaces[54] = Mountain; // actually is wood
     mapp_spaces[55] = Mountain; // actually is wood
     mapp_spaces[77] = Mountain; // actually is wood
-    mapp_spaces[496] = Mountain;
-    mapp_spaces[497] = Mountain;
+    mapp_spaces[496] = Forest;
+    mapp_spaces[497] = Forest;
     
     
     std::ifstream file(mapResource, ios::in);

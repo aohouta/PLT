@@ -10,5 +10,8 @@ void Map::setTileCode(int tileCode){
     this->tileCode = tileCode;
     
 }
-
+Position &Map::getPosition(){
+    Position &refPosition = position;
+    return refPosition;
+}
 }
