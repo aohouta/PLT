@@ -106,4 +106,10 @@ State::State (std::string mode){
     action = IDLE;
 }
 
+std::vector<std::unique_ptr<Personnage>> &State::getPersonnage()
+{
+    vector<unique_ptr<Personnage>> &refPersonnages = Personnages;
+    return refPersonnages;
+}
+
 }
