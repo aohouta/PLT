@@ -1,11 +1,11 @@
 #include "../render.h"
-#include "../render.h"
 #include <iostream>
 
 #include <cstdlib>
 using namespace std;
 using namespace sf;
 using namespace state;
+
 namespace render{
 
 bool LoadLayer::loadPersonnage(state::State &state, sf::Texture &textureTileset, sf::Vector2u tile_Size, unsigned int width, unsigned int height)
@@ -31,8 +31,8 @@ bool LoadLayer::loadPersonnage(state::State &state, sf::Texture &textureTileset,
 
             // on définit ses quatre coins
             quad[0].position = sf::Vector2f(state.getPersonnage()[i]->getPosition().getX() * tile_Size.x, state.getPersonnage()[i]->getPosition().getY() * tile_Size.y);
-            quad[1].position = sf::Vector2f((state.getPersonnage()[i]->getPosition().getX() + 1) * tile_Size.x, state.getPersonnage()[i]->getPosition().getY() * tileSize.y);
-            quad[2].position = sf::Vector2f((state.getPersonnage()[i]->getPosition().getX() + 1) * tile_Size.x, (state.getPersonnage()[i]->getPosition().getY() + 1) * tileSize.y);
+            quad[1].position = sf::Vector2f((state.getPersonnage()[i]->getPosition().getX() + 1) * tile_Size.x, state.getPersonnage()[i]->getPosition().getY() * tile_Size.y);
+            quad[2].position = sf::Vector2f((state.getPersonnage()[i]->getPosition().getX() + 1) * tile_Size.x, (state.getPersonnage()[i]->getPosition().getY() + 1) * tile_Size.y);
             quad[3].position = sf::Vector2f(state.getPersonnage()[i]->getPosition().getX() * tile_Size.x, (state.getPersonnage()[i]->getPosition().getY() + 1) * tile_Size.y);
 
             // on définit ses quatre coordonnées de texture
@@ -74,19 +74,32 @@ bool LoadLayer::loadTextures (state::State& state, sf::Texture& Tile_texture, sf
 
             // on récupère un pointeur vers le quad à définir dans le tableau de vertex
             sf::Vertex *quad = &quads[(i + j * width)*4];
-
+            
             // define its 4 corners
             quad[0].position = sf::Vector2f(j * tile_Size.x, i * tile_Size.y);
             quad[1].position = sf::Vector2f((j + 1) * tile_Size.x, i * tile_Size.y);
             quad[2].position = sf::Vector2f((j + 1) * tile_Size.x, (i + 1) * tile_Size.y);
             quad[3].position = sf::Vector2f(j * tile_Size.x, (i + 1) * tile_Size.y);
 
-                        // define its 4 texture coordinates
+            // define its 4 texture coordinates
             quad[0].texCoords = sf::Vector2f(tu * tile_Size.x, tv * tile_Size.y);
             quad[1].texCoords = sf::Vector2f((tu + 1) * tile_Size.x, tv * tile_Size.y);
             quad[2].texCoords = sf::Vector2f((tu + 1) * tile_Size.x, (tv + 1) * tile_Size.y);
             quad[3].texCoords = sf::Vector2f(tu * tile_Size.x, (tv + 1) * tile_Size.y);
-             
+
+            /*
+            // define its 4 corners
+            quad[0].position = sf::Vector2f(j * tile_Size.x, i * tile_Size.y);
+            quad[1].position = sf::Vector2f((j + 1) * tile_Size.x, (i-0.5 * tile_Size.y);
+            quad[2].position = sf::Vector2f((j + 2) * tile_Size.x, i * tile_Size.y);
+            quad[3].position = sf::Vector2f((j + 1) * tile_Size.x, (i + 0.5) * tile_Size.y);
+
+                        // define its 4 texture coordinates
+            quad[0].texCoords = sf::Vector2f(tu * tile_Size.x, tv * tile_Size.y);
+            quad[1].texCoords = sf::Vector2f((j + 1) * tile_Size.x, (i-0.5 * tile_Size.y);
+            quad[2].texCoords = sf::Vector2f((j + 2) * tile_Size.x, i * tile_Size.y);
+            quad[3].texCoords = sf::Vector2f((j + 1) * tile_Size.x, (i + 0.5) * tile_Size.y);
+            */
         }
     }
     return true;

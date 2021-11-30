@@ -7,7 +7,7 @@ namespace state {
 Personnage::Personnage(ID_PType PType){
     this->PType = PType;
     this->EtatPerso = ID_EtatPerso::Alive;
-    Position = {0,0};
+    //Position = {0,0};
     
     if(PType == Guerrier){
         PV = 90;
@@ -52,7 +52,7 @@ ID_Orientation Personnage::getOrientation(){
 vector<Effets> Personnage::getEffets(){
     return ListeEffet;
 }
-
+/*
 const std::array<int,2>& Personnage::getPosition() const{
     return Position;
 }
@@ -60,7 +60,7 @@ const std::array<int,2>& Personnage::getPosition() const{
 void Personnage::setPosition(const std::array<int,2>& Position){
     this->Position = Position;
 }
-
+*/
 ID_PType Personnage::getPType() const{
     return PType;
 }
@@ -174,6 +174,9 @@ const std::vector<Sorts>& Personnage::getListeSort() const{
 void Personnage::setListeSort(const std::vector<Sorts>& ListeSort){
     this->ListeSort = ListeSort;
 }
-    
+Position &Personnage::getPosition(){
+    Position &refPosition = position;
+    return refPosition;
+}
 
 }
