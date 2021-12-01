@@ -37,10 +37,10 @@ void StateLayer::initLayer (state::State& state){
 
 StateLayer::StateLayer (state::State& state, sf::RenderWindow& window) : window(window), currentState(state)
 {
-    std::unique_ptr<Tile> tileMap(new Tile(TileID::MAP,16,16));
+    std::unique_ptr<Tile> tileMap(new Tile(TileID::MAP,32,32));
     tile.push_back(move(tileMap));
     
-    std::unique_ptr<Tile> tilesetCharacters(new Tile(TileID::CHARACTER, 16,16));
+    std::unique_ptr<Tile> tilesetCharacters(new Tile(TileID::CHARACTER, 32,32));
     tile.push_back(move(tilesetCharacters));
 
 

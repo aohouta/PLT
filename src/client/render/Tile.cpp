@@ -11,6 +11,7 @@ Tile::Tile (TileID tileID,  int Width, int Height){
     
     if (tileID == TileID::CHARACTER){
         resourceFile = "res/mage.png";
+        std::cout <<"\n success \n";
     }
     
     //else if (tileID == TileID::HUD){

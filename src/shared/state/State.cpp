@@ -112,4 +112,18 @@ std::vector<std::unique_ptr<Personnage>> &State::getPersonnage()
     return refPersonnages;
 }
 
+void State::initPersonnage (){
+    
+    std::vector<std::unique_ptr<Personnage>> Personnages;
+    int centerX = 12;
+    // no more random pos
+    std::unique_ptr<Personnage> ptrC1(new Personnage(Mage));
+    Personnages.push_back(move(ptrC1));
+
+
+    //for (size_t i = 0; i < Personnages.size(); i++) Personnages[i]->setIndex(i);
+
+    cout << "characters inits finished\n";
+}
+
 }
