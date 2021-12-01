@@ -1,15 +1,16 @@
 #include "AttackCommand.h"
 #include <stdio.h>
+#include <iostream>
 
 using namespace std;
 
-namespace Engine{
+namespace engine{
     AttackCommand::AttackCommand(state::Cell TargetCell){
-        This->TargetCell = TargetCell;
+        this->TargetCell = TargetCell;
         Attacker = getActivePlayer();
     }
-    AttackCommand::Execute(state::State& state){
-        int CellOccupation = TargetCell.isOccupied
+    int AttackCommand::Execute(state::Etat& state){
+        int CellOccupation = TargetCell.isOccupied();
         switch (CellOccupation)
         {
         case 0:
