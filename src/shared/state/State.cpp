@@ -99,9 +99,8 @@ void State::initPersonnage (ID_PType PType,int x, int y){
 
     std::unique_ptr<Personnage> ptrC1(new Personnage(PType));
     ptrC1->setPosition({x,y});
-    cout << ptrC1->getPType() << endl;
     Personnages.push_back(move(ptrC1));
-    cout << getPersonnage().size() << endl;
+
 
     
     
