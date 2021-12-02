@@ -8,7 +8,7 @@ using namespace state;
 
 namespace render{
 
-bool LoadLayer::loadPersonnage(state::State &state, sf::Texture &textureTileset, sf::Vector2u tile_Size, unsigned int width, unsigned int height)
+/*bool LoadLayer::loadPersonnage(state::State &state, sf::Texture &textureTileset, sf::Vector2u tile_Size, unsigned int width, unsigned int height)
 {
     // on redimensionne le tableau de vertex pour qu'il puisse contenir tout le niveau
     quads.setPrimitiveType(sf::Quads);
@@ -46,12 +46,12 @@ bool LoadLayer::loadPersonnage(state::State &state, sf::Texture &textureTileset,
             quad[1].color = color;
             quad[2].color = color;
             quad[3].color = color;
-             */
+             
         }
     }
 
     return true;
-}
+}*/
 
 bool LoadLayer::loadTextures (state::State& state, sf::Texture& Tile_texture, sf::Vector2u tile_Size, unsigned int width, unsigned int height)
 {

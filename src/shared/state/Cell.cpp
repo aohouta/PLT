@@ -6,7 +6,7 @@ Cell::Cell (ID_MType id, int newX, int newY, int tileCode){
     this->MType = id;
     this->position.setX(newX);
     this->position.setY(newY);
-    tileCode = tileCode;
+    this->tileCode = tileCode;
 }
 
 
