@@ -65,13 +65,27 @@ void StateLayer::draw (sf::RenderWindow& window){
     // draw mapcells
     window.draw(layer[0]->quads,&(layer[0]->texture));
     
-    // draw characters
-    //window.draw(layer[1]->quads,&(layer[1]->texture));
-
-    
-    //cout << currentState.getPersonnage().size() << endl;
    
     
+    for (unsigned int i=0;i<sprites.size();i++){
+        sprites[i].setPosition(currentState.getPersonnage()[i]->getPosition().getX(),currentState.getPersonnage()[i]->getPosition().getY());
+        window.draw(sprites[i]);
+        }
+
+
+    
+    
+    /*for(auto& d : drawables){
+        window.draw(d);
+    }*/
+
+    window.display();
+}
+
+
+void StateLayer::initSprite (){
+    
+    texturesP.reserve(20);
     for (unsigned int i=0;i<currentState.getPersonnage().size();i++)
     {
         sf::Texture texture;
@@ -90,32 +104,15 @@ void StateLayer::draw (sf::RenderWindow& window){
                 std::cout << "\nOOPSIE DOOPSIE\n";
             }
         }
-        
-        
-        initSprite(texture,i);
-        
-        window.draw(getSprites()[i]);
-        }
+        sf::Sprite sprite;
+        texturesP.push_back(move(texture));
+        sprite.setTexture(texturesP[i]);
+        sprite.setTextureRect(sf::IntRect(0, 0, 17, 32));
+        sprite.setPosition(currentState.getPersonnage()[i]->getPosition().getX(),currentState.getPersonnage()[i]->getPosition().getY());
+        sprite.scale(1.5,1.5);
+        sprites.push_back(move(sprite));
+    }
     
-    
-    /*for(auto& d : drawables){
-        window.draw(d);
-    }*/
-
-    window.display();
-}
-
-
-void StateLayer::initSprite (sf::Texture& texture, int numPerso){
-    
-    
-
-    sf::Sprite sprite;
-    sprite.setTexture(texture);
-    sprite.setTextureRect(sf::IntRect(0, 0, 17, 32));
-    sprite.setPosition(currentState.getPersonnage()[numPerso]->getPosition().getX(),currentState.getPersonnage()[numPerso]->getPosition().getY());
-    sprite.scale(1.5,1.5);
-    sprites.push_back(move(sprite));
     
     //tank 20,30
     //archer 15,25
