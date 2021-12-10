@@ -212,16 +212,35 @@ et de permettre une transparence sur l'utilisation des variables et de leur diff
 \section{Rendu: Stratégie et Conception}
 
 \subsection{Stratégie de rendu d'un état}
+La stratégie pour laquelle nous avons choisis d'opter est celle utilisée dans l'exemple de M.Gosselin. Cette stratégie simple est basée sur un développement de bas niveau avec des élément simples comme des textures, couches, etc..\\
+En effet, nous avons choisi de représenté un état suivant 3 étapes représenté par des couches de niveaux ou layers :\\
+\begin{itemize}
+\item la map 
+\item les personnages
+\item les objets\\
+\end{itemize}
+\par 
+Une couche est représentée par une matrice de cases qui seront associé à des tuiles (ou tiles). Grâce à ses tuiles nous pourrons donner des textures à notre map ou des textures à des personnages par exemple. Chaque élément de la matrice sera associé à une valeur qui permettra de savoir à quelle tuile y sera connectée. \\
+\par
+Pour ce faire nous avons besoin d’observer l’état à rendre, nous récupérons donc une instance de \textbf{state} pour définir les méthodes du rendu. Ainsi le rendu s'actualisera lorsqu’un changement se produit. Si le changement dans l’état donne lieu à un changement permanent dans le rendu, on met à jour la partie de la matrice de la couche correspondante.\\
 
 
 \subsection{Conception logiciel}
+Le diagramme du rendu est disponible ici : \ref{uml:render}.\\
+\par
+La classe \textbf{StateLayer} va nous permettre de créer les différentes couches pour les différents niveaux. Elle permet aussi d'avoir un affichage graphiques avec à l'instanciation d'une fenêtre graphique de la bibliothèque SFML. Elle récupère des informations de toutes les autres classe et gère l'ensemble du rendu.\\
+\par
+La classe LoadLayer va nous permettre de texturer nos couches avec l'utilisation de quads, ensemble de 4 coins formant un rectangle, qui permet de cadrier la map pour y associer des textures.\\
+\par
+La classe Tiles permet de gérer les tuiles. Mais surtout, elle permet de récupérer les ressources sous forme d'images que nous associons aux tiles. Sans ceci la texture est impossible.\\
 
-%\begin{landscape}
-%\begin{figure}[p]
-%\includegraphics[width=0.9\paperheight]{render.pdf}
-%\caption{\label{uml:render}Diagramme des classes de rendu.} 
-%\end{figure}
-%\end{landscape}
+
+\begin{landscape}
+\begin{figure}[p]
+\includegraphics[width=0.8\paperwidth,angle=270]{render.pdf}
+\caption{\label{uml:render}Diagramme des classes de rendu.} 
+\end{figure}
+\end{landscape}
 
 \clearpage
 \section{Règles de changement d'états et moteur de jeu}
