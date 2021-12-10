@@ -220,9 +220,9 @@ En effet, nous avons choisi de représenté un état suivant 3 étapes représen
 \item les objets\\
 \end{itemize}
 \par 
-Une couche est représentée par une matrice de cases qui seront associé à des tuiles (ou tiles). Grâce à ses tuiles nous pourrons donner des textures à notre map ou des textures à des personnages par exemple. Chaque élément de la matrice sera associé à une valeur qui permettra de savoir à quelle tuile y sera connectée. \\
+Une couche est représentée par une matrice de cases qui seront associé à des tuiles (ou tiles). Grâce à ses tuiles nous pourrons donner des textures à notre map ou des textures à des personnages par exemple. Chaque élément de la matrice sera associé à une valeur qui permettra de savoir à quelle tuile y sera connectée. Si le changement dans l’état donne lieu à un changement permanent dans le rendu, on met à jour la partie de la matrice de la couche correspondante.\\
 \par
-Pour ce faire nous avons besoin d’observer l’état à rendre, nous récupérons donc une instance de \textbf{state} pour définir les méthodes du rendu. Ainsi le rendu s'actualisera lorsqu’un changement se produit. Si le changement dans l’état donne lieu à un changement permanent dans le rendu, on met à jour la partie de la matrice de la couche correspondante.\\
+Pour ce faire nous avons besoin d’observer l’état à rendre, nous récupérons donc une instance de \textbf{state} pour définir les méthodes du rendu. Le rendu s'actualise en permanence suivant une fréquence que l'on définira par la suite sachant que 50/60 Hz est la fréquence de rafraîchissement habituelle. Ainsi on pourra voir assez rapidement un nouveau rendu lorsqu’un changement se produit.\\
 
 
 \subsection{Conception logiciel}
