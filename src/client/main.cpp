@@ -50,7 +50,13 @@ int main(int argc,char* argv[])
             cout << "--- Render ---" << endl;
             State state{"render"};
             state.initMap();
-            sf::RenderWindow window(sf::VideoMode(state.getMap()[0].size() * 32 + 256, state.getMap().size() * 32 + 32, 32), "map");
+            state.initPersonnage(Mage,42,42);
+            state.initPersonnage(Archer,90,90);
+            state.initPersonnage(Guerrier,300,160);
+            state.initPersonnage(Mage,42,160);
+            state.initPersonnage(Archer,350,80);
+            sf::RenderWindow window(sf::VideoMode(state.getMap()[0].size() * 16 + 256, state.getMap().size() * 16 + 32, 32), "map");
+            window.setSize(sf::Vector2u(2624, 1408));
             StateLayer Slayer(state, window);
             Slayer.initLayer(state);
             while (window.isOpen())

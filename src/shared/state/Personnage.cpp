@@ -7,37 +7,37 @@ namespace state {
 Personnage::Personnage(ID_PType PType){
     this->PType = PType;
     this->EtatPerso = ID_EtatPerso::Alive;
-    Position = {0,0};
+    this->position = {0,0};
     
     if(PType == Guerrier){
-        PV = 90;
-        ATK = 30;
-        MAG = 30;
-        RM = 50;
-        DEF = 90;
-        VIT = 90;
-        MOB = 3;
-        ESQ = 30;
+        this->PV = 90;
+        this->ATK = 30;
+        this->MAG = 30;
+        this->RM = 50;
+        this->DEF = 90;
+        this->VIT = 90;
+        this->MOB = 3;
+        this->ESQ = 30;
     }
     else if(PType == Mage){
-        PV = 50;
-        ATK = 30;
-        MAG = 90;
-        RM = 90;
-        DEF = 30;
-        VIT = 50;
-        MOB = 5;
-        ESQ = 50;
+        this->PV = 50;
+        this->ATK = 30;
+        this-> MAG = 90;
+        this-> RM = 90;
+        this-> DEF = 30;
+        this-> VIT = 50;
+        this-> MOB = 5;
+        this->ESQ = 50;
     }
     else if(PType == Archer){
-        PV = 30;
-        ATK = 90;
-        MAG = 50;
-        RM = 30;
-        DEF = 50;
-        VIT = 30;
-        MOB = 9;
-        ESQ = 90;
+        this-> PV = 30;
+        this->ATK = 90;
+        this->MAG = 50;
+        this-> RM = 30;
+        this-> DEF = 50;
+        this-> VIT = 30;
+        this-> MOB = 9;
+        this-> ESQ = 90;
     }    
 }
 
@@ -53,12 +53,12 @@ vector<Effets> Personnage::getEffets(){
     return ListeEffet;
 }
 
-const std::array<int,2>& Personnage::getPosition() const{
-    return Position;
+Position& Personnage::getPosition (){
+    return position;
 }
 
-void Personnage::setPosition(const std::array<int,2>& Position){
-    this->Position = Position;
+void Personnage::setPosition(const Position& position){
+    this->position = position;
 }
 
 ID_PType Personnage::getPType() const{
@@ -174,6 +174,9 @@ const std::vector<Sorts>& Personnage::getListeSort() const{
 void Personnage::setListeSort(const std::vector<Sorts>& ListeSort){
     this->ListeSort = ListeSort;
 }
-    
+/*Position &Personnage::getPosition(){
+    Position &refPosition = position;
+    return refPosition;
+}*/
 
 }

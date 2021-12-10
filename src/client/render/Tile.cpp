@@ -11,6 +11,7 @@ Tile::Tile (TileID tileID,  int Width, int Height){
     
     if (tileID == TileID::CHARACTER){
         resourceFile = "res/mage.png";
+        std::cout <<"\n success \n";
     }
     
     //else if (tileID == TileID::HUD){
@@ -18,7 +19,7 @@ Tile::Tile (TileID tileID,  int Width, int Height){
     //}
     
     else if (tileID == TileID::MAP){
-        resourceFile = "res/32x32map.png";
+        resourceFile = "res/snow-expansion.png";
         std::cout <<"\n success \n";
     }
     

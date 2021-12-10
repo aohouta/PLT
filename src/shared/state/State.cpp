@@ -22,27 +22,9 @@ void State::initMap (){
     // (tile id defined by the position of the tile in de resource, we dont define it)
     std::map<int, ID_MType> mapp_spaces;
     
-    mapp_spaces[118] = Lowland;
-    mapp_spaces[119] = Lowland;
-    mapp_spaces[120] = Lowland;
-    mapp_spaces[141] = Lowland;
-    mapp_spaces[142] = Lowland;
-    mapp_spaces[143] = Lowland;
-    mapp_spaces[164] = Lowland;
-    mapp_spaces[165] = Lowland;
-    mapp_spaces[166] = Lowland;
-    mapp_spaces[520] = Lowland;
-    mapp_spaces[566] = Lowland;
-    mapp_spaces[39] = Mountain;
-    mapp_spaces[40] = Mountain;
-    mapp_spaces[43] = Mountain;
-    mapp_spaces[44] = Mountain;
-    mapp_spaces[31] = Mountain; // actually is wood
-    mapp_spaces[54] = Mountain; // actually is wood
-    mapp_spaces[55] = Mountain; // actually is wood
-    mapp_spaces[77] = Mountain; // actually is wood
-    mapp_spaces[496] = Mountain;
-    mapp_spaces[497] = Mountain;
+    mapp_spaces[137] = GROUND;
+    mapp_spaces[176] = WATER;
+   
     
     
     std::ifstream file(mapResource, ios::in);
@@ -87,7 +69,7 @@ void State::initMap (){
                 }
                 else
                 {
-                    std::unique_ptr<Cell> spc(new Cell(mapp_spaces[map_tile[118]], j, i, map_tile[118]));
+                    std::unique_ptr<Cell> spc(new Cell(mapp_spaces[map_tile[8]], j, i, map_tile[8]));
                     newline.push_back(move(spc));
                 }
             }
@@ -104,6 +86,39 @@ State::State (std::string mode){
     this-> mode = mode;
     std::cout << "Creating a state object in >>>" + mode + "<<< mode\n";
     action = IDLE;
+    std::vector<std::unique_ptr<Personnage>> Personnages;
+}
+
+std::vector<std::unique_ptr<Personnage>> &State::getPersonnage()
+{
+    return Personnages;
+}
+
+void State::initPersonnage (ID_PType PType,int x, int y){
+    
+
+    std::unique_ptr<Personnage> ptrC1(new Personnage(PType));
+    ptrC1->setPosition({x,y});
+    Personnages.push_back(move(ptrC1));
+
+
+    
+    
+    return;
+    //for (size_t i = 0; i < Personnages.size(); i++) Personnages[i]->setIndex(i);
+
+    /*sf::Texture texturemage;
+    
+    if (!texture.loadFromFile("res/mage.png")){
+            std::cout << "\nOOPSIE DOOPSIE\n";
+        }
+    
+    sf::Sprite sprite;
+    sprite.setTexture(texture);
+    sprite.setTextureRect(sf::IntRect(00, 00, 17, 32));
+    sprite.setPosition(10,22);
+    cout << "characters inits finished\n";
+    return sprite;*/
 }
 
 }
