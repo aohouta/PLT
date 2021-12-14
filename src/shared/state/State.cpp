@@ -9,10 +9,12 @@
 using namespace std;
 namespace state{
 
-std::vector<std::vector<std::unique_ptr<Map>>>& State::getMap (){
+
+const std::vector<std::vector<std::unique_ptr<Map>>>& State::getMap () const{
     return map;
     
 }
+
 void State::initMap (){
     std::string mapResource = "res/MapTest.txt";
     unsigned int i = 0, j = 0, k = 0;
@@ -82,22 +84,25 @@ void State::initMap (){
     return;
 }
 
+
 State::State (std::string mode){
-    this-> mode = mode;
+    mode = mode;
     std::cout << "Creating a state object in >>>" + mode + "<<< mode\n";
-    action = IDLE;
-    std::vector<std::unique_ptr<Personnage>> Personnages;
+    //std::vector<std::unique_ptr<Personnage>> Personnages;
+    
+    ListeJoueur ;
 }
 
-std::vector<std::unique_ptr<Personnage>> &State::getPersonnage()
-{
+const std::vector<std::unique_ptr<Personnage>>&State::getPersonnages() const{
+
     return Personnages;
+    
 }
 
 void State::initPersonnage (ID_PType PType,int x, int y){
     
 
-    std::unique_ptr<Personnage> ptrC1(new Personnage(PType));
+    std::unique_ptr<Personnage> ptrC1(new Personnage("Ultimate Warrior of DOOM APOCALYPSE",PType));
     ptrC1->setPosition({x,y});
     Personnages.push_back(move(ptrC1));
 
@@ -119,6 +124,7 @@ void State::initPersonnage (ID_PType PType,int x, int y){
     sprite.setPosition(10,22);
     cout << "characters inits finished\n";
     return sprite;*/
+    
 }
 
 }

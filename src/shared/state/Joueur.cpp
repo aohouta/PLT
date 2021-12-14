@@ -8,6 +8,8 @@ Joueur::Joueur (std::string NomJoueur, ID_PlayerType PlayerType){
     this->NomJoueur = NomJoueur;
 }
 
+Joueur::Joueur (){}
+
 ID_PlayerType Joueur::getPlayerType() const{
     return PlayerType;
     
