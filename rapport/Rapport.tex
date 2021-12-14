@@ -224,16 +224,21 @@ et de permettre une transparence sur l'utilisation des variables et de leur diff
 
 \subsection{Stratégie de rendu d'un état}
 La stratégie pour laquelle nous avons choisis d'opter est celle utilisée dans l'exemple de M.Gosselin. Cette stratégie simple est basée sur un développement de bas niveau avec des élément simples comme des textures, couches, etc..\\
-En effet, nous avons choisi de représenté un état suivant 3 étapes représenté par des couches de niveaux ou layers :\\
+En effet, nous avons choisi de représenté un état suivant 3 étapes :\\
 \begin{itemize}
 \item la map 
 \item les personnages
 \item les objets\\
 \end{itemize}
 \par 
-Une couche est représentée par une matrice de cases qui seront associé à des tuiles (ou tiles). Grâce à ses tuiles nous pourrons donner des textures à notre map ou des textures à des personnages par exemple. Chaque élément de la matrice sera associé à une valeur qui permettra de savoir à quelle tuile y sera connectée. Si le changement dans l’état donne lieu à un changement permanent dans le rendu, on met à jour la partie de la matrice de la couche correspondante.\\
-\par
-Pour ce faire nous avons besoin d’observer l’état à rendre, nous récupérons donc une instance de \textbf{state} pour définir les méthodes du rendu. Le rendu s'actualise en permanence suivant une fréquence que l'on définira par la suite sachant que 50/60 Hz est la fréquence de rafraîchissement habituelle. Ainsi on pourra voir assez rapidement un nouveau rendu lorsqu’un changement se produit.\\
+\paragraph{Map}
+La première étape concerne la map, nous avons utilisé le tutoriel dans la documentation SFML. Pour éviter de recharger la map à chaque coup d'horloge, nous décidons de l'afficher sur une couche (layer). La map sera quadrillé sous forme de matrice sur laquelle on vient attribuer des textures grâce à des tuiles. Ainsi les textures seront fixées et la map ne sera plus rechargée, ce qui permettra d'alléger la charge du CPU et de la carte graphique.\\
+\paragraph{Personnages}
+Les personnages sont crées grâce à une liste d'objet instanciés avec la classe personnage du state. Ces personnages seront placé sur la map selon leurs positions dans la matrice. Concernant les textures elles seront chargées grâce à des sprites définis dans la bibliothèques SFML. Cela demande plus de ressources que la méthode pour afficher la map mais comme nous avons peu de personnage, ce n'est pas un problème. Le rendu s'actualise en permanence suivant une fréquence que l'on définira par la suite sachant que 50/60 Hz est la fréquence de rafraîchissement habituelle.
+
+\paragraph{Objets}
+Les objets seront traités uniquement si la partie map et personnage sont fonctionnelles. Les objets pourront affecter le rendu des personnages (un personnage peu changer de couleur s'il obtient un boost d'attaque) ce qui peut compliqué le code. Ainsi les objets seront traités dernier suivant la même méthode que les personnages (avec des sprites).
+
 
 
 \subsection{Conception logiciel}
@@ -241,9 +246,9 @@ Le diagramme du rendu est disponible ici : \ref{uml:render}.\\
 \par
 La classe \textbf{StateLayer} va nous permettre de créer les différentes couches pour les différents niveaux. Elle permet aussi d'avoir un affichage graphiques avec à l'instanciation d'une fenêtre graphique de la bibliothèque SFML. Elle récupère des informations de toutes les autres classe et gère l'ensemble du rendu.\\
 \par
-La classe LoadLayer va nous permettre de texturer nos couches avec l'utilisation de quads, ensemble de 4 coins formant un rectangle, qui permet de cadrier la map pour y associer des textures.\\
+La classe \textbf{LoadLayer} va nous permettre de texturer nos couches avec l'utilisation de quads, ensemble de 4 coins formant un rectangle, qui permet de cadrier la map pour y associer des textures.\\
 \par
-La classe Tiles permet de gérer les tuiles. Mais surtout, elle permet de récupérer les ressources sous forme d'images que nous associons aux tiles. Sans ceci la texture est impossible.\\
+La classe \textbf{Tiles} permet de gérer les tuiles. Mais surtout, elle permet de récupérer les ressources sous forme d'images que nous associons aux tiles. Sans ceci la texture est impossible.\\
 
 
 \begin{landscape}
