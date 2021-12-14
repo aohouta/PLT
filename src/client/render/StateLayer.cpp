@@ -68,7 +68,7 @@ void StateLayer::draw (sf::RenderWindow& window){
    
     
     for (unsigned int i=0;i<sprites.size();i++){
-        sprites[i].setPosition(currentState.getPersonnage()[i]->getPosition().getX(),currentState.getPersonnage()[i]->getPosition().getY());
+        sprites[i].setPosition(currentState.getPersonnages()[i]->getPosition().getX(),currentState.getPersonnages()[i]->getPosition().getY());
         window.draw(sprites[i]);
         }
 
@@ -86,20 +86,20 @@ void StateLayer::draw (sf::RenderWindow& window){
 void StateLayer::initSprite (){
     
     texturesP.reserve(20);
-    for (unsigned int i=0;i<currentState.getPersonnage().size();i++)
+    for (unsigned int i=0;i<currentState.getPersonnages().size();i++)
     {
         sf::Texture texture;
-        if (currentState.getPersonnage()[i]->getPType()==Mage){
+        if (currentState.getPersonnages()[i]->getPType()==Mage){
             if (!texture.loadFromFile("res/mage.png")){
                 std::cout << "\nOOPSIE DOOPSIE\n";
             }
         }
-        else if (currentState.getPersonnage()[i]->getPType()==Guerrier){
+        else if (currentState.getPersonnages()[i]->getPType()==Guerrier){
             if (!texture.loadFromFile("res/tank.png")){
                 std::cout << "\nOOPSIE DOOPSIE\n";
             }
         }
-        else if (currentState.getPersonnage()[i]->getPType()==Archer){
+        else if (currentState.getPersonnages()[i]->getPType()==Archer){
             if (!texture.loadFromFile("res/archer.png")){
                 std::cout << "\nOOPSIE DOOPSIE\n";
             }
@@ -108,7 +108,7 @@ void StateLayer::initSprite (){
         texturesP.push_back(move(texture));
         sprite.setTexture(texturesP[i]);
         sprite.setTextureRect(sf::IntRect(0, 0, 17, 32));
-        sprite.setPosition(currentState.getPersonnage()[i]->getPosition().getX(),currentState.getPersonnage()[i]->getPosition().getY());
+        sprite.setPosition(currentState.getPersonnages()[i]->getPosition().getX(),currentState.getPersonnages()[i]->getPosition().getY());
         sprite.scale(1.5,1.5);
         sprites.push_back(move(sprite));
     }

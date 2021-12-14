@@ -59,7 +59,7 @@ int main(int argc,char* argv[])
             Position newPosition;
             newPosition.setX(100);
             newPosition.setY(200);
-            state.getPersonnage()[2]->setPosition(newPosition);
+            state.getPersonnages()[2]->setPosition(newPosition);
             sf::RenderWindow window(sf::VideoMode(state.getMap()[0].size() * 16 + 256, state.getMap().size() * 16 + 32, 32), "map");
             window.setSize(sf::Vector2u(2624, 1408));
             StateLayer Slayer(state, window);

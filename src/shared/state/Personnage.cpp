@@ -63,7 +63,7 @@ vector<Effet> Personnage::getEffets(){
     return ListeEffet;
 }
 
-Position& Personnage::getPosition (){
+const Position& Personnage::getPosition() const {
     return position;
 }
 
