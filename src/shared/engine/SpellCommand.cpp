@@ -8,10 +8,10 @@ using namespace std;
 namespace engine{
     SpellCommand::SpellCommand(state::Cell TargetCell){
         this->TargetCell = TargetCell;
-        Attacker = getActivePlayer();
     }
-    int AttackCommand::Execute(state::Etat& state){
+    int SpellCommand::Execute(state::Etat& state){
         int CellOccupation = TargetCell.isOccupied();
+        caster = state.getActivePlayer();
         switch (CellOccupation)
         {
         case 0:

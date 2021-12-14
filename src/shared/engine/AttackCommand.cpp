@@ -7,9 +7,9 @@ using namespace std;
 namespace engine{
     AttackCommand::AttackCommand(state::Cell TargetCell){
         this->TargetCell = TargetCell;
-        Attacker = getActivePlayer();
     }
     int AttackCommand::Execute(state::Etat& state){
+        Attacker = state.getActivePlayer();
         int CellOccupation = TargetCell.isOccupied();
         switch (CellOccupation)
         {

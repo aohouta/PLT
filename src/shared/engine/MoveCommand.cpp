@@ -16,6 +16,7 @@ namespace engine{
         if(occupation = 0){
             if(pathfinding()){
                 perso.setPosition(TargetCell.getPosition());
+                return 1;
             }
             else {
                 cout << "Too far\n";
@@ -24,6 +25,7 @@ namespace engine{
         else {
             cout << "You can't do that\n";
         }
+        return 0;
     }
     bool MoveCommand::Pathfinding(){
         int posCell[] = TargetCell.getPosition();
