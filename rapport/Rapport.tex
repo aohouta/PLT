@@ -234,17 +234,17 @@ En effet, nous avons choisi de représenté un état suivant 3 étapes :\\
 \paragraph{Map}
 La première étape concerne la map, nous avons utilisé le tutoriel dans la documentation SFML. Pour éviter de recharger la map à chaque coup d'horloge, nous décidons de l'afficher sur une couche (layer). La map sera quadrillé sous forme de matrice sur laquelle on vient attribuer des textures grâce à des tuiles. Ainsi les textures seront fixées et la map ne sera plus rechargée, ce qui permettra d'alléger la charge du CPU et de la carte graphique.\\
 \paragraph{Personnages}
-Les personnages sont crées grâce à une liste d'objet instanciés avec la classe personnage du state. Ces personnages seront placé sur la map selon leurs positions dans la matrice. Concernant les textures elles seront chargées grâce à des sprites définis dans la bibliothèques SFML. Cela demande plus de ressources que la méthode pour afficher la map mais comme nous avons peu de personnage, ce n'est pas un problème. Le rendu s'actualise en permanence suivant une fréquence que l'on définira par la suite sachant que 50/60 Hz est la fréquence de rafraîchissement habituelle.
+Les personnages sont crées grâce à une liste d'objet instanciés avec la classe personnage du state. Ces personnages seront placés sur la map selon leurs positions définies par les attributs de la classe Position du state. Concernant les textures elles seront chargées grâce à des sprites définis dans la bibliothèques SFML. Cela demande plus de ressources que la méthode pour afficher la map mais comme nous avons peu de personnage, ce n'est pas un problème. Le rendu s'actualise en permanence suivant une fréquence que l'on définira par la suite sachant que 50/60 Hz est la fréquence de rafraîchissement habituelle.
 
 \paragraph{Objets}
-Les objets seront traités uniquement si la partie map et personnage sont fonctionnelles. Les objets pourront affecter le rendu des personnages (un personnage peu changer de couleur s'il obtient un boost d'attaque) ce qui peut compliqué le code. Ainsi les objets seront traités dernier suivant la même méthode que les personnages (avec des sprites).
+Les objets seront traités uniquement si la partie map et personnages sont fonctionnelles. Les objets pourront affecter le rendu des personnages (un personnage peu changer de couleur s'il obtient un boost d'attaque) ce qui peut compliqué le code. Ainsi les objets seront traités dernier suivant la même méthode que les personnages (avec des sprites).
 
 
 
 \subsection{Conception logiciel}
 Le diagramme du rendu est disponible ici : \ref{uml:render}.\\
 \par
-La classe \textbf{StateLayer} va nous permettre de créer les différentes couches pour les différents niveaux. Elle permet aussi d'avoir un affichage graphiques avec à l'instanciation d'une fenêtre graphique de la bibliothèque SFML. Elle récupère des informations de toutes les autres classe et gère l'ensemble du rendu.\\
+La classe \textbf{StateLayer} va nous permettre de créer les différentes couches pour les différents niveaux. Elle permet aussi d'avoir un affichage graphiques avec à l'instanciation d'une fenêtre graphique de la bibliothèque SFML. Elle récupère des informations de toutes les autres classes et gère l'ensemble du rendu.\\
 \par
 La classe \textbf{LoadLayer} va nous permettre de texturer nos couches avec l'utilisation de quads, ensemble de 4 coins formant un rectangle, qui permet de cadrier la map pour y associer des textures.\\
 \par
