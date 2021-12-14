@@ -3,17 +3,12 @@
 namespace state {
 
 
-Joueur::Joueur (std::string IDPlayer, ID_PlayerType PlayerType){
+Joueur::Joueur (std::string NomJoueur, ID_PlayerType PlayerType){
     this->PlayerType = PlayerType;
-    this->IDPlayer = IDPlayer;
-    GameStatus = Joue;
-
+    this->NomJoueur = NomJoueur;
 }
 
-std::vector<Personnage> Joueur::getPersonnage(){
-    return Personnages;
-    
-}
+Joueur::Joueur (){}
 
 ID_PlayerType Joueur::getPlayerType() const{
     return PlayerType;

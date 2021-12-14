@@ -9,6 +9,7 @@
 using namespace ::state;
 using namespace std;
 
+
 BOOST_AUTO_TEST_CASE(TestStaticAssert)
 {
   BOOST_CHECK(1);
@@ -18,46 +19,170 @@ BOOST_AUTO_TEST_CASE(TestState)
 {
     //Test des méthodes de la classe Personnage
     {
-        Personnage Attila(Guerrier);
+        Personnage Attila("Attila le guerrier",Guerrier);
         
-        vector<int> statsguer = {90,30,30,50,90,90,3,30};
+        //test constructeur stat guerrier
+        vector<int> statsguer = {90,90,0,50,30,30,50,90,90,3,30};
         vector<int> Astats = Attila.getStats();
         BOOST_CHECK_EQUAL_COLLECTIONS(Astats.begin(),Astats.end(),statsguer.begin(),statsguer.end());
+
+        //test setter et getter position
+
+        //array<int,2> moveAttila = {1,1};
+        //Attila.setPosition(moveAttila);
+        //array<int,2> Aposition = Attila.getPosition();
+        //BOOST_CHECK_EQUAL(Aposition[0],1);
+       // BOOST_CHECK_EQUAL(Aposition[1],1);
+
         
-        Attila.setPosition(1,1);
-        vector<int> Aposition = Attila.getPosition();
-        BOOST_CHECK_EQUAL(Aposition[0],1);
-        BOOST_CHECK_EQUAL(Aposition[1],1);
+        //test setter et getter orientation
+        Attila.setOrientation(Face);
+        ID_Orientation AttilaOrientation = Attila.getOrientation();
+        BOOST_CHECK_EQUAL(AttilaOrientation,Face);
+
+        //test setter et getter effets
+        //Effet stun;
+        //vector<Effet> ListeEffets{stun};
+        //Attila.setListeEffet(ListeEffets);
+        //vector<Effet> effetsAttila = Attila.getListeEffet();
+        //BOOST_CHECK_EQUAL_COLLECTIONS(ListeEffets.begin(),ListeEffets.end(),effetsAttila.begin(),effetsAttila.end());
         
+
+        //test setter et getter Type
+        BOOST_CHECK_EQUAL(Attila.getPType(),Guerrier);
+        Attila.setPType(Archer);
+        BOOST_CHECK_EQUAL(Attila.getPType(),Archer);
+        Attila.setPType(Guerrier);
+
+        //test setter et getter Etat
+        Attila.setEtatPerso(Attente);
+        BOOST_CHECK_EQUAL(Attila.getEtatPerso(),Attente);
+        Attila.setEtatPerso(Mort);
+        BOOST_CHECK_EQUAL(Attila.getEtatPerso(),Mort);
+        Attila.setEtatPerso(Attente);
+
+        //test setter et getter Nom
+        Attila.setNom("Attila le hun");
+        BOOST_CHECK_EQUAL(Attila.getNom(),"Attila le hun");
+
+        //test setter et getter NbTour
+        Attila.setNbTours(10);
+        BOOST_CHECK_EQUAL(Attila.getNbTours(),10);
+
+        //test setter et getter PVmax
+        BOOST_CHECK_EQUAL(Attila.getPVmax(), 90);
+        Attila.setPVmax(110);
+        BOOST_CHECK_EQUAL(Attila.getPVmax(), 110);
+
+        //test setter et getter PV
+        BOOST_CHECK_EQUAL(Attila.getPV(), 90);
+        Attila.setPV(110);
+        BOOST_CHECK_EQUAL(Attila.getPV(), 110);    
+
+        //test setter et getter ATK
+        BOOST_CHECK_EQUAL(Attila.getATK(), 30);
+        Attila.setATK(40);
+        BOOST_CHECK_EQUAL(Attila.getATK(), 40);
+
+        //test setter et getter MAG
+        BOOST_CHECK_EQUAL(Attila.getMAG(), 30);
+        Attila.setMAG(20);
+        BOOST_CHECK_EQUAL(Attila.getMAG(), 20);
+
+        //test setter et getter RM
+        BOOST_CHECK_EQUAL(Attila.getRM(), 50);
+        Attila.setRM(60);
+        BOOST_CHECK_EQUAL(Attila.getRM(), 60);
+
+        //test setter et getter DEF
+        BOOST_CHECK_EQUAL(Attila.getDEF(), 90);
+        Attila.setDEF(120);
+        BOOST_CHECK_EQUAL(Attila.getDEF(), 120);
+
+        //test setter et getter VIT
+        BOOST_CHECK_EQUAL(Attila.getVIT(), 90);
+        Attila.setVIT(80);
+        BOOST_CHECK_EQUAL(Attila.getVIT(), 80);
+
+        //test setter et getter MOB
+        BOOST_CHECK_EQUAL(Attila.getMOB(), 3);
+        Attila.setMOB(4);
+        BOOST_CHECK_EQUAL(Attila.getMOB(), 4);
+
+        //test setter et getter ESQ
+        BOOST_CHECK_EQUAL(Attila.getESQ(), 30);
+        Attila.setESQ(25);
+        BOOST_CHECK_EQUAL(Attila.getESQ(), 25);
+
+        //test setter et getter ManaMax
+        Attila.setManaMax(60);
+        BOOST_CHECK_EQUAL(Attila.getManaMax(),60);
+        Attila.setManaMax(50);
+
+        //test setter et getter Mana
+        Attila.setMana(30);
+        BOOST_CHECK_EQUAL(Attila.getMana(),30);
+        Attila.setMana(0);
+
+
+        //test setter et getter liste Sorts
+        //Sort foudreDeLaMortQuiTue;
+        //vector<Sort> listeSortAttila{foudreDeLaMortQuiTue};
+        //Attila.setListeSort(listeSortAttila);
+        //BOOST_CHECK_EQUAL(Attila.getListeSort(),listeSortAttila);
         
-        Personnage MagicienDesTenebres{Mage};
-        vector<int> statsmag = {50,30,90,90,30,50,5,50};
+
+        /*
+        //test recevoirDMG
+        Attila.recevoirDMG(20); //on repasse de 110 à 90 PV
+        BOOST_CHECK_EQUAL(Attila.getPV(), 90);
+        Attila.recevoirDMG(999); 
+        BOOST_CHECK_EQUAL(Attila.getPV(), 0);
+        BOOST_CHECK_EQUAL(Attila.getEtatPerso(), OnTheGround);
+        
+        //test recevoirSoin
+        Attila.recevoirSoin(999);
+        BOOST_CHECK_EQUAL(Attila.getPV(), 0); //attila est dans l'état Ontheground
+        Attila.setEtatPerso(Alive);
+        Attila.recevoirSoin(50);
+        BOOST_CHECK_EQUAL(Attila.getPV(), 50);
+        Attila.recevoirSoin(999);
+        BOOST_CHECK_EQUAL(Attila.getPV(), Attila.getPVmax());
+
+        //test recevoirMana
+        BOOST_CHECK_EQUAL(Attila.getMana(), 0); //0 mana de base
+        Attila.recevoirMana(20);
+        BOOST_CHECK_EQUAL(Attila.getMana(),20);
+        Attila.recevoirMana(999);
+        BOOST_CHECK_EQUAL(Attila.getMana(),Attila.getManaMax());
+        */
+
+
+
+        Personnage MagicienDesTenebres{"Dark Mage of Eternal Doom",Mage};
+        vector<int> statsmag = {50,50,0,100,30,90,90,30,50,5,50};
         vector<int> Mstats = MagicienDesTenebres.getStats();
         BOOST_CHECK_EQUAL_COLLECTIONS(Mstats.begin(),Mstats.end(),statsmag.begin(),statsmag.end());
-        MagicienDesTenebres.setPosition(2,1);
-        vector<int> Mposition = MagicienDesTenebres.getPosition();
-        BOOST_CHECK_EQUAL(Mposition[0],2);
-        BOOST_CHECK_EQUAL(Mposition[1],1);
         
-        Personnage Legolas{Archer};
-        vector<int> statsarcher = {30,90,50,30,50,30,9,90};
+        
+        Personnage Legolas{"Legolas Vertefeuille",Archer};
+        vector<int> statsarcher = {30,30,0,70,90,50,30,50,30,9,90};
         vector<int> Lstats = Legolas.getStats();
         BOOST_CHECK_EQUAL_COLLECTIONS(Lstats.begin(),Lstats.end(),statsarcher.begin(),statsarcher.end());
-        Legolas.setPosition(2,2);
-        vector<int> Lposition = Legolas.getPosition();
-        BOOST_CHECK_EQUAL(Lposition[0],2);
-        BOOST_CHECK_EQUAL(Lposition[1],2);
+     
         
     }
     
     //Test des méthodes de la classe Joueur
     {
-        Joueur Abdel("Abdel", Humain);
+        /* Joueur Abdel("Abdel", Humain);
         Abdel.setGameStatus(AFK);
-        BOOST_CHECK_EQUAL(Abdel.getGameStatus(),Joue);
+        BOOST_CHECK_EQUAL(Abdel.getGameStatus(),AFK);
         Abdel.setPlayerType(BotDifficile);
         BOOST_CHECK_EQUAL(Abdel.getPlayerType(),Humain);
+        */
     }
+    
   /*{
     Exemple ex {};
     BOOST_CHECK_EQUAL(ex.x, 0);
@@ -74,3 +199,5 @@ BOOST_AUTO_TEST_CASE(TestState)
 }
 
 /* vim: set sw=2 sts=2 et : */
+
+
