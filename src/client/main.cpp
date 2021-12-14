@@ -18,12 +18,11 @@ int main(int argc,char* argv[])
 {
     //Exemple exemple;
     //exemple.setX(53);
-    /*string hi = "hello";
+    string hi = "hello";
     string stat = "state";
     std::vector<int> temp;
 
-    Personnage perso(Archer);
-    temp = perso.getStats();
+ 
 
     if(argc >= 2){
         if(argv[1] == hi){
@@ -33,6 +32,6 @@ int main(int argc,char* argv[])
             cout << "Pas encore de test :/" << endl;
         }
     }
-    cout << temp[1];*/
+    cout << temp[1];
     return 0;
 }
