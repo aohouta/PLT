@@ -228,8 +228,90 @@ et de permettre une transparence sur l'utilisation des variables et de leur diff
 
 \subsection{Règles}
 
+\subsubsection{Actualisation}
+
+L'engine est complètement indépendant du render, le moteur de jeu
+ne sert qu'à mettre a jour l'état du jeu, en fonction des commandes exterieurs 
+(Clavier, souris ou serveur), et des règles automatiques, qui sont vérifer a chaque 
+changement d'état. Le moteur de jeu effectue une mise a jour de l'état a chaque
+commande exterieur, les règles automatiques n'ont besoin de s'activer qu'uniquement 
+dans le cas d'un changement d'état (jeu tour par tour). Il existe aussi une règle 
+autonome qui doit s'incrémenter entre les tours, afin de déterminer l'ordre de passage
+des tours des différents personnages. Cette commande sera appeler par une horloge.
+
+\subsubsection{Règles extérieurs}
+
+Les règles extérieurs sont provoqué par les cliques de souris a diffrénts endroit, 
+ou les ordres reçue par le réseau.
+
+\begin{itemize}
+  \item Selectionner un personnage, afin d'afficher les statistiques du personnage
+  \item Déplacer les personnages
+  \item Attaquer un ennemi
+  \item Lancer un sort
+\end{itemize}
+
+\subsubsection{Règles automatiques}
+
+Les règles automatiques sont les checks qui sont lancés a chaque fois que l'ont veut faire
+une action, afin de savoir si l'action est valide, elles sont éxécuter en fonction de 
+la commande extérieur qui a été exécuté auparavant. Un autre type de règle automatique est 
+la barre d'action, qui détermine l'ordre des tours, cette barre d'actions est une commande
+qui va s'éxécuter a intervalles réguliers.
+
+Les différentes règles suivant les actions sont, pour :
+
+\begin{itemize}
+  \item Incrémenter la barre d'action :
+  \begin{itemize}
+    \item Tester si un personnage est arrivé aux maximum de la barre
+    \item Si un personnage est arrivé au maximum : passer en mode tour par tour,
+    lui permettre de jouer et lui donner son mana.
+  \end{itemize}
+  \item Selectionner un personnage :
+  \begin{itemize}
+    \item Chercher les informations sur le personnage selectionner
+    \item Afficher les informations sur le personnage selectionner
+  \end{itemize}
+  \item Déplacer un personnage :
+  \begin{itemize}
+    \item Vérifier la disponibilité des cases 
+    \item Calculer le pathfinding
+    \item Effectuer le déplacement
+  \end{itemize}
+  \item Attaquer un personnage
+  \begin{itemize}
+    \item Tester la possibilité de l'attaque (porté, ligne de vue)
+    \item Calculer les positions relatives, pour les dégats directionnels
+    \item Calculer les dégats infligés (défense, crit et autre)
+    \item Appliquer les dégats au personnage
+    \item Tester si le personnage est mort
+  \end{itemize}
+  \item Lancer un sort
+  \begin{itemize}
+    \item Obtenir les informations sur le type de sort
+    \item Obtenir les informations sur la cible 
+    \item Réaliser l'action en fonction du sort (si c'est une attaque, on attaque, un soin, on soigne\dots)
+  \end{itemize}
+\end{itemize}
+
 \clearpage
 \subsection{Conception logiciel}
+
+Le diagramme de classe de moteur de jeu est reprsenté sur la figure %\ref{uml:engine}.
+Le jeu repose sur un patron de conception de type Command.
+
+La classe commande est une classe abstraite qui parentes toutes les autres classe commande.
+
+Les classes commandes, ce sont les classes qui représentent les différentes commandes :
+
+\begin{itemize}
+  \item ShowInfoCommand, prend une case en argument et renvoie les informations sur le personnage qui s'y situe 
+  \item AttackCommand, prend une case en argument et lance une attaque sur cette case, en vérifiant les autres règles
+  \item MoveCommand, prend une case en argument est déplace, si possible, le personnage sur la case
+  \item SpellCommand, prend une case en argument, est lance le sort sur cette case 
+  \item TickCommand, incrémente les ticks de tour, afin de fire avancer la barre des tours
+\end{itemize}
 
 
 %\begin{landscape}

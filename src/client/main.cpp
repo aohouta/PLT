@@ -23,6 +23,8 @@ void testSFML() {
 
 // Fin test SFML
 
+#include "Affichage.cpp"
+
 #include "../shared/state.h"
 #include "render.h"
 
@@ -38,13 +40,15 @@ int main(int argc,char* argv[])
     string stat = "state";
 
 
-
     if(argc >= 2){
         if(argv[1] == hi){
             cout << "Bonjour le monde !" << endl;
         }
         else if(argv[1] == stat){
-            cout << "Pas encore de test :/" << endl;
+            cout << "go faire make test" << endl;
+        }
+        else if(argv[1] == rend){
+            afficheState();
         }
         else if (strcmp(argv[1], "render") == 0)
         {
