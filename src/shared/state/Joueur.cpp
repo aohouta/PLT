@@ -8,11 +8,6 @@ Joueur::Joueur (std::string NomJoueur, ID_PlayerType PlayerType){
     this->NomJoueur = NomJoueur;
 }
 
-std::vector<Personnage> Joueur::getPersonnage(){
-    return Personnages;
-    
-}
-
 ID_PlayerType Joueur::getPlayerType() const{
     return PlayerType;
     

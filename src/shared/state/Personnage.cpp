@@ -47,6 +47,7 @@ Personnage::Personnage(std::string Nom, ID_PType PType){
         MOB = 9;
         MOBrestante = 9;
         ESQ = 90;
+
     }    
 }
 
@@ -62,14 +63,13 @@ vector<Effet> Personnage::getEffets(){
     return ListeEffet;
 }
 
-/*const std::array<int,2>& Personnage::getPosition() const{
-    return Position;
+Position& Personnage::getPosition (){
+    return position;
 }
 
-void Personnage::setPosition(const std::array<int,2>& Position){
-    this->Position = Position;
+void Personnage::setPosition(const Position& position){
+    this->position = position;
 }
-*/
 
 ID_PType Personnage::getPType() const{
     return PType;
@@ -299,56 +299,10 @@ void Personnage::setListeSort(const std::vector<Sort>& ListeSort){
     this->ListeSort = ListeSort;
 }
 
-/*    
-void Personnage::recevoirDMG(int nbDegat){
-    int pvActuel = this->getPV();
-    if (nbDegat < pvActuel ){
-        pvActuel = pvActuel - nbDegat;
-        this->setPV(pvActuel);
-    }
-    else{
-        this->setPV(0);
-        this->setEtatPerso(ID_EtatPerso::OnTheGround);
-    }
-}
+/*Position &Personnage::getPosition(){
+    Position &refPosition = position;
+    return refPosition;
 
-void Personnage::recevoirSoin (int nbSoin){ //a rediscuter
-    if(this->getEtatPerso() == ID_EtatPerso::Alive){
-        int pvMax = this->getPVmax();
-        int nouveauPV = this->getPV()+nbSoin;
-        if(nouveauPV > pvMax){
-            this->setPV(pvMax);
-        }
-        else{
-            this->setPV(nouveauPV);
-        }
-    }    
-
-}
-
-void Personnage::recevoirMana (int nbMana){
-    if(this->getEtatPerso() == ID_EtatPerso::Alive){
-        int manaMax = this->getManaMax();
-        int nouveauMana = this->getMana()+nbMana;
-        if(nouveauMana > manaMax){
-            this->setMana(manaMax);
-        }
-        else{
-            this->setMana(nouveauMana);
-        }
-    }
-}
-
-void Personnage::retirerMana (int nbMana){ 
-    int manaActuel = this->getMana();
-    if (nbMana < manaActuel ){
-        manaActuel = manaActuel - nbMana;
-        this->setMana(manaActuel);
-    }
-    else{
-        this->setMana(0);
-    }
-    
 }*/
 
 }
