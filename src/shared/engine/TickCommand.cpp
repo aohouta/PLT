@@ -6,7 +6,10 @@
 using namespace std;
 
 namespace engine{
-    int TickCommand::Execute(){
-            
+    int TickCommand::Execute(state::Etat& state){
+            listePersonnage = state.getPersonnages;
+            for(auto perso : listePersonnage){
+                perso.setCompteur(perso.getCompteur+perso);
+            }
     }
 }

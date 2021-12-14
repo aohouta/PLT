@@ -14,10 +14,10 @@ namespace engine{
         switch (CellOccupation)
         {
         case 0:
-            cout << "Attaque le vide\n";
+            cout << "Brasse de l'air\n";
             break;
         case 1:
-            cout << "Attaque un obstacle\n";
+            cout << "Tape un mur\n";
             break;
         case 2:
             cout << "Attaque un joueur\n";
