@@ -7,8 +7,7 @@ namespace state {
 Personnage::Personnage(std::string Nom, ID_PType PType){
     this->Nom = Nom;
     this->PType = PType;
-    Position = {0,0};
-    
+
     if(PType == Guerrier){
         PV = 90;
         PVmax = 90;
@@ -63,13 +62,14 @@ vector<Effet> Personnage::getEffets(){
     return ListeEffet;
 }
 
-const std::array<int,2>& Personnage::getPosition() const{
+/*const std::array<int,2>& Personnage::getPosition() const{
     return Position;
 }
 
 void Personnage::setPosition(const std::array<int,2>& Position){
     this->Position = Position;
 }
+*/
 
 ID_PType Personnage::getPType() const{
     return PType;

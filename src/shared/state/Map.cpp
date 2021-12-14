@@ -2,9 +2,9 @@
 
 namespace state{
 
-Map::Map(ID_MType MType){
+/*Map::Map(ID_MType MType){
     this->MType = MType;
 }
-
+*/
 
 }

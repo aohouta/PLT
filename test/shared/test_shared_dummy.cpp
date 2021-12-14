@@ -27,11 +27,12 @@ BOOST_AUTO_TEST_CASE(TestState)
         BOOST_CHECK_EQUAL_COLLECTIONS(Astats.begin(),Astats.end(),statsguer.begin(),statsguer.end());
 
         //test setter et getter position
-        array<int,2> moveAttila = {1,1};
+       /* array<int,2> moveAttila = {1,1};
         Attila.setPosition(moveAttila);
         array<int,2> Aposition = Attila.getPosition();
         BOOST_CHECK_EQUAL(Aposition[0],1);
         BOOST_CHECK_EQUAL(Aposition[1],1);
+        */
         
         //test setter et getter orientation
         Attila.setOrientation(Face);
