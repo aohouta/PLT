@@ -4,52 +4,62 @@
 using namespace std;
 namespace state {
 
-Personnage::Personnage(ID_PType PType){
+Personnage::Personnage(std::string Nom, ID_PType PType){
+    this->Nom = Nom;
     this->PType = PType;
-    this->EtatPerso = ID_EtatPerso::Alive;
-    this->position = {0,0};
-    
+
     if(PType == Guerrier){
-        this->PV = 90;
-        this->ATK = 30;
-        this->MAG = 30;
-        this->RM = 50;
-        this->DEF = 90;
-        this->VIT = 90;
-        this->MOB = 3;
-        this->ESQ = 30;
+        PV = 90;
+        PVmax = 90;
+        ManaMax = 50;
+        ATK = 30;
+        MAG = 30;
+        RM = 50;
+        DEF = 90;
+        VIT = 90;
+        MOB = 3;
+        MOBrestante = 3;
+        ESQ = 30;
+        
     }
     else if(PType == Mage){
-        this->PV = 50;
-        this->ATK = 30;
-        this-> MAG = 90;
-        this-> RM = 90;
-        this-> DEF = 30;
-        this-> VIT = 50;
-        this-> MOB = 5;
-        this->ESQ = 50;
+        PV = 50;
+        PVmax = 50;
+        ManaMax = 100;
+        ATK = 30;
+        MAG = 90;
+        RM = 90;
+        DEF = 30;
+        VIT = 50;
+        MOB = 5;
+        MOBrestante = 5;
+        ESQ = 50;
     }
     else if(PType == Archer){
-        this-> PV = 30;
-        this->ATK = 90;
-        this->MAG = 50;
-        this-> RM = 30;
-        this-> DEF = 50;
-        this-> VIT = 30;
-        this-> MOB = 9;
-        this-> ESQ = 90;
+        PV = 30;
+        PVmax = 30;
+        ManaMax = 70;
+        ATK = 90;
+        MAG = 50;
+        RM = 30;
+        DEF = 50;
+        VIT = 30;
+        MOB = 9;
+        MOBrestante = 9;
+        ESQ = 90;
+
     }    
 }
 
 vector<int> Personnage::getStats(){
-    return {PV, ATK, MAG, RM, DEF, VIT, MOB, ESQ};
+    return {PV,PVmax ,Mana, ManaMax, ATK, MAG, RM, DEF, VIT, MOB, ESQ};
 }
 
 ID_Orientation Personnage::getOrientation(){
     return Orientation;
 }
 
-vector<Effets> Personnage::getEffets(){
+vector<Effet> Personnage::getEffets(){
     return ListeEffet;
 }
 
@@ -101,82 +111,198 @@ int Personnage::getPV() const{
     return PV;
 }
 
-void Personnage::setPV(int PV){
-    this->PV = PV;
+void Personnage::setPV(int pV){
+    int pvMax = this->getPVmax();
+    if (pV <= 0){
+        PV = 0;
+    }
+    else if (pV < pvMax ){
+        PV = pV;
+    }
+    else{
+        PV = PVmax;
+    }
 }
+
+int Personnage::getPVmax() const{
+   return PVmax; 
+}
+
+void Personnage::setPVmax(int pVmax){
+    if (pVmax <= 1){
+        PVmax = 1;
+        PV = 1;
+    }
+    else{
+        PVmax = pVmax;
+        if(pVmax < this->getPV()){
+            PV = pVmax;
+        }
+    }
+}
+
+int Personnage::getMana() const{
+    return Mana;
+}
+
+void Personnage::setMana(int mana){
+    if (mana <= 0){
+        Mana = 0;
+    }
+    else if (mana < this->getManaMax()){
+        Mana = mana;
+    }
+    else{
+        Mana = this->getManaMax();
+    }
+}
+
+int Personnage::getManaMax() const{
+    return ManaMax;
+}
+
+void Personnage::setManaMax(int manaMax){
+    if (manaMax <= 1){
+        ManaMax = 1;
+        Mana = 1;
+    }
+    else{
+        ManaMax = manaMax;
+        if(ManaMax < this->getMana()){
+            Mana = ManaMax;
+        }
+    }
+}
+
 
 int Personnage::getATK() const{
     return ATK;
 }
 
-void Personnage::setATK(int ATK){
-    this->ATK = ATK;
+void Personnage::setATK(int aTK){
+    if(aTK<0){
+        ATK = 0;
+    }
+    else {
+        ATK = aTK;
+    }
 }
 
 int Personnage::getMAG() const{
     return MAG;
 }
 
-void Personnage::setMAG(int MAG){
-    this->MAG = MAG;
+void Personnage::setMAG(int mAG){
+    if(mAG<0){
+        MAG = 0;
+    }
+    else {
+        MAG = mAG;
+    }
 }
 
 int Personnage::getRM() const{
     return RM;
 }
-void Personnage::setRM(int RM){
-    this->RM = RM;
+void Personnage::setRM(int rM){
+    if(rM<0){
+        RM = 0;
+    }
+    else {
+       RM = rM;
+    }
 }
 
 int Personnage::getDEF() const{
     return DEF;
 }
 
-void Personnage::setDEF(int DEF){
-    this->DEF = DEF;
+void Personnage::setDEF(int dEF){
+    if(dEF<0){
+        DEF = 0;
+    }
+    else {
+       DEF = dEF;
+    }
 }
 
 int Personnage::getVIT() const{
     return VIT;
 }
 
-void Personnage::setVIT(int VIT){
-    this->VIT = VIT;
+void Personnage::setVIT(int vIT){
+    if(vIT<0){
+        VIT = 0;
+    }
+    else {
+        VIT = vIT;
+    }
 }
 
 int Personnage::getMOB() const{
     return MOB;
 }
 
-void Personnage::setMOB(int MOB){
-    this->MOB = MOB;
+void Personnage::setMOB(int mOB){
+    if(mOB<0){
+        MOB = 0;
+    }
+    else {
+        MOB = mOB;
+    }
+}
+
+int Personnage::getMOBrestante() const{
+    return this->MOBrestante;
+}
+
+void Personnage::setMOBrestante(int mOBrestante){
+    if (mOBrestante < 0){
+        MOBrestante = 0;
+    }
+    else if (mOBrestante > this->getMOB()){
+        MOBrestante = this->getMOB();
+    }
+    else {
+        MOBrestante = mOBrestante;
+    }
 }
 
 int Personnage::getESQ() const{
     return ESQ;
 }
 
-void Personnage::setESQ(int ESQ){
-    this->ESQ = ESQ;
+void Personnage::setESQ(int eSQ){
+    if (eSQ < 0){
+        ESQ = 0;
+    }
+    else if (eSQ > 100){
+        ESQ = 100;
+    }
+    else {
+        ESQ = eSQ;
+    }
 }
-const std::vector<Effets>& Personnage::getListeEffet() const{
+const std::vector<Effet>& Personnage::getListeEffet() const{
     return ListeEffet;
 }
 
-void Personnage::setListeEffet(const std::vector<Effets>& ListeEffet){
+void Personnage::setListeEffet(const std::vector<Effet>& ListeEffet){
     this->ListeEffet = ListeEffet;
 }
 
-const std::vector<Sorts>& Personnage::getListeSort() const{
+const std::vector<Sort>& Personnage::getListeSort() const{
     return ListeSort;
 }
 
-void Personnage::setListeSort(const std::vector<Sorts>& ListeSort){
+void Personnage::setListeSort(const std::vector<Sort>& ListeSort){
     this->ListeSort = ListeSort;
 }
+
 /*Position &Personnage::getPosition(){
     Position &refPosition = position;
     return refPosition;
+
 }*/
 
 }

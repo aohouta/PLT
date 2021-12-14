@@ -1,9 +1,7 @@
-#include "../state.h"
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include <memory>
-#include <vector>
+
+#include "Position.h"
+
+
 
 using namespace std;
 

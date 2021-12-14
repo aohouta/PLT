@@ -2,6 +2,7 @@
 
 namespace state{
 
+
 int Map::getTileCode() {
     return tileCode;
 }

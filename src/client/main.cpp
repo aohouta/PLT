@@ -38,6 +38,7 @@ int main(int argc,char* argv[])
     string stat = "state";
 
 
+
     if(argc >= 2){
         if(argv[1] == hi){
             cout << "Bonjour le monde !" << endl;
