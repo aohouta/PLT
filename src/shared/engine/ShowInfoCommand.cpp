@@ -9,7 +9,7 @@ namespace engine{
     ShowInfoCommand::ShowInfoCommand(state::Cell TargetCell){
         this->TargetCell = TargetCell;
     }
-    int ShowInfoCommand::Execute(){
+    int ShowInfoCommand::Execute(state::State& state){
         int occupation = TargetCell.getOccupation();
         if(occupation > 0){
             if(occupation == 1){

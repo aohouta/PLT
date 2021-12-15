@@ -14,5 +14,6 @@ int Cell::isOccupied(){
     return occupation;
 }
 
+Cell::Cell(){}
 
 }

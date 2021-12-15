@@ -5,11 +5,11 @@
 using namespace std;
 
 namespace engine{
-    AttackCommand::AttackCommand(state::Cell TargetCell){
+    AttackCommand::AttackCommand(state::Cell& TargetCell){
         this->TargetCell = TargetCell;
     }
-    int AttackCommand::Execute(state::Etat& state){
-        Attacker = state.getActivePlayer();
+    int AttackCommand::Execute(state::State& state){
+        Attacker = state.activePlayer;
         int CellOccupation = TargetCell.isOccupied();
         switch (CellOccupation)
         {
@@ -27,7 +27,9 @@ namespace engine{
             break;
         default:
             cout << "Ceci n'est pas censé apparaitre \n";
+            return 1;
             break;
         }
+        return 0;
     }
 }

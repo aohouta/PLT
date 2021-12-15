@@ -11,7 +11,7 @@ namespace engine{
         this->TargetCell = TargetCell;
         perso = state::Etat::getActivePlayer();
     }
-    int MoveCommand::Execute(state::Etat& state){
+    int MoveCommand::Execute(state::State& state){
         int occupation = TargetCell.isOccupied();
         if(occupation = 0){
             if(pathfinding()){

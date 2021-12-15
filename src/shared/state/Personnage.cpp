@@ -305,4 +305,6 @@ void Personnage::setListeSort(const std::vector<Sort>& ListeSort){
 
 }*/
 
+Personnage::Personnage(){}
+
 }

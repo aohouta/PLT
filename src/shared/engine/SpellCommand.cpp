@@ -9,7 +9,7 @@ namespace engine{
     SpellCommand::SpellCommand(state::Cell TargetCell){
         this->TargetCell = TargetCell;
     }
-    int SpellCommand::Execute(state::Etat& state){
+    int SpellCommand::Execute(state::State& state){
         int CellOccupation = TargetCell.isOccupied();
         caster = state.getActivePlayer();
         switch (CellOccupation)
