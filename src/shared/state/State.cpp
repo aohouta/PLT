@@ -86,7 +86,7 @@ State::State (std::string mode){
     this-> mode = mode;
     std::cout << "Creating a state object in >>>" + mode + "<<< mode\n";
     action = IDLE;
-    std::vector<std::unique_ptr<Personnage>> Personnages;
+    //std::vector<std::unique_ptr<Personnage>> Personnages;
 }
 
 std::vector<std::unique_ptr<Personnage>> &State::getPersonnage()
@@ -105,20 +105,7 @@ void State::initPersonnage (ID_PType PType,int x, int y){
     
     
     return;
-    //for (size_t i = 0; i < Personnages.size(); i++) Personnages[i]->setIndex(i);
-
-    /*sf::Texture texturemage;
     
-    if (!texture.loadFromFile("res/mage.png")){
-            std::cout << "\nOOPSIE DOOPSIE\n";
-        }
-    
-    sf::Sprite sprite;
-    sprite.setTexture(texture);
-    sprite.setTextureRect(sf::IntRect(00, 00, 17, 32));
-    sprite.setPosition(10,22);
-    cout << "characters inits finished\n";
-    return sprite;*/
 }
 
 }
