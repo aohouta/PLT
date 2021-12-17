@@ -6,12 +6,12 @@
 using namespace std;
 
 namespace engine{
-    SpellCommand::SpellCommand(state::Cell TargetCell){
+    SpellCommand::SpellCommand(state::Cell& TargetCell){
         this->TargetCell = TargetCell;
     }
     int SpellCommand::Execute(state::State& state){
         int CellOccupation = TargetCell.isOccupied();
-        caster = state.getActivePlayer();
+        Caster = state.getActivePlayer();
         switch (CellOccupation)
         {
         case 0:

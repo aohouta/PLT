@@ -10,7 +10,13 @@ namespace engine{
     }
     int AttackCommand::Execute(state::State& state){
         Attacker = state.activePlayer;
-        int CellOccupation = TargetCell.isOccupied();
+        state::Personnage Defender;
+        for(auto& perso : state.getPersonnages()){
+            if(perso->getPosition().Compare(TargetCell.getPosition())){
+                Defender = *perso;
+            }
+        }
+        int CellOccupation = 0;
         switch (CellOccupation)
         {
         case 0:
@@ -21,8 +27,6 @@ namespace engine{
             break;
         case 2:
             cout << "Attaque un joueur\n";
-            state::Personnage Defender;
-            Defender = TargetCell.getPersonnage();
             Defender.setPV(Attacker.getATK()-Attacker.getATK()*Defender.getDEF());
             break;
         default:

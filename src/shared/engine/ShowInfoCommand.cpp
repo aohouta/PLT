@@ -6,20 +6,27 @@
 using namespace std;
 
 namespace engine{
-    ShowInfoCommand::ShowInfoCommand(state::Cell TargetCell){
+    ShowInfoCommand::ShowInfoCommand(state::Cell& TargetCell){
         this->TargetCell = TargetCell;
     }
     int ShowInfoCommand::Execute(state::State& state){
-        int occupation = TargetCell.getOccupation();
+        state::Personnage selected;
+        int occupation = 0;
+        for(auto& perso : state.getPersonnages()){
+            if(perso->getPosition().Compare(TargetCell.getPosition())){
+                selected = *perso;
+                occupation = 2;
+            }
+        }
         if(occupation > 0){
             if(occupation == 1){
                 //TODO show information on loot, not yet implemented
             }
             else if(occupation == 2) {
-                Personnage PersoInfo = TargetCell.getPersonnage();
                 //Display information of targeted character
             }
         }
+        return 1;
     }
 
 }

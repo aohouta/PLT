@@ -16,4 +16,10 @@ int Cell::isOccupied(){
 
 Cell::Cell(){}
 
+const Position& Cell::getPosition() const{
+    return position;
+}
+
+
+
 }

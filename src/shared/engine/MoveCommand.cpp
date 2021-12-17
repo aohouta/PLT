@@ -7,15 +7,20 @@ using namespace std;
 
 
 namespace engine{
-    MoveCommand::MoveCommand(state::Cell TargetCell){
+    MoveCommand::MoveCommand(state::Cell& TargetCell){
         this->TargetCell = TargetCell;
-        perso = state::Etat::getActivePlayer();
     }
     int MoveCommand::Execute(state::State& state){
-        int occupation = TargetCell.isOccupied();
-        if(occupation = 0){
-            if(pathfinding()){
-                perso.setPosition(TargetCell.getPosition());
+        Perso = state.activePlayer;
+        int occupation = 0;
+        for(auto& personn : state.getPersonnages()){
+            if(personn->getPosition().Compare(TargetCell.getPosition())){
+                occupation = 1;
+            }
+        }
+        if(occupation == 0){
+            if(Pathfinding()){
+                Perso.setPosition(TargetCell.getPosition());
                 return 1;
             }
             else {
@@ -28,9 +33,9 @@ namespace engine{
         return 0;
     }
     bool MoveCommand::Pathfinding(){
-        int posCell[] = TargetCell.getPosition();
-        int posPerso[] = Perso.getPosition();
-        int dist = abs(posCell[0]-posPerso[0])+abs(posCell[1]-posPerso[1]);
+        auto posCell = TargetCell.getPosition();
+        auto posPerso = Perso.getPosition();
+        int dist = abs(posCell.getX()-posPerso.getX())+abs(posCell.getY()-posPerso.getY());
         return dist>Perso.getMOB();
     }
 }
