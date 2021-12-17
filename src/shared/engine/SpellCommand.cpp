@@ -10,9 +10,9 @@ namespace engine{
         this->TargetCell = TargetCell;
     }
     int SpellCommand::Execute(state::State& state){
-        int CellOccupation = TargetCell.isOccupied();
-        Caster = state.getActivePlayer();
-        switch (CellOccupation)
+        Caster = state.activePlayer;
+
+        /*switch (CellOccupation)
         {
         case 0:
             cout << "Attaque le vide\n";
@@ -30,5 +30,7 @@ namespace engine{
             cout << "Ceci n'est pas censé apparaitre \n";
             break;
         }
+        */
+       return 1;
     }
 }

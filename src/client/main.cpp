@@ -47,9 +47,9 @@ int main(int argc,char* argv[])
         else if(argv[1] == stat){
             cout << "go faire make test" << endl;
         }
-        else if(argv[1] == rend){
+        /*else if(argv[1] == rend){
             afficheState();
-        }
+        }*/
         else if (strcmp(argv[1], "render") == 0)
         {
             cout << "--- Render ---" << endl;
@@ -82,7 +82,31 @@ int main(int argc,char* argv[])
             }
             return 0;
         }
-            
+        else if (strcmp(argv[1], "engine") == 0){
+            State state{"engine"};
+            state.initMap();
+            state.initPersonnage(Mage,42,42);
+            state.initPersonnage(Archer,90,90);
+            state.initPersonnage(Guerrier,300,160);
+            state.initPersonnage(Mage,42,160);
+            state.initPersonnage(Archer,350,80);
+            sf::RenderWindow window(sf::VideoMode(state.getMap()[0].size() * 16 + 256, state.getMap().size() * 16 + 32, 32), "map");
+            window.setSize(sf::Vector2u(2624, 1408));
+            StateLayer Slayer(state, window);
+            Slayer.initLayer(state);
+            Slayer.initSprite();
+            while (window.isOpen())
+            {
+                sf::Event event;
+                while (window.pollEvent(event))
+                {
+                    if (event.type == sf::Event::Closed)
+                        window.close();
+                }
+                sleep(1);
+                Slayer.draw(window);
+            }
+        }       
     }
     return 0;
 }
