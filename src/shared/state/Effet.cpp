@@ -4,20 +4,23 @@
 using namespace std;
 namespace state {
 
+    int lowestEffectLevel = 0;
+    int lowestEffectDuration = 1;
+
     Effet::Effet(){}
 
     Effet::Effet (ID_Type_effet type_effet, int EffetDuree, int NiveauEffet){
         this->Type_Effet = type_effet;
 
-        if(NiveauEffet < 0){
-            this->NiveauEffet = 0;
+        if(NiveauEffet < lowestEffectLevel){
+            this->NiveauEffet = lowestEffectLevel;
         }
         else{
             this->NiveauEffet = NiveauEffet;
         }
-        
-        if(EffetDuree < 1){
-            this->EffetDuree = 1;
+
+        if(EffetDuree < lowestEffectDuration){
+            this->EffetDuree = lowestEffectDuration;
         }
         else{
             this->EffetDuree = EffetDuree;
@@ -39,8 +42,8 @@ namespace state {
 
     void Effet::setEffetDuree(int EffetDuree){
 
-        if(EffetDuree < 1){
-            this->EffetDuree = 1;
+        if(EffetDuree < lowestEffectDuration){
+            this->EffetDuree = lowestEffectDuration;
         }
         else{
             this->EffetDuree = EffetDuree;
@@ -53,8 +56,8 @@ namespace state {
     }
 
     void Effet::setNiveauEffet(int NiveauEffet){
-        if(NiveauEffet < 0){
-            this->NiveauEffet = 0;
+        if(NiveauEffet < lowestEffectLevel){
+            this->NiveauEffet = lowestEffectLevel;
         }
         else{
             this->NiveauEffet = NiveauEffet;

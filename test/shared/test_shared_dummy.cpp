@@ -166,10 +166,10 @@ BOOST_AUTO_TEST_CASE(TestState)
      
         
     }
-    //Test method of class "Sort"
+    //Test method of class "Effet"
     {
-        int lowestSpellLevel = 0;
-        int lowestSpellDuration = 1;
+        int lowestEffectLevel = 0;
+        int lowestEffectDuration = 1;
         //constructor
         Effet slow(Ralentissement);
         BOOST_CHECK_EQUAL(slow.getType_Effet(),Ralentissement);
@@ -180,13 +180,13 @@ BOOST_AUTO_TEST_CASE(TestState)
         slow.setNiveauEffet(2);
         BOOST_CHECK_EQUAL(slow.getNiveauEffet(),2);
         slow.setNiveauEffet(-2);
-        BOOST_CHECK_EQUAL(slow.getNiveauEffet(),lowestSpellLevel);
+        BOOST_CHECK_EQUAL(slow.getNiveauEffet(),lowestEffectLevel);
 
         //setter EffetDuree
         slow.setEffetDuree(2);
         BOOST_CHECK_EQUAL(slow.getEffetDuree(),2);
         slow.setEffetDuree(-2);
-        BOOST_CHECK_EQUAL(slow.getEffetDuree(),lowestSpellDuration);
+        BOOST_CHECK_EQUAL(slow.getEffetDuree(),lowestEffectDuration);
 
         //setter Type_Effet
         slow.setType_Effet(Regeneration);
@@ -195,19 +195,101 @@ BOOST_AUTO_TEST_CASE(TestState)
 
         
     }
-    //Test method of class "Effet"
-    {
-       
+    //Test method of class "Sort"
+    { 
+      //constructor
+      Effet slow(Ralentissement);
+      Effet heal(Regeneration);
+      Sort sortA;
+
+      //setter and getter Nom
+      sortA.setNomSort("Soin euphorique");
+      BOOST_CHECK_EQUAL(sortA.getNomSort(),"Soin euphorique");
+
+      //setter and getter Description
+      sortA.setDescription("Soigne tellement la cible qu'elle en devient euphorique, ralentie 50%");
+      BOOST_CHECK_EQUAL(sortA.getDescription(),"Soigne tellement la cible qu'elle en devient euphorique, ralentie 50%");
+
+      //setter and getter Effet
+      vector<Effet> effetsSortA = {slow,heal};
+      sortA.setEffetSort(effetsSortA);
+      vector<Effet> testEffetSortA = sortA.getEffetSort();
+      BOOST_CHECK_EQUAL(testEffetSortA[0].getType_Effet(),Ralentissement);
+      BOOST_CHECK_EQUAL(testEffetSortA[1].getType_Effet(),Regeneration);
+      
+      //setter and getter Cout
+      sortA.setCout(10);
+      BOOST_CHECK_EQUAL(sortA.getCout(),10);
+
+      //setter and getter Range
+      sortA.setRange(5);
+      BOOST_CHECK_EQUAL(sortA.getRange(),5);
+      
+
+      //setter and getter Zone
+
+
+      //setter and getter DmgPhysique
+      sortA.setDmgPhysique(100);
+      BOOST_CHECK_EQUAL(sortA.getDmgPhysique(),100);
+
+      //setter and getter DmgMagique
+      sortA.setDmgMagique(50);
+      BOOST_CHECK_EQUAL(sortA.getDmgMagique(),50);
+
+      //setter and getter QtSoin
+      sortA.setQtSoin(9999);
+      BOOST_CHECK_EQUAL(sortA.getQtSoin(),9999);
+
+
     }
 
     //Test method of class "Position"
     {
+      //constructor
+      Position pos;
+      Position posB(5,10);
+      BOOST_CHECK_EQUAL(pos.getX(),0);
+      BOOST_CHECK_EQUAL(pos.getY(),0);
+      BOOST_CHECK_EQUAL(posB.getX(),5);
+      BOOST_CHECK_EQUAL(posB.getY(),10);
+
+
+
+
        
     }
 
     //Test method of class "Joueur"
     {
-       
+      //constructor
+      Joueur joueur1("Papapc",Humain);
+      BOOST_CHECK_EQUAL(joueur1.getNomJoueur(),"Papapc");
+      BOOST_CHECK_EQUAL(joueur1.getPlayerType(),Humain);
+
+      //setter Nom
+      joueur1.setNomJoueur("BOT OF DOOM");
+      BOOST_CHECK_EQUAL(joueur1.getNomJoueur(),"BOT OF DOOM");
+
+      //setter  PlayerType
+      joueur1.setPlayerType(BotDifficile);
+      BOOST_CHECK_EQUAL(joueur1.getPlayerType(),BotDifficile);
+
+      //getter and setter GameStatus
+      joueur1.setGameStatus(Joue);
+      BOOST_CHECK_EQUAL(joueur1.getGameStatus(),Joue);
+
+      //getter and setter Personnages
+      Personnage persoA("Dark Mage of Eternal Doom",Mage);
+      Personnage persoB("Attila le guerrier",Guerrier);
+      vector<Personnage> listePersonnage = {persoA,persoB};
+      joueur1.setPersonnages(listePersonnage);
+      BOOST_CHECK_EQUAL(joueur1.getPersonnages()[0].getNom(),"Dark Mage of Eternal Doom");
+      BOOST_CHECK_EQUAL(joueur1.getPersonnages()[1].getNom(),"Attila le guerrier");
+
+
+
+
     }
 
     //Test method of class "State"

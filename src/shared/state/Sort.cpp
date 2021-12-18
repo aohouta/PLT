@@ -38,6 +38,14 @@ void Sort::setCout(int Cout){
     this->Cout =Cout;
 }
 
+int Sort::getRange() const{
+    return Range;
+}
+
+void Sort::setRange(int Range){
+    this->Range = Range;
+}
+
 const std::vector<std::array<int,2> >& Sort::getZone() const{
     return Zone;
 }
