@@ -3,6 +3,9 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <vector>
+
+using namespace std;
 
 namespace state{
 
@@ -50,7 +53,7 @@ void Map::initMap (){
 
     for (i = 0; i < 20; ++i)
     {
-        std::vector<std::unique_ptr<Map>> newline;
+        std::vector<std::unique_ptr<Cell>> newline;
         for (j = 0; j < 25; ++j)
         {
             cout << map_tile[k] << ",";

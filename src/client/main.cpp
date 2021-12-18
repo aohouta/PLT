@@ -54,17 +54,17 @@ int main(int argc,char* argv[])
         {
             cout << "--- Render ---" << endl;
             State state{"render"};
-            state.initMap();
-            state.initPersonnage(Mage,42,42);
-            state.initPersonnage(Archer,90,90);
-            state.initPersonnage(Guerrier,300,160);
-            state.initPersonnage(Mage,42,160);
-            state.initPersonnage(Archer,350,80);
+            state.map.initMap();
+            state.initPersonnage(Mage,2,2);
+            state.initPersonnage(Archer,5,5);
+            state.initPersonnage(Guerrier,5,6);
+            state.initPersonnage(Mage,6,5);
+            state.initPersonnage(Archer,10,2);
             Position newPosition;
-            newPosition.setX(100);
-            newPosition.setY(200);
+            newPosition.setX(10);
+            newPosition.setY(10);
             state.getPersonnages()[2]->setPosition(newPosition);
-            sf::RenderWindow window(sf::VideoMode(state.getMap()[0].size() * 16 + 256, state.getMap().size() * 16 + 32, 32), "map");
+            sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
             window.setSize(sf::Vector2u(2624, 1408));
             StateLayer Slayer(state, window);
             Slayer.initLayer(state);
@@ -84,13 +84,13 @@ int main(int argc,char* argv[])
         }
         else if (strcmp(argv[1], "engine") == 0){
             State state{"engine"};
-            state.initMap();
+            state.map.initMap();
             state.initPersonnage(Mage,42,42);
             state.initPersonnage(Archer,90,90);
             state.initPersonnage(Guerrier,300,160);
             state.initPersonnage(Mage,42,160);
             state.initPersonnage(Archer,350,80);
-            sf::RenderWindow window(sf::VideoMode(state.getMap()[0].size() * 16 + 256, state.getMap().size() * 16 + 32, 32), "map");
+            sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
             window.setSize(sf::Vector2u(2624, 1408));
             StateLayer Slayer(state, window);
             Slayer.initLayer(state);
@@ -103,8 +103,9 @@ int main(int argc,char* argv[])
                     if (event.type == sf::Event::Closed)
                         window.close();
                 }
-                sleep(1);
                 Slayer.draw(window);
+                sleep(5);
+                //MoveCommand
             }
         }       
     }

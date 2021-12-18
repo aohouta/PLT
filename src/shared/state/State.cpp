@@ -10,12 +10,6 @@ using namespace std;
 namespace state{
 
 
-const std::vector<std::vector<std::unique_ptr<Map>>>& State::getMap () const{
-    return map;
-    
-}
-
-
 State::State (std::string mode){
     mode = mode;
     std::cout << "Creating a state object in >>>" + mode + "<<< mode\n";
