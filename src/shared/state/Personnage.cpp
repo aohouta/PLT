@@ -91,13 +91,13 @@ void Personnage::setOrientation(ID_Orientation Orientation){
     this->Orientation = Orientation;
 }
 
-/*ID_Action Personnage::getAction() const{
+ID_Action Personnage::getAction() const{
     return Action;
-}*/
+}
 
-/*void Personnage::setAction(ID_Action Action){
+void Personnage::setAction(ID_Action Action){
     this->Action = Action;
-}*/
+}
 
 const std::string& Personnage::getNom() const{
     return Nom;
