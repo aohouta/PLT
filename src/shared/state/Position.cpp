@@ -7,8 +7,6 @@ using namespace std;
 
 namespace state{
 
-
-
 Position::Position(int x, int y){
     this->x=x;
     this->y=y;
@@ -30,6 +28,11 @@ void Position::setY(int newY){
     this->y = newY;
 }
 
-
+bool Position::Compare (const Position& position) const{
+    if(this->x == position.getX()){
+        return (this->y == position.getY());
+    }
+    else {return false;}
+}
 
 };

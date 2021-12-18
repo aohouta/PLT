@@ -7,13 +7,18 @@ Cell::Cell (ID_MType id,  int newX, int newY, int tilecode){
     this->position.setX(newX);
     this->position.setY(newY);
     this->tileCode = tilecode;
-
 }
 
-
-int Cell::isOccupied(){
-    return occupation;
+int Cell::getTileCode() const{
+    return tileCode;
 }
+
+Cell::Cell(){}
+
+const Position& Cell::getPosition() const{
+    return position;
+}
+
 
 
 }

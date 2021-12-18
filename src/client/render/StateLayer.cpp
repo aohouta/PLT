@@ -15,7 +15,7 @@ namespace render{
 
 void StateLayer::initLayer (state::State& state){
     render::LoadLayer LoadMap;
-    LoadMap.loadTextures(state, tile[0]->getTexture(), sf::Vector2u(tile[0]->getCellWidth(), tile[0]->getCellHeight()), state.getMap().size(), state.getMap()[0].size());
+    LoadMap.loadTextures(state, tile[0]->getTexture(), sf::Vector2u(tile[0]->getCellWidth(), tile[0]->getCellHeight()), state.map.layout.size(), state.map.layout[0].size());
     std::unique_ptr<LoadLayer> ptrLoadMap(new LoadLayer(LoadMap));
     
    /* render::LoadLayer Personnages;
@@ -68,9 +68,9 @@ void StateLayer::draw (sf::RenderWindow& window){
    
     
     for (unsigned int i=0;i<sprites.size();i++){
-        sprites[i].setPosition(currentState.getPersonnages()[i]->getPosition().getX(),currentState.getPersonnages()[i]->getPosition().getY());
+        sprites[i].setPosition(currentState.getPersonnages()[i]->getPosition().getX()*16,(currentState.getPersonnages()[i]->getPosition().getY()*16)-20);
         window.draw(sprites[i]);
-        }
+    }
 
 
     
@@ -108,8 +108,8 @@ void StateLayer::initSprite (){
         texturesP.push_back(move(texture));
         sprite.setTexture(texturesP[i]);
         sprite.setTextureRect(sf::IntRect(0, 0, 17, 32));
-        sprite.setPosition(currentState.getPersonnages()[i]->getPosition().getX(),currentState.getPersonnages()[i]->getPosition().getY());
-        sprite.scale(1.5,1.5);
+        sprite.setPosition(currentState.getPersonnages()[i]->getPosition().getX()*16,(currentState.getPersonnages()[i]->getPosition().getY()*16)-16);
+        sprite.scale(1.2,1.2);
         sprites.push_back(move(sprite));
     }
     
