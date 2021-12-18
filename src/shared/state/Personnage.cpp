@@ -91,6 +91,14 @@ void Personnage::setOrientation(ID_Orientation Orientation){
     this->Orientation = Orientation;
 }
 
+ID_Action Personnage::getAction() const{
+    return Action;
+}
+
+void Personnage::setAction(ID_Action Action){
+    this->Action = Action;
+}
+
 const std::string& Personnage::getNom() const{
     return Nom;
 }
@@ -113,10 +121,10 @@ int Personnage::getPV() const{
 
 void Personnage::setPV(int pV){
     int pvMax = this->getPVmax();
-    if (pV <= 0){
+    if (pV <= 0){ //Healt can't go lower than 0
         PV = 0;
     }
-    else if (pV < pvMax ){
+    else if (pV < pvMax ){ //Healt can't go higher than PVmax
         PV = pV;
     }
     else{
@@ -129,7 +137,7 @@ int Personnage::getPVmax() const{
 }
 
 void Personnage::setPVmax(int pVmax){
-    if (pVmax <= 1){
+    if (pVmax <= 1){ //Max Healt can't go lower than 1
         PVmax = 1;
         PV = 1;
     }
@@ -146,13 +154,13 @@ int Personnage::getMana() const{
 }
 
 void Personnage::setMana(int mana){
-    if (mana <= 0){
-        Mana = 0;
+    if (mana <= 0){ // Current Mana can't go lower than 0
+        Mana = 0; 
     }
     else if (mana < this->getManaMax()){
         Mana = mana;
     }
-    else{
+    else{ // Current Mana can't exceed Max Mana
         Mana = this->getManaMax();
     }
 }
@@ -162,7 +170,7 @@ int Personnage::getManaMax() const{
 }
 
 void Personnage::setManaMax(int manaMax){
-    if (manaMax <= 1){
+    if (manaMax <= 1){ // Max Mana can't go lower than 1
         ManaMax = 1;
         Mana = 1;
     }
@@ -178,6 +186,8 @@ void Personnage::setManaMax(int manaMax){
 int Personnage::getATK() const{
     return ATK;
 }
+
+// no stats can go lower than 0 !
 
 void Personnage::setATK(int aTK){
     if(aTK<0){
