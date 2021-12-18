@@ -16,7 +16,7 @@ ID_PlayerType Joueur::getPlayerType() const{
 }
 
 void Joueur::setPlayerType(ID_PlayerType PlayerType){
-    PlayerType = PlayerType;
+    this->PlayerType = PlayerType;
     
 }
 
@@ -27,9 +27,27 @@ ID_GameStatus Joueur::getGameStatus() const{
 }
 
 void Joueur::setGameStatus(ID_GameStatus GameStatus){
-    GameStatus = GameStatus;
+    this->GameStatus = GameStatus;
     
 }
+
+const std::vector<Personnage>& Joueur::getPersonnages() const{
+    return  Personnages;
+}
+
+void Joueur::setPersonnages(const std::vector<Personnage>& Personnages){
+    this->Personnages = Personnages;
+}
+
+const std::string& Joueur::getNomJoueur() const{
+    return NomJoueur;
+}
+
+void Joueur::setNomJoueur(const std::string& NouveauNom){
+    this->NomJoueur = NouveauNom;
+}
+
+
 
 }
 
