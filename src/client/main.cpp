@@ -27,10 +27,12 @@ void testSFML() {
 
 #include "../shared/state.h"
 #include "render.h"
+#include "engine.h"
 
 using namespace std;
 using namespace state;
 using namespace render;
+using namespace engine;
 
 int main(int argc,char* argv[])
 {
@@ -65,7 +67,7 @@ int main(int argc,char* argv[])
             newPosition.setY(10);
             state.getPersonnages()[2]->setPosition(newPosition);
             sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
-            window.setSize(sf::Vector2u(2624, 1408));
+            //window.setSize(sf::Vector2u(2624, 1408));
             StateLayer Slayer(state, window);
             Slayer.initLayer(state);
             Slayer.initSprite();
@@ -83,18 +85,20 @@ int main(int argc,char* argv[])
             return 0;
         }
         else if (strcmp(argv[1], "engine") == 0){
-            State state{"engine"};
+            State state{"render"};
             state.map.initMap();
-            state.initPersonnage(Mage,42,42);
-            state.initPersonnage(Archer,90,90);
-            state.initPersonnage(Guerrier,300,160);
-            state.initPersonnage(Mage,42,160);
-            state.initPersonnage(Archer,350,80);
+            state.initPersonnage(Mage,2,2);
+            state.initPersonnage(Archer,5,5);
+            state.initPersonnage(Guerrier,5,6);
+            state.initPersonnage(Mage,6,5);
+            state.initPersonnage(Archer,10,2);
+            //todo changer ordre position initperso
             sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
-            window.setSize(sf::Vector2u(2624, 1408));
+            //window.setSize(sf::Vector2u(2624, 1408));
             StateLayer Slayer(state, window);
             Slayer.initLayer(state);
             Slayer.initSprite();
+            int commandCmpt = 0;
             while (window.isOpen())
             {
                 sf::Event event;
@@ -104,8 +108,37 @@ int main(int argc,char* argv[])
                         window.close();
                 }
                 Slayer.draw(window);
-                sleep(5);
-                //MoveCommand
+                sleep(3);
+                switch(commandCmpt){
+                    case 0 : {MoveCommand premierMove(*state.map.layout[2][3]);
+                        state.activePlayer = state.getPersonnages()[0];
+                        premierMove.Execute(state);}
+                    break;
+                    case 1 : {AttackCommand premierAtk(*state.map.layout[5][5]);
+                        premierAtk.Execute(state);}
+                    break;
+                    case 2 : {MoveCommand deuxiemeMove(*state.map.layout[8][8]);
+                        state.activePlayer = state.getPersonnages()[2];
+                        deuxiemeMove.Execute(state);}
+                    break;
+                    case 3 : {MoveCommand troisiemeMove(*state.map.layout[7][6]);
+                        troisiemeMove.Execute(state);}
+                    break;
+                    case 4 : {AttackCommand deuxiemeAtk(*state.map.layout[3][3]);
+                        deuxiemeAtk.Execute(state);}
+                    break;
+                    case 5 : {MoveCommand quatriemeMove(*state.map.layout[7][5]);
+                        state.activePlayer = state.getPersonnages()[3];
+                        quatriemeMove.Execute(state);}
+                    break;
+                    case 6 : {AttackCommand troisiemeAtk(*state.map.layout[2][10]);
+                        troisiemeAtk.Execute(state);}
+                    break;
+                    default : cout << "fin de la démo\n";
+                    break;
+                }
+                commandCmpt++;
+                cout << "\n";
             }
         }       
     }

@@ -18,7 +18,7 @@ State::State (std::string mode){
     ListeJoueur ;
 }
 
-const std::vector<std::unique_ptr<Personnage>>&State::getPersonnages() const{
+const std::vector<std::shared_ptr<Personnage>>&State::getPersonnages() const{
 
     return Personnages;
     

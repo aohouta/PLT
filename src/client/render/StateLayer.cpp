@@ -70,7 +70,7 @@ void StateLayer::draw (sf::RenderWindow& window){
     for (unsigned int i=0;i<sprites.size();i++){
         sprites[i].setPosition(currentState.getPersonnages()[i]->getPosition().getX()*16,(currentState.getPersonnages()[i]->getPosition().getY()*16)-20);
         window.draw(sprites[i]);
-        }
+    }
 
 
     
@@ -108,8 +108,8 @@ void StateLayer::initSprite (){
         texturesP.push_back(move(texture));
         sprite.setTexture(texturesP[i]);
         sprite.setTextureRect(sf::IntRect(0, 0, 17, 32));
-        sprite.setPosition(currentState.getPersonnages()[i]->getPosition().getX()*16,(currentState.getPersonnages()[i]->getPosition().getY()*16)-20);
-        sprite.scale(1.5,1.5);
+        sprite.setPosition(currentState.getPersonnages()[i]->getPosition().getX()*16,(currentState.getPersonnages()[i]->getPosition().getY()*16)-16);
+        sprite.scale(1.2,1.2);
         sprites.push_back(move(sprite));
     }
     

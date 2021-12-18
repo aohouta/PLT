@@ -9,14 +9,15 @@ namespace engine{
         this->TargetCell = TargetCell;
     }
     int AttackCommand::Execute(state::State& state){
-        Attacker = state.activePlayer;
-        state::Personnage Defender;
+        auto& Attacker = state.activePlayer;
+        shared_ptr<state::Personnage> Defender;
+        int CellOccupation = 0;
         for(auto& perso : state.getPersonnages()){
             if(perso->getPosition().Compare(TargetCell.getPosition())){
-                Defender = *perso;
+                Defender = perso;
+                CellOccupation = 2;
             }
         }
-        int CellOccupation = 0;
         switch (CellOccupation)
         {
         case 0:
@@ -26,8 +27,13 @@ namespace engine{
             cout << "Tape un mur\n";
             break;
         case 2:
-            cout << "Attaque un joueur\n";
-            Defender.setPV(Attacker.getATK()-Attacker.getATK()*Defender.getDEF());
+            cout << "Attaque un joueur, PV avant : "<< Defender->getPV() << endl;
+            Defender->setPV(Defender->getPV()-Attacker->getATK()-Attacker->getATK()*Defender->getDEF());
+            cout << "PV après : " << Defender->getPV() << endl;
+            if(Defender->getPV() == 0){
+                Defender->setEtatPerso(state::Mort);
+                cout << Defender->getNom() << " est mort\n";
+            }
             break;
         default:
             cout << "Ceci n'est pas censé apparaitre \n";

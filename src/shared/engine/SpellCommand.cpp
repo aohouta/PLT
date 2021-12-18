@@ -10,7 +10,7 @@ namespace engine{
         this->TargetCell = TargetCell;
     }
     int SpellCommand::Execute(state::State& state){
-        Caster = state.activePlayer;
+        auto& Caster = state.activePlayer;
 
         /*switch (CellOccupation)
         {
