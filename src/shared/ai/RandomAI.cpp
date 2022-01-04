@@ -24,7 +24,7 @@ void RandomAI::run(engine::Engine &engine,state::State& state)
     Personnage &Perso = *state.getPersonnages()[randomPerso];
     state.activePlayer = state.getPersonnages()[randomPerso];
     
-    cout << "Le personnage selectionné est ... " << Perso.getNom() <<" !" << endl;
+    cout << "Le personnage selectionné est ... " << Perso.getNom() <<" !\n" << endl;
     
     int randomCommand = rand()%2;
     
@@ -35,11 +35,11 @@ void RandomAI::run(engine::Engine &engine,state::State& state)
         
         int randX = rand()%32;
         int randY = rand()%32;
-        cout << Perso.getNom() << " s'apprête à avancer à la position -> ("<< randX << "," << randY <<")..."<< endl;
+        
+        cout << Perso.getNom() << " s'apprête à avancer à la position -> ("<< randX << "," << randY <<")...\n"<< endl;
         MoveCommand move(*state.map.layout[randX][randY]);
         move.Execute(state);
-        
-        cout << "Fin de l'action." << endl;
+        cout << "Fin de l'action.\n" << endl;
     }
     
     if (randomCommand == 1){ //atk
@@ -48,10 +48,10 @@ void RandomAI::run(engine::Engine &engine,state::State& state)
         int randX = rand()%32;
         int randY = rand()%32;
         
-        cout << Perso.getNom() << " s'apprête à attaquer la case à la position -> (" << randX << "," << randY <<")..."<< endl;
+        cout << Perso.getNom() << " s'apprête à attaquer la case à la position -> (" << randX << "," << randY <<")...\n"<< endl;
         AttackCommand atck(*state.map.layout[randX][randY]);
         atck.Execute(state);
-        cout << "Fin d'action."<< endl;
+        cout << "Fin d'action.\n"<< endl;
     }
     
     //engine.Update();
@@ -59,13 +59,11 @@ void RandomAI::run(engine::Engine &engine,state::State& state)
 
 int RandomAI::selectPersonnage (state::State& state){
     std::vector<int> Index;
-
     for(unsigned int i = 0; i < state.getPersonnages().size(); i++){
         Personnage &perso = *state.getPersonnages()[i];
         if(perso.getEtatPerso() != Mort  )
             Index.push_back(i);
     }
-
     int randomNumber = rand() % Index.size();
     return Index[randomNumber];
 }
