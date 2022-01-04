@@ -143,6 +143,7 @@ int main(int argc,char* argv[])
             }
         }
         else if (strcmp(argv[1], "randomAI") == 0){
+            cout << "--- randomAI ---" << endl;
             engine::Engine ngine;
             State state{"render"};
             
@@ -170,8 +171,11 @@ int main(int argc,char* argv[])
                 }
                 Slayer.draw(window);
                 
+                cout << "Selection du personnage aléatoirement"<< endl;
                 rai.selectPersonnage(state);
+                
                 rai.run(ngine,state);
+                
             }
                 
             
