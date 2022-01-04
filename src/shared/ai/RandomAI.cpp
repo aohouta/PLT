@@ -45,7 +45,7 @@ void RandomAI::run(engine::Engine &engine,state::State& state)
         cout << res << endl;
     }
     
-    engine.Update();
+    //engine.Update();
 }
 
 int RandomAI::selectPersonnage (state::State& state){
