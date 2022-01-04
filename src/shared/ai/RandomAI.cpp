@@ -24,6 +24,8 @@ void RandomAI::run(engine::Engine &engine,state::State& state)
     Personnage &Perso = *state.getPersonnages()[randomPerso];
     state.activePlayer = state.getPersonnages()[randomPerso];
     
+    cout << "Le personnage selectionné est ... " << Perso.getNom() <<" !" << endl;
+    
     int randomCommand = rand()%2;
     
     if (randomCommand == 0){ //move
@@ -33,9 +35,11 @@ void RandomAI::run(engine::Engine &engine,state::State& state)
         
         int randX = rand()%32;
         int randY = rand()%32;
+        cout << Perso.getNom() << " s'apprête à avancer à la position -> ("<< randX << "," << randY <<")..."<< endl;
         MoveCommand move(*state.map.layout[randX][randY]);
         move.Execute(state);
-        cout << "Le personnage " << Perso.getNom() << " bouge vers case à la position -> (" << randX << "," << randY <<")"<< endl;
+        
+        cout << "Fin de l'action." << endl;
     }
     
     if (randomCommand == 1){ //atk
@@ -43,9 +47,11 @@ void RandomAI::run(engine::Engine &engine,state::State& state)
         Perso.setAction(Action);
         int randX = rand()%32;
         int randY = rand()%32;
+        
+        cout << Perso.getNom() << " s'apprête à attaquer la case à la position -> (" << randX << "," << randY <<")..."<< endl;
         AttackCommand atck(*state.map.layout[randX][randY]);
         atck.Execute(state);
-        cout << "Le personnage " << Perso.getNom() << " attaque la case à la position -> (" << randX << "," << randY <<")"<< endl;
+        cout << "Fin d'action."<< endl;
     }
     
     //engine.Update();
@@ -61,10 +67,5 @@ int RandomAI::selectPersonnage (state::State& state){
     }
 
     int randomNumber = rand() % Index.size();
-    cout << "[";
-    for(auto &index : Index){
-        cout << index << ", ";
-    }
-    cout << "]" << endl;
     return Index[randomNumber];
 }
