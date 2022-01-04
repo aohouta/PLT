@@ -22,6 +22,7 @@ void RandomAI::run(engine::Engine &engine,state::State& state)
 {
     int randomPerso = selectPersonnage(state);
     Personnage &Perso = *state.getPersonnages()[randomPerso];
+    state.activePlayer = state.getPersonnages()[randomPerso];
     
     int randomCommand = rand()%2;
     
@@ -30,21 +31,18 @@ void RandomAI::run(engine::Engine &engine,state::State& state)
         Perso.setAction(Action) ;
         ID_Orientation Orientation = Perso.getOrientation();
         
-        
-        //Cell TargetCell = new Cell();
-        //Command move = new MoveCommand(TargetCell);
-        //int res = move.Execute(state);
-        //cout << res << endl;
+        MoveCommand move(*state.map.layout[rand()%32][rand()%32]);
+        int res = move.Execute(state);
+        cout << res << endl;
     }
     
     if (randomCommand == 1){ //atk
         ID_Action Action = ATTACKING;
         Perso.setAction(Action);
         
-        //Cell TargetCell = new Cell();
-        //Command atck = new MoveCommand(TargetCell);
-        //int res = atck.Execute(state);
-        //cout << res << endl;
+        AttackCommand atck(*state.map.layout[rand()%32][rand()%32]);
+        int res = atck.Execute(state);
+        cout << res << endl;
     }
     
     engine.Update();
