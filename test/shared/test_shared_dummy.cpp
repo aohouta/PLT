@@ -18,7 +18,7 @@ BOOST_AUTO_TEST_CASE(TestStaticAssert)
 BOOST_AUTO_TEST_CASE(TestState)
 {
     //Test method of class "Personnage"
-    {
+    /*{
         Personnage Attila("Attila le guerrier",Guerrier);
         
         //constructor test via method getStats
@@ -306,7 +306,7 @@ BOOST_AUTO_TEST_CASE(TestState)
     {
        
     }
-    
+    */
   /*{
     Exemple ex {};
     BOOST_CHECK_EQUAL(ex.x, 0);

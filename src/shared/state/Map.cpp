@@ -53,7 +53,7 @@ void Map::initMap (){
 
     for (i = 0; i < 20; ++i)
     {
-        std::vector<std::unique_ptr<Cell>> newline;
+        std::vector<std::shared_ptr<Cell>> newline;
         for (j = 0; j < 25; ++j)
         {
             cout << map_tile[k] << ",";

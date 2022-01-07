@@ -7,7 +7,7 @@ namespace state {
     int lowestEffectLevel = 0;
     int lowestEffectDuration = 1;
 
-    Effet::Effet(){}
+    /*Effet::Effet(){}
 
     Effet::Effet (ID_Type_effet type_effet, int EffetDuree, int NiveauEffet){
         this->Type_Effet = type_effet;
@@ -62,6 +62,6 @@ namespace state {
         else{
             this->NiveauEffet = NiveauEffet;
         }
-    }
+    }*/
 
 }
