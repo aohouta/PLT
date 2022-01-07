@@ -67,7 +67,7 @@ BOOST_AUTO_TEST_CASE(TestState)
 
         //setter and getter Action
         Attila.setAction(IDLE);
-        BOOST_CHECK_EQUAL(Attila.getAction(),IDLE);     
+        BOOST_CHECK_EQUAL(Attila.getAction(),IDLE);    
 
 
         //setter and getter Nom

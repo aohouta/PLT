@@ -62,12 +62,12 @@ bool LoadLayer::loadTextures (state::State& state, sf::Texture& Tile_texture, sf
     quads.resize(width * height * 4);
 
     // on remplit le tableau de vertex, avec un quad par tuile
-    for (unsigned int i = 0; i < state.getMap().size(); ++i)
+    for (unsigned int i = 0; i < state.map.layout.size(); ++i)
     {
-        for (unsigned int j = 0; j < state.getMap()[0].size(); j++)
+        for (unsigned int j = 0; j < state.map.layout[0].size(); j++)
         {
             // get the current tile number
-            int tileNumber = state.getMap()[i][j]->getTileCode();
+            int tileNumber = state.map.layout[i][j]->getTileCode();
             // on en déduit sa position dans la texture du tileset
             int tu = tileNumber % (texture.getSize().x / tile_Size.x);
             int tv = tileNumber / (texture.getSize().x / tile_Size.x);
