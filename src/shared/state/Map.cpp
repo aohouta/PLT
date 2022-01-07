@@ -19,8 +19,8 @@ void Map::initMap (){
     // (tile id defined by the position of the tile in de resource, we dont define it)
     std::map<int, ID_MType> mapp_spaces;
     
-    mapp_spaces[137] = GROUND;
-    mapp_spaces[176] = WATER;
+    mapp_spaces[2] = GROUND;
+    mapp_spaces[4] = WATER;
    
     
     

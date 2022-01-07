@@ -19,7 +19,7 @@ Tile::Tile (TileID tileID,  int Width, int Height){
     //}
     
     else if (tileID == TileID::MAP){
-        resourceFile = "res/snow-expansion.png";
+        resourceFile = "res/iso-64x64-building_2.png";
         std::cout <<"\n success \n";
     }
     

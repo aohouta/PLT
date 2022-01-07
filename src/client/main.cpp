@@ -34,6 +34,7 @@ using namespace std;
 using namespace state;
 using namespace render;
 using namespace engine;
+using namespace ai;
 
 int main(int argc,char* argv[])
 {
@@ -58,16 +59,16 @@ int main(int argc,char* argv[])
             cout << "--- Render ---" << endl;
             State state{"render"};
             state.map.initMap();
-            state.initPersonnage(Mage,2,2);
-            state.initPersonnage(Archer,5,5);
-            state.initPersonnage(Guerrier,5,6);
-            state.initPersonnage(Mage,6,5);
-            state.initPersonnage(Archer,10,2);
-            Position newPosition;
-            newPosition.setX(10);
-            newPosition.setY(10);
-            state.getPersonnages()[2]->setPosition(newPosition);
-            sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
+            //state.initPersonnage(Mage,2,2);
+            //state.initPersonnage(Archer,5,5);
+            //state.initPersonnage(Guerrier,5,6);
+            //state.initPersonnage(Mage,6,5);
+            //state.initPersonnage(Archer,10,2);
+            //Position newPosition;
+            //newPosition.setX(10);
+            //newPosition.setY(10);
+            //state.getPersonnages()[2]->setPosition(newPosition);
+            sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 64 + 256, state.map.layout.size() * 64 + 32, 32), "map");
             //window.setSize(sf::Vector2u(2624, 1408));
             StateLayer Slayer(state, window);
             Slayer.initLayer(state);
@@ -160,7 +161,7 @@ int main(int argc,char* argv[])
             Slayer.initLayer(state);
             Slayer.initSprite();
             
-            ai::RandomAI rai;
+            RandomAI rai;
             
             while (window.isOpen()){
                 sf::Event event;
