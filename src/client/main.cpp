@@ -27,7 +27,8 @@ void testSFML() {
 
 #include "../shared/state.h"
 #include "render.h"
-#include "engine.h"
+#include "../shared/engine.h"
+#include "../shared/ai.h"
 
 using namespace std;
 using namespace state;
@@ -140,7 +141,45 @@ int main(int argc,char* argv[])
                 commandCmpt++;
                 cout << "\n";
             }
-        }       
+        }
+        else if (strcmp(argv[1], "randomAI") == 0){
+            cout << "--- randomAI ---" << endl;
+            engine::Engine ngine;
+            State state{"render"};
+            
+            state.map.initMap();
+            state.initPersonnage(Mage,2,2);
+            state.initPersonnage(Archer,5,5);
+            state.initPersonnage(Guerrier,5,6);
+            state.initPersonnage(Mage,6,5);
+            state.initPersonnage(Archer,10,2);
+            //todo changer ordre position initperso
+            sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
+            //window.setSize(sf::Vector2u(2624, 1408));
+            StateLayer Slayer(state, window);
+            Slayer.initLayer(state);
+            Slayer.initSprite();
+            
+            ai::RandomAI rai;
+            
+            while (window.isOpen()){
+                sf::Event event;
+                while (window.pollEvent(event))
+                {
+                    if (event.type == sf::Event::Closed)
+                        window.close();
+                }
+                Slayer.draw(window);
+                sleep(3);
+                cout << "--- Selection du personnage aléatoirement ---"<< endl;
+                rai.selectPersonnage(state);
+                rai.run(ngine,state);
+                
+            }
+                
+            
+            
+        }
     }
     return 0;
 }

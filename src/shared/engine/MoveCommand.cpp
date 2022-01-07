@@ -21,7 +21,7 @@ namespace engine{
         if(occupation == 0){
             if(Pathfinding()){
                 Perso->setPosition(TargetCell.getPosition());
-                cout << "Moved";
+                cout << "Moved"<<endl;
                 return 1;
             }
             else {
