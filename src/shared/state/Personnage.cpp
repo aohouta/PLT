@@ -47,6 +47,7 @@ Personnage::Personnage(std::string Nom, ID_PType PType){
         MOB = 9;
         MOBrestante = 9;
         ESQ = 90;
+        BasicRange = 10;
 
     }    
 }
@@ -77,6 +78,14 @@ ID_PType Personnage::getPType() const{
 
 void Personnage::setPType(ID_PType PType){
     this->PType = PType;
+}
+
+int Personnage::getBasicRange() const{
+    return BasicRange;
+}
+
+void Personnage::setBasicRange(int basicRange){
+    this->BasicRange = basicRange;
 }
 
 ID_EtatPerso Personnage::getEtatPerso() const{
@@ -113,6 +122,17 @@ int Personnage::getNbTours() const{
 
 void Personnage::setNbTours(int NbTours){
     this->NbTours = NbTours;
+}
+
+int Personnage::getActionLeft() const{
+    return ActionLeft;
+}
+
+void Personnage::setActionLeft(int nbAction){
+    if(nbAction <= 0){
+        ActionLeft = nbAction;
+    }
+    else{ ActionLeft = 0;}
 }
 
 int Personnage::getPV() const{
@@ -197,6 +217,8 @@ void Personnage::setATK(int aTK){
         ATK = aTK;
     }
 }
+
+
 
 int Personnage::getMAG() const{
     return MAG;
@@ -316,5 +338,63 @@ void Personnage::setListeSort(const std::vector<Sort>& ListeSort){
 }*/
 
 Personnage::Personnage(){}
+
+
+
+//GetTotal
+
+int Personnage::getTotalAttack (){
+    int totalAttack;
+
+    //provisoire
+    float level = 0.1 ;
+    int buff = 0;
+    int debuff = 0;
+
+    for(size_t i = 0;i<ListeEffet.size(); i++){
+        if(ListeEffet[i].getType_Effet() == BoostAtk) {
+            if(ListeEffet[i].getNiveauEffet()>buff){
+                buff = ListeEffet[i].getNiveauEffet();
+            }            
+        }
+        else if(ListeEffet[i].getType_Effet() == Affaiblissement) {
+            if(ListeEffet[i].getNiveauEffet()>debuff){
+                debuff = ListeEffet[i].getNiveauEffet();
+            }            
+        }      
+    }
+    totalAttack = ATK * (1+buff*level-debuff*level);
+
+    if(totalAttack < 0){ return 0;}
+
+    return totalAttack;
+}
+
+int Personnage::getTotalDef (){
+    int totalDef;
+
+    //provisoire
+    float level = 0.1 ;
+    int buff = 0;
+    int debuff = 0;
+
+    for(size_t i = 0;i<ListeEffet.size(); i++){
+        if(ListeEffet[i].getType_Effet() == BoostDef) {
+            if(ListeEffet[i].getNiveauEffet()>buff){
+                buff = ListeEffet[i].getNiveauEffet();
+            }            
+        }
+        else if(ListeEffet[i].getType_Effet() == Affaiblissement) {
+            if(ListeEffet[i].getNiveauEffet()>debuff){
+                debuff = ListeEffet[i].getNiveauEffet();
+            }            
+        }      
+    }
+    totalDef = DEF * (1+buff*level-debuff*level);
+
+    if(totalDef < 0){ return 0;}
+
+    return totalDef;
+}
 
 }

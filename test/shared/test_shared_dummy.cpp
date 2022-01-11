@@ -2,11 +2,13 @@
 #include <boost/test/unit_test.hpp>
 
 #include "../../src/shared/state.h"
+#include "../../src/shared/engine.h"
 
 #include <string>
 #include <vector>
 
 using namespace ::state;
+using namespace ::engine;
 using namespace std;
 
 
@@ -42,6 +44,74 @@ BOOST_AUTO_TEST_CASE(TestState)
 
         BOOST_CHECK_EQUAL(effetAttila[0].getType_Effet(),Ralentissement);
         BOOST_CHECK_EQUAL(effetAttila[1].getType_Effet(),Etourdissement);
+
+        //getTotal
+
+          //buff ATK
+
+        Effet Buff1(BoostAtk, 1, 5);
+        effetAttila.push_back(Buff1);
+        Attila.setListeEffet(effetAttila);
+
+        BOOST_CHECK_EQUAL(Attila.getTotalAttack(), 45);
+
+        Effet Buff2(BoostAtk, 1, 1);
+        effetAttila.push_back(Buff2);
+        Attila.setListeEffet(effetAttila);
+
+        BOOST_CHECK_EQUAL(Attila.getTotalAttack(), 45);
+
+        Effet Buff3(BoostAtk, 1, 10);
+        effetAttila.push_back(Buff3);
+        Attila.setListeEffet(effetAttila);
+
+        BOOST_CHECK_EQUAL(Attila.getTotalAttack(), 60);
+
+         //Buff Def
+
+        Effet BuffD1(BoostDef, 1, 5);
+        effetAttila.push_back(BuffD1);
+        Attila.setListeEffet(effetAttila);
+
+        BOOST_CHECK_EQUAL(Attila.getTotalDef(), 135);
+
+        Effet BuffD2(BoostDef, 1, 1);
+        effetAttila.push_back(BuffD2);
+        Attila.setListeEffet(effetAttila);
+
+        BOOST_CHECK_EQUAL(Attila.getTotalDef(), 135);
+
+        Effet BuffD3(BoostDef, 1, 10);
+        effetAttila.push_back(BuffD3);
+        Attila.setListeEffet(effetAttila);
+        BOOST_CHECK_EQUAL(Attila.getTotalDef(), 180);
+
+          //debuff
+
+        
+        Effet Debuff1(Affaiblissement, 1, 5);
+        effetAttila.push_back(Debuff1);
+        Attila.setListeEffet(effetAttila);
+
+        BOOST_CHECK_EQUAL(Attila.getTotalAttack(), 45);
+        BOOST_CHECK_EQUAL(Attila.getTotalDef(), 135);
+
+        Effet Debuff2(Affaiblissement, 1, 1);
+        effetAttila.push_back(Debuff2);
+        Attila.setListeEffet(effetAttila);
+
+        BOOST_CHECK_EQUAL(Attila.getTotalAttack(), 45);
+        BOOST_CHECK_EQUAL(Attila.getTotalDef(), 135);
+
+        Effet Debuff3(Affaiblissement, 1, 10);
+        effetAttila.push_back(Debuff3);
+        Attila.setListeEffet(effetAttila);
+
+        BOOST_CHECK_EQUAL(Attila.getTotalAttack(), 30);
+        BOOST_CHECK_EQUAL(Attila.getTotalDef(), 90);
+
+
+         
 
         //setter and getter Position
 
@@ -322,6 +392,24 @@ BOOST_AUTO_TEST_CASE(TestState)
   }*/
 }
 
-/* vim: set sw=2 sts=2 et : */
 
+BOOST_AUTO_TEST_CASE(TestEngine)
+{
+  //Test method of class "Personnage"
+  {
+    Personnage Attila("Attila le guerrier",Guerrier);
+        
+    //constructor test via method getStats
+    //{PV,PVmax ,Mana, ManaMax, ATK, MAG, RM, DEF, VIT, MOB, ESQ}
+    vector<int> statsguer = {90,90,0,50,30,30,50,90,90,3,30};
+    vector<int> Astats = Attila.getStats();
+    BOOST_CHECK_EQUAL_COLLECTIONS(Astats.begin(),Astats.end(),statsguer.begin(),statsguer.end());        
+
+        
+    //setter and getter Orientation 
+    Attila.setOrientation(Face);
+    ID_Orientation AttilaOrientation = Attila.getOrientation();
+    BOOST_CHECK_EQUAL(AttilaOrientation,Face);
+  }
+}
 
