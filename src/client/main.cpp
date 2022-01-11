@@ -139,7 +139,7 @@ int main(int argc,char* argv[])
                             troisiemeAtk.Execute(state);
                             Sengine.EndTurn();}
                         break;
-                        default : cout << "fin de la démo\n"; state.gameOver = true;
+                        default : cout << "fin de la démo\n"; state.gameOver = true; Sengine.Stop();window.close();
                         break;
                     }
                     commandCmpt++;
