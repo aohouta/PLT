@@ -42,9 +42,9 @@ if(Ps2Pdf_FOUND AND Dia_FOUND)
 
   # Generate all pdf
   generate_dia_pdf(state)
-  #generate_dia_pdf(render)
-  #generate_dia_pdf(engine)
-  #generate_dia_pdf(ai)
+  generate_dia_pdf(render)
+  generate_dia_pdf(engine)
+  generate_dia_pdf(ai)
   #generate_dia_pdf(module)
 
 else()
