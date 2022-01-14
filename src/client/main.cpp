@@ -173,12 +173,8 @@ int main(int argc,char* argv[])
                 sleep(3);
                 cout << "--- Selection du personnage aléatoirement ---"<< endl;
                 rai.selectPersonnage(state);
-                rai.run(ngine,state);
-                
+                rai.run(ngine,state);   
             }
-                
-            
-            
         }
     }
     return 0;

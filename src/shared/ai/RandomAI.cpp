@@ -33,8 +33,8 @@ void RandomAI::run(engine::Engine &engine,state::State& state)
         Perso.setAction(Action) ;
         ID_Orientation Orientation = Perso.getOrientation();
         
-        int randX = rand()%32;
-        int randY = rand()%32;
+        int randX = rand()%state.map.layout.size();
+        int randY = rand()%state.map.layout[0].size();
         
         cout << Perso.getNom() << " s'apprête à avancer à la position -> ("<< randX << "," << randY <<")...\n"<< endl;
         MoveCommand move(*state.map.layout[randX][randY]);
@@ -45,8 +45,8 @@ void RandomAI::run(engine::Engine &engine,state::State& state)
     if (randomCommand == 1){ //atk
         ID_Action Action = ATTACKING;
         Perso.setAction(Action);
-        int randX = rand()%32;
-        int randY = rand()%32;
+        int randX = rand()%state.map.layout.size();
+        int randY = rand()%state.map.layout[0].size();
         
         cout << Perso.getNom() << " s'apprête à attaquer la case à la position -> (" << randX << "," << randY <<")...\n"<< endl;
         AttackCommand atck(*state.map.layout[randX][randY]);
