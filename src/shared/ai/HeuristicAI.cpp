@@ -29,19 +29,7 @@ int HeuristicAI::selectPersonnage(state::State& state){
 }
 
 int HeuristicAI::selectTarget(state::State& state, int PersonnageIndex){
-    Personnage &selectedPerso = *state.getPersonnages()[PersonnageIndex];
-    int index = -1;
-    int minimalDist = ;
-    // cherche l'ennemi avec le moins de PV
-    for(unsigned int i = 0; i < state.getPersonnages().size(); i++){
-        if(state.getPersonnages()[i]->getPlayerOwner() != playerNumber
-        && state.getCharacters()[i]->getStatus() != DEATH
-        && selectedChar.getPosition().distance(state.getCharacters()[i]->getPosition()) < minimalDist){
-            index = i;
-            minimalDist = selectedChar.getPosition().distance(state.getCharacters()[i]->getPosition());
-        }
-    }
-    return index;
+    
 }
 
 bool HeuristicAI::initMapNode(state::State& state){
