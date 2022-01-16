@@ -52,4 +52,8 @@ void State::initPersonnage (ID_PType PType,int x, int y){
     
 }
 
+void State::DeletePerso(int posInList){
+    Personnages.erase(Personnages.begin() + posInList);
+}
+
 }

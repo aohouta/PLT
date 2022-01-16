@@ -12,10 +12,13 @@ namespace engine{
         auto& Attacker = state.activePlayer;
         shared_ptr<state::Personnage> Defender;
         int CellOccupation = 0;
+        int posInlist = 0;
         for(auto& perso : state.getPersonnages()){
+            posInlist ++;
             if(perso->getPosition().Compare(TargetCell.getPosition())){
                 Defender = perso;
                 CellOccupation = 2;
+                break;
             }
         }
         switch (CellOccupation)
@@ -34,6 +37,7 @@ namespace engine{
             if(Defender->getPV() == 0){
                 Defender->setEtatPerso(state::Mort);
                 cout << Defender->getNom() << " est mort\n";
+                state.DeletePerso(posInlist);
             }
             break;
         default:
