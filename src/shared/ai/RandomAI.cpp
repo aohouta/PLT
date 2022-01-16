@@ -18,25 +18,27 @@ using namespace engine;
 using namespace state;
 using namespace std;
 
-void RandomAI::run(engine::Engine &engine,state::State& state)
+void RandomAI::run(state::State& state)
 {
-    int randomPerso = selectPersonnage(state);
+    /*int randomPerso = selectPersonnage(state);
     Personnage &Perso = *state.getPersonnages()[randomPerso];
     state.activePlayer = state.getPersonnages()[randomPerso];
-    
-    cout << "Le personnage selectionné est ... " << Perso.getNom() <<" !\n" << endl;
+    */
+    while(state.activePlayer == nullptr){;}
+    shared_ptr<Personnage> Perso = state.activePlayer;
+    cout << "Le personnage selectionné est ... " << Perso->getNom() <<" !\n" << endl;
     
     int randomCommand = rand()%2;
     
     if (randomCommand == 0){ //move
         ID_Action Action = MOVING;
-        Perso.setAction(Action) ;
-        ID_Orientation Orientation = Perso.getOrientation();
+        Perso->setAction(Action) ;
+        ID_Orientation Orientation = Perso->getOrientation();
         
         int randX = rand()%state.map.layout.size();
         int randY = rand()%state.map.layout[0].size();
         
-        cout << Perso.getNom() << " s'apprête à avancer à la position -> ("<< randX << "," << randY <<")...\n"<< endl;
+        cout << Perso->getNom() << " s'apprête à avancer à la position -> ("<< randX << "," << randY <<")...\n"<< endl;
         MoveCommand move(*state.map.layout[randX][randY]);
         move.Execute(state);
         cout << "Fin de l'action.\n" << endl;
@@ -44,11 +46,11 @@ void RandomAI::run(engine::Engine &engine,state::State& state)
     
     if (randomCommand == 1){ //atk
         ID_Action Action = ATTACKING;
-        Perso.setAction(Action);
+        Perso->setAction(Action);
         int randX = rand()%state.map.layout.size();
         int randY = rand()%state.map.layout[0].size();
         
-        cout << Perso.getNom() << " s'apprête à attaquer la case à la position -> (" << randX << "," << randY <<")...\n"<< endl;
+        cout << Perso->getNom() << " s'apprête à attaquer la case à la position -> (" << randX << "," << randY <<")...\n"<< endl;
         AttackCommand atck(*state.map.layout[randX][randY]);
         atck.Execute(state);
         cout << "Fin d'action.\n"<< endl;
@@ -57,7 +59,7 @@ void RandomAI::run(engine::Engine &engine,state::State& state)
     //engine.Update();
 }
 
-int RandomAI::selectPersonnage (state::State& state){
+/*int RandomAI::selectPersonnage (state::State& state){
     std::vector<int> Index;
     for(unsigned int i = 0; i < state.getPersonnages().size(); i++){
         Personnage &perso = *state.getPersonnages()[i];
@@ -66,4 +68,4 @@ int RandomAI::selectPersonnage (state::State& state){
     }
     int randomNumber = rand() % Index.size();
     return Index[randomNumber];
-}
+}*/

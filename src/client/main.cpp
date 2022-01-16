@@ -87,6 +87,7 @@ int main(int argc,char* argv[])
         }
         else if (strcmp(argv[1], "engine") == 0){
             State state{"render"};
+            Engine ngine(state);
             state.map.initMap();
             state.initPersonnage(Mage,2,2);
             state.initPersonnage(Archer,5,5);
@@ -100,6 +101,7 @@ int main(int argc,char* argv[])
             Slayer.initLayer(state);
             Slayer.initSprite();
             int commandCmpt = 0;
+            ngine.Start();
             while (window.isOpen())
             {
                 sf::Event event;
@@ -109,44 +111,48 @@ int main(int argc,char* argv[])
                         window.close();
                 }
                 Slayer.draw(window);
-                sleep(3);
-                switch(commandCmpt){
-                    case 0 : {MoveCommand premierMove(*state.map.layout[2][3]);
-                        state.activePlayer = state.getPersonnages()[0];
-                        premierMove.Execute(state);}
-                    break;
-                    case 1 : {AttackCommand premierAtk(*state.map.layout[5][5]);
-                        premierAtk.Execute(state);}
-                    break;
-                    case 2 : {MoveCommand deuxiemeMove(*state.map.layout[8][8]);
-                        state.activePlayer = state.getPersonnages()[2];
-                        deuxiemeMove.Execute(state);}
-                    break;
-                    case 3 : {MoveCommand troisiemeMove(*state.map.layout[7][6]);
-                        troisiemeMove.Execute(state);}
-                    break;
-                    case 4 : {AttackCommand deuxiemeAtk(*state.map.layout[3][3]);
-                        deuxiemeAtk.Execute(state);}
-                    break;
-                    case 5 : {MoveCommand quatriemeMove(*state.map.layout[7][5]);
-                        state.activePlayer = state.getPersonnages()[3];
-                        quatriemeMove.Execute(state);}
-                    break;
-                    case 6 : {AttackCommand troisiemeAtk(*state.map.layout[2][10]);
-                        troisiemeAtk.Execute(state);}
-                    break;
-                    default : cout << "fin de la démo\n";
-                    break;
+                if(state.activePlayer == nullptr){
+                    sleep(1);
                 }
-                commandCmpt++;
-                cout << "\n";
+                else {
+                    switch(commandCmpt){
+                        case 0 : {MoveCommand premierMove(*state.map.layout[2][3]);
+                            premierMove.Execute(state);}
+                        break;
+                        case 1 : {AttackCommand premierAtk(*state.map.layout[5][5]);
+                            premierAtk.Execute(state);
+                            ngine.EndTurn();}
+                        break;
+                        case 2 : {MoveCommand deuxiemeMove(*state.map.layout[8][8]);
+                            deuxiemeMove.Execute(state);}
+                        break;
+                        case 3 : {MoveCommand troisiemeMove(*state.map.layout[7][6]);
+                            troisiemeMove.Execute(state);}
+                        break;
+                        case 4 : {AttackCommand deuxiemeAtk(*state.map.layout[3][3]);
+                            deuxiemeAtk.Execute(state);
+                            ngine.EndTurn();}
+                        break;
+                        case 5 : {MoveCommand quatriemeMove(*state.map.layout[7][5]);
+                            quatriemeMove.Execute(state);}
+                        break;
+                        case 6 : {AttackCommand troisiemeAtk(*state.map.layout[2][10]);
+                            troisiemeAtk.Execute(state);
+                            ngine.EndTurn();}
+                        break;
+                        default : cout << "fin de la démo\n"; state.gameOver = true; ngine.Stop();window.close();
+                        break;
+                    }
+                    commandCmpt++;
+                    cout << "\n";
+                }
+                sleep(1);
             }
         }
         else if (strcmp(argv[1], "randomAI") == 0){
             cout << "--- randomAI ---" << endl;
-            engine::Engine ngine;
             State state{"render"};
-            
+            engine::Engine ngine(state);
             state.map.initMap();
             state.initPersonnage(Mage,2,2);
             state.initPersonnage(Archer,5,5);
@@ -161,19 +167,22 @@ int main(int argc,char* argv[])
             Slayer.initSprite();
             
             ai::RandomAI rai;
-            
+            ngine.Start();
             while (window.isOpen()){
                 sf::Event event;
                 while (window.pollEvent(event))
                 {
-                    if (event.type == sf::Event::Closed)
+                    if (event.type == sf::Event::Closed){
+                        state.gameOver = true;
+                        ngine.Stop();
                         window.close();
+                    }
                 }
                 Slayer.draw(window);
                 sleep(3);
                 cout << "--- Selection du personnage aléatoirement ---"<< endl;
-                rai.selectPersonnage(state);
-                rai.run(ngine,state);   
+                rai.run(state);
+                ngine.EndTurn();
             }
         }
     }
