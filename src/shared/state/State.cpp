@@ -14,8 +14,7 @@ State::State (std::string mode){
     mode = mode;
     std::cout << "Creating a state object in >>>" + mode + "<<< mode\n";
     //std::vector<std::unique_ptr<Personnage>> Personnages;
-    
-    ListeJoueur ;
+   
 }
 
 const std::vector<std::shared_ptr<Personnage>>&State::getPersonnages() const{
