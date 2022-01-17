@@ -397,4 +397,58 @@ int Personnage::getTotalDef (){
     return totalDef;
 }
 
+int Personnage::getTotalMag (){
+    int totalMag;
+
+    //provisoire
+    float level = 0.1 ;
+    int buff = 0;
+    int debuff = 0;
+
+    for(size_t i = 0;i<ListeEffet.size(); i++){
+        if(ListeEffet[i].getType_Effet() == BoostMag) {
+            if(ListeEffet[i].getNiveauEffet()>buff){
+                buff = ListeEffet[i].getNiveauEffet();
+            }            
+        }
+        else if(ListeEffet[i].getType_Effet() == Affaiblissement) {
+            if(ListeEffet[i].getNiveauEffet()>debuff){
+                debuff = ListeEffet[i].getNiveauEffet();
+            }            
+        }      
+    }
+    totalMag = MAG * (1+buff*level-debuff*level);
+
+    if(totalMag < 0){ return 0;}
+
+    return totalMag;
+}
+
+int Personnage::getTotalRM (){
+    int totalRM;
+
+    //provisoire
+    float level = 0.1 ;
+    int buff = 0;
+    int debuff = 0;
+
+    for(size_t i = 0;i<ListeEffet.size(); i++){
+        if(ListeEffet[i].getType_Effet() == BoostRM) {
+            if(ListeEffet[i].getNiveauEffet()>buff){
+                buff = ListeEffet[i].getNiveauEffet();
+            }            
+        }
+        else if(ListeEffet[i].getType_Effet() == Affaiblissement) {
+            if(ListeEffet[i].getNiveauEffet()>debuff){
+                debuff = ListeEffet[i].getNiveauEffet();
+            }            
+        }      
+    }
+    totalRM = RM * (1+buff*level-debuff*level);
+
+    if(totalRM < 0){ return 0;}
+
+    return totalRM;
+}
+
 }
