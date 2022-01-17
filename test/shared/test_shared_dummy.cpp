@@ -2,12 +2,17 @@
 #include <boost/test/unit_test.hpp>
 
 #include "../../src/shared/state.h"
+#include "../../src/shared/engine.h"
+#include "../../src/shared/ai.h"
 
 #include <string>
 #include <vector>
 
-using namespace ::state;
+using namespace state;
 using namespace std;
+using namespace engine;
+using namespace ai;
+
 
 
 BOOST_AUTO_TEST_CASE(TestStaticAssert)
@@ -19,7 +24,7 @@ BOOST_AUTO_TEST_CASE(TestState)
 {
     //Test method of class "Personnage"
     {
-        Personnage Attila("Attila le guerrier",Guerrier);
+        Personnage Attila("Attila le guerrier",Guerrier,1);
         
         //constructor test via method getStats
         //{PV,PVmax ,Mana, ManaMax, ATK, MAG, RM, DEF, VIT, MOB, ESQ}
@@ -153,13 +158,13 @@ BOOST_AUTO_TEST_CASE(TestState)
 
     
         //other test
-        Personnage MagicienDesTenebres{"Dark Mage of Eternal Doom",Mage};
+        Personnage MagicienDesTenebres{"Dark Mage of Eternal Doom",Mage,2};
         vector<int> statsmag = {50,50,0,100,30,90,90,30,50,5,50};
         vector<int> Mstats = MagicienDesTenebres.getStats();
         BOOST_CHECK_EQUAL_COLLECTIONS(Mstats.begin(),Mstats.end(),statsmag.begin(),statsmag.end());
         
         
-        Personnage Legolas{"Legolas Vertefeuille",Archer};
+        Personnage Legolas{"Legolas Vertefeuille",Archer,1};
         vector<int> statsarcher = {30,30,0,70,90,50,30,50,30,9,90};
         vector<int> Lstats = Legolas.getStats();
         BOOST_CHECK_EQUAL_COLLECTIONS(Lstats.begin(),Lstats.end(),statsarcher.begin(),statsarcher.end());
@@ -263,7 +268,7 @@ BOOST_AUTO_TEST_CASE(TestState)
     //Test method of class "Joueur"
     {
       //constructor
-      Joueur joueur1("Papapc",Humain);
+      Joueur joueur1("Papapc",Humain,1);
       BOOST_CHECK_EQUAL(joueur1.getNomJoueur(),"Papapc");
       BOOST_CHECK_EQUAL(joueur1.getPlayerType(),Humain);
 
@@ -280,8 +285,8 @@ BOOST_AUTO_TEST_CASE(TestState)
       BOOST_CHECK_EQUAL(joueur1.getGameStatus(),Joue);
 
       //getter and setter Personnages
-      Personnage persoA("Dark Mage of Eternal Doom",Mage);
-      Personnage persoB("Attila le guerrier",Guerrier);
+      Personnage persoA("Dark Mage of Eternal Doom",Mage,1);
+      Personnage persoB("Attila le guerrier",Guerrier,1);
       vector<Personnage> listePersonnage = {persoA,persoB};
       joueur1.setPersonnages(listePersonnage);
       BOOST_CHECK_EQUAL(joueur1.getPersonnages()[0].getNom(),"Dark Mage of Eternal Doom");
@@ -292,20 +297,6 @@ BOOST_AUTO_TEST_CASE(TestState)
 
     }
 
-    //Test method of class "State"
-    {
-       
-    }
-
-    //Test method of class "Map"
-    {
-       
-    }
-
-    //Test method of class "Cell"
-    {
-       
-    }
     
   /*{
     Exemple ex {};
@@ -322,6 +313,31 @@ BOOST_AUTO_TEST_CASE(TestState)
   }*/
 }
 
+BOOST_AUTO_TEST_CASE(TestAI){
+    
+    {
+        //randomAI
+        
+    }
+    
+    {
+        //heuristic AI
+        engine::Engine ngine;
+        State state{"test"};
+        state.map.initMap();
+        state.initPersonnage(Mage,2,2,1);
+        state.initPersonnage(Archer,5,5,1);
+        state.initPersonnage(Mage,6,5,2);
+        state.initPersonnage(Archer,10,13,2);
+        
+        ai::HeuristicAI hai;
+        
+        BOOST_CHECK_EQUAL(hai.selectPersonnage(state),1);
+        BOOST_CHECK_EQUAL(hai.selectTarget(state,0),2);
+        
+        
+    }
+}
 /* vim: set sw=2 sts=2 et : */
 
 

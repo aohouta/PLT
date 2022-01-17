@@ -58,11 +58,11 @@ int main(int argc,char* argv[])
             cout << "--- Render ---" << endl;
             State state{"render"};
             state.map.initMap();
-            state.initPersonnage(Mage,2,2);
-            state.initPersonnage(Archer,5,5);
-            state.initPersonnage(Guerrier,5,6);
-            state.initPersonnage(Mage,6,5);
-            state.initPersonnage(Archer,10,2);
+            state.initPersonnage(Mage,2,2,1);
+            state.initPersonnage(Archer,5,5,1);
+            state.initPersonnage(Guerrier,5,6,1);
+            state.initPersonnage(Mage,6,5,2);
+            state.initPersonnage(Archer,10,2,2);
             Position newPosition;
             newPosition.setX(10);
             newPosition.setY(10);
@@ -88,11 +88,11 @@ int main(int argc,char* argv[])
         else if (strcmp(argv[1], "engine") == 0){
             State state{"render"};
             state.map.initMap();
-            state.initPersonnage(Mage,2,2);
-            state.initPersonnage(Archer,5,5);
-            state.initPersonnage(Guerrier,5,6);
-            state.initPersonnage(Mage,6,5);
-            state.initPersonnage(Archer,10,2);
+            state.initPersonnage(Mage,2,2,1);
+            state.initPersonnage(Archer,5,5,1);
+            state.initPersonnage(Guerrier,5,6,1);
+            state.initPersonnage(Mage,6,5,2);
+            state.initPersonnage(Archer,10,2,2);
             //todo changer ordre position initperso
             sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
             //window.setSize(sf::Vector2u(2624, 1408));
@@ -148,11 +148,11 @@ int main(int argc,char* argv[])
             State state{"render"};
             
             state.map.initMap();
-            state.initPersonnage(Mage,2,2);
-            state.initPersonnage(Archer,5,5);
-            state.initPersonnage(Guerrier,5,6);
-            state.initPersonnage(Mage,6,5);
-            state.initPersonnage(Archer,10,2);
+            state.initPersonnage(Mage,2,2,1);
+            state.initPersonnage(Archer,5,5,1);
+            state.initPersonnage(Guerrier,5,6,1);
+            state.initPersonnage(Mage,6,5,2);
+            state.initPersonnage(Archer,10,2,2);
             //todo changer ordre position initperso
             sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
             //window.setSize(sf::Vector2u(2624, 1408));
@@ -176,11 +176,44 @@ int main(int argc,char* argv[])
                 rai.run(ngine,state);
                 
             }
+        }
+        else if (strcmp(argv[1], "heuristicAI") == 0){
+            cout << "--- heuristicAI ---" << endl;
+            engine::Engine ngine;
+            State state{"render"};
                 
-            
-            
+            state.map.initMap();
+            state.initPersonnage(Mage,2,2,1);
+            state.initPersonnage(Archer,5,5,1);
+            state.initPersonnage(Guerrier,5,6,1);
+            state.initPersonnage(Mage,6,5,2);
+            state.initPersonnage(Archer,10,2,2);
+            //todo changer ordre position initperso
+            sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
+            //window.setSize(sf::Vector2u(2624, 1408));
+            StateLayer Slayer(state, window);
+            Slayer.initLayer(state);
+            Slayer.initSprite();
+            cout << "Initialisation des nodes..." << endl;
+            ai::HeuristicAI hai;
+            hai.initMapNode(state);
+            cout << "Initialisation terminée" << endl;
+            while (window.isOpen()){
+                sf::Event event;
+                while (window.pollEvent(event))
+                {
+                    if (event.type == sf::Event::Closed)
+                        window.close();
+                }
+                Slayer.draw(window);
+                sleep(3);
+                hai.run(ngine,state);
+                    
+            }
+        
         }
     }
     return 0;
-}
+    }
+
 

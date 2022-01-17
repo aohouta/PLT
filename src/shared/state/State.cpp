@@ -23,10 +23,10 @@ const std::vector<std::shared_ptr<Personnage>>&State::getPersonnages() const{
     
 }
 
-void State::initPersonnage (ID_PType PType,int x, int y){
+void State::initPersonnage (ID_PType PType,int x, int y, int Invocateur){
     
 
-    std::unique_ptr<Personnage> ptrC1(new Personnage("Ultimate Warrior of DOOM APOCALYPSE",PType));
+    std::unique_ptr<Personnage> ptrC1(new Personnage("Ultimate Warrior of DOOM APOCALYPSE",PType,Invocateur));
     ptrC1->setPosition({x,y});
     Personnages.push_back(move(ptrC1));
 
