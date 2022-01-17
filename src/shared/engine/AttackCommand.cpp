@@ -14,12 +14,12 @@ namespace engine{
         int CellOccupation = 0;
         int posInlist = 0;
         for(auto& perso : state.getPersonnages()){
-            posInlist ++;
             if(perso->getPosition().Compare(TargetCell.getPosition())){
                 Defender = perso;
                 CellOccupation = 2;
                 break;
             }
+            posInlist ++;
         }
         switch (CellOccupation)
         {
