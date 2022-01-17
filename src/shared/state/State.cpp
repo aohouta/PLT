@@ -17,6 +17,8 @@ State::State (std::string mode){
    
 }
 
+State::State(){}
+
 const std::vector<std::shared_ptr<Personnage>>&State::getPersonnages() const{
 
     return Personnages;

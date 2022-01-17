@@ -30,7 +30,7 @@ namespace engine{
             cout << "Tape un mur\n";
             break;
         case 2:
-                cout << "Un adversaire est présent !!"<<endl;
+            cout << "Un adversaire est présent !!"<<endl;
             cout << "Attaque un joueur, PV avant : "<< Defender->getPV() << endl;
             Defender->setPV(Defender->getPV()-Attacker->getATK()-Attacker->getATK()*Defender->getDEF());
             cout << "PV après : " << Defender->getPV() << endl;
