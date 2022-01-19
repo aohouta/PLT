@@ -4,10 +4,9 @@
 using namespace std;
 namespace state {
 
-Personnage::Personnage(std::string Nom, ID_PType PType, int ID_Invocateur){
+Personnage::Personnage(std::string Nom, ID_PType PType){
     this->Nom = Nom;
     this->PType = PType;
-    this->ID_Invocateur = ID_Invocateur;
 
     if(PType == Guerrier){
         PV = 90;
@@ -308,12 +307,6 @@ const std::vector<Sort>& Personnage::getListeSort() const{
 
 void Personnage::setListeSort(const std::vector<Sort>& ListeSort){
     this->ListeSort = ListeSort;
-}
-int Personnage::getID_Invocateur() const{
-    return ID_Invocateur;
-}
-void Personnage::setID_Invocateur(int ID_Invocateur){
-    this->ID_Invocateur=ID_Invocateur;
 }
 
 /*Position &Personnage::getPosition(){

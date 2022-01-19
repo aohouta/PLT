@@ -67,7 +67,7 @@ void StateLayer::draw (sf::RenderWindow& window){
     
    
     
-    for (unsigned int i=0;i<sprites.size();i++){
+    for (unsigned int i=0;i<currentState.getPersonnages().size();i++){
         sprites[i].setPosition(currentState.getPersonnages()[i]->getPosition().getX()*16,(currentState.getPersonnages()[i]->getPosition().getY()*16)-20);
         window.draw(sprites[i]);
     }

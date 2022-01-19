@@ -3,10 +3,9 @@
 namespace state {
 
 
-Joueur::Joueur (std::string NomJoueur, ID_PlayerType PlayerType, int ID){
+Joueur::Joueur (std::string NomJoueur, ID_PlayerType PlayerType){
     this->PlayerType = PlayerType;
     this->NomJoueur = NomJoueur;
-    this->ID = ID;
 }
 
 Joueur::Joueur (){}
@@ -48,12 +47,7 @@ void Joueur::setNomJoueur(const std::string& NouveauNom){
     this->NomJoueur = NouveauNom;
 }
 
-int Joueur::getID() const{
-    return ID;
-}
-void Joueur::setID(int ID){
-    this-> ID= ID;
-}
+
 
 }
 
