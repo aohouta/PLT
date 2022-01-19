@@ -35,13 +35,13 @@ void HeuristicAI::run(engine::Engine &engine,state::State& state)
         if (node.getX() == target.getPosition().getX() && node.getY() == target.getPosition().getY() ) destination = node;
     }
     
-    cout << Perso.getNom() << " s'apprête à avancer à la position -> ("<< destination.alentours[0].getX() << "," << destination.alentours[0].getY() <<")...\n"<< endl;
+    cout << Perso.getNom() << " s'apprête à avancer à la position -> ("<< destination.alentours[0].getX() << "," << destination.alentours[0].getY() <<")..."<< endl;
     ID_Action Action = MOVING;
     Perso.setAction(Action) ;
     MoveCommand move(*state.map.layout[destination.alentours[0].getX()][destination.alentours[0].getY()]);
     move.Execute(state);
     
-    cout << Perso.getNom() << " s'apprête à attaquer la cible ! \n"<< endl;
+    cout << Perso.getNom() << " s'apprête à attaquer la cible !"<< endl;
     Action = ATTACKING;
     Perso.setAction(Action);
     AttackCommand atck(*state.map.layout[target.getPosition().getX()][target.getPosition().getY()]);
@@ -96,7 +96,6 @@ int HeuristicAI::selectTarget(state::State& state, int PersonnageIndex){
 }
 
 bool HeuristicAI::initMapNode(state::State& state){
-    cout << "Initialisation des nodes" << endl;
     int k = 0;
     for(unsigned int i = 0; i < state.map.layout.size(); i++){
         for(unsigned j = 0; j < state.map.layout[i].size(); j++){
@@ -112,12 +111,11 @@ bool HeuristicAI::initMapNode(state::State& state){
         }
     }
     //calcule des voisins
-    cout << "Initialisation des voisins" << endl;
     for (auto &node : nodes){
         if (node.getOccupied() == true){
             for (auto &node2 : nodes){
                 if ( node2.getOccupied() != true && abs(node.getX() - node2.getX()) + abs(node.getY() - node2.getY()) <2 ){
-                    cout << "distance : " << abs(node.getX() - node2.getX()) + abs(node.getY() - node2.getY()) << endl;
+                    //cout << "distance : " << abs(node.getX() - node2.getX()) + abs(node.getY() - node2.getY()) << endl;
                     node.alentours.push_back(node2);
                 }
             }
