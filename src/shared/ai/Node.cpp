@@ -27,13 +27,6 @@ Node::Node(int x,int y,int id, bool occupied, int poids){
     this->poids = poids;
 }
 
-std::vector<Node> const & Node::getAlentours() const{
-    return alentours;
-}
-
-void Node::setAlentours(const std::vector<Node>& alentours){
-    this->alentours=alentours;
-}
 
 int Node::getX() const{
     return x;

@@ -21,23 +21,73 @@ using namespace std;
 
 void HeuristicAI::run(engine::Engine &engine,state::State& state)
 {
+    updateMapNodes(state);
+    cout << "Le personnage sélectionné est ... " << state.activePlayer->getNom() << "!" << endl;
+    
+    cout << "La cible est ... " << selectTarget(state)->getNom() << "!" << endl;
+    
+    cout << "Recherche des nodes correpondante"<<endl;
+    Node cible{selectTarget(state)->getPosition().getX(),selectTarget(state)->getPosition().getY(),0,true};
+    Node player{state.activePlayer->getPosition().getX(),state.activePlayer->getPosition().getY(),0,true};
+    for (auto &node : nodes){
+        if (node.getX() == selectTarget(state)->getPosition().getX() && node.getY() == selectTarget(state)->getPosition().getY() ) cible = node;
+        if (node.getX() == state.activePlayer->getPosition().getX() && node.getY() == state.activePlayer->getPosition().getY() ) player = node;
+        
+    }
+    
+    cout << "player : "<< player.getX() <<","<< player.getY() <<endl;
+    cout << "cible : "<< cible.getX() <<","<< cible.getY() <<endl;
+    int distance = abs(player.getX() - cible.getX()) + abs(player.getY() - cible.getY());
+    if (distance <= 2 ){
+        cout << state.activePlayer->getNom() << " s'apprête à attaquer la cible ! \n"<< endl;
+        ID_Action Action = ATTACKING;
+        state.activePlayer->setAction(Action);
+        AttackCommand atck(*state.map.layout[selectTarget(state)->getPosition().getX()][selectTarget(state)->getPosition().getY()]);
+        atck.Execute(state);
+    }
+    else{
+        cout << state.activePlayer->getNom() << " s'apprête à avancer à la position -> ("<< cible.alentours[0].getX() << "," << cible.alentours[0].getY() <<")...\n"<< endl;
+        ID_Action Action = MOVING;
+        state.activePlayer->setAction(Action) ;
+        MoveCommand move(*state.map.layout[cible.alentours[0].getX()][cible.alentours[0].getY()]);
+        move.Execute(state);
+    }
+    
+    
+    
+    cout << "Fin de l'action.\n" << endl;
+    
 
-}
-
-int HeuristicAI::selectPersonnage(state::State& state){
- 
-}
-
-int HeuristicAI::selectTarget(state::State& state, int PersonnageIndex){
     
 }
 
+shared_ptr<state::Personnage> HeuristicAI::selectTarget(state::State& state){
+    
+    shared_ptr<state::Personnage> ennemiPerso;
+    int minimalDist = 45;
+   
+    for(auto &perso : state.getPersonnages()){
+        if (perso->getID_Invocateur() != state.activePlayer->getID_Invocateur() && perso->getEtatPerso() != Mort){
+            if (perso->getPType() == Mage) ennemiPerso = perso;
+            else if (perso->getPV() == 0.3*perso->getPVmax()) ennemiPerso = perso;
+            else if (perso->getDEF() <= state.activePlayer->getATK()) ennemiPerso = perso;
+            int distance = abs(state.activePlayer->getPosition().getX() - perso->getPosition().getX()) + abs(state.activePlayer->getPosition().getY() - perso->getPosition().getY());
+            if( distance < minimalDist){
+                minimalDist = distance;
+                ennemiPerso = perso;
+            }
+        }
+    }
+    return ennemiPerso;
+}
+
 bool HeuristicAI::initMapNode(state::State& state){
+    cout << "Initialisation des nodes" << endl;
     int k = 0;
     for(unsigned int i = 0; i < state.map.layout.size(); i++){
         for(unsigned j = 0; j < state.map.layout[i].size(); j++){
             nodes.push_back(Node{state.map.layout[i][j]->getPosition().getX(),
-                state.map.layout[i][j]->getPosition().getY(), k, true, 0});
+                state.map.layout[i][j]->getPosition().getY(), k, false, 0});
             int CellOccupation = 0;
             for(auto& perso : state.getPersonnages()){
                 if(perso->getPosition().Compare(state.map.layout[i][j]->getPosition())) CellOccupation = 1;
@@ -48,15 +98,16 @@ bool HeuristicAI::initMapNode(state::State& state){
         }
     }
     //calcule des voisins
-    std::vector<Node> alentours;
+    cout << "Initialisation des voisins" << endl;
     for (auto &node : nodes){
-        for (auto &node2 : nodes){
-            if ( abs(node2.getX() - node.getX()) < 2 && abs(node2.getY() - node.getY()) <2){
-                alentours.push_back(node2);
+        if (node.getOccupied() == true){
+            for (auto &node2 : nodes){
+                if ( node2.getOccupied() != true && abs(node.getX() - node2.getX()) + abs(node.getY() - node2.getY()) <= 2 ){
+                    cout << "distance : " << abs(node.getX() - node2.getX()) + abs(node.getY() - node2.getY()) << endl;
+                    node.alentours.push_back(node2);
+                }
             }
         }
-        node.setAlentours(alentours);
-        alentours.clear();
     }
     
 }
@@ -64,10 +115,18 @@ bool HeuristicAI::initMapNode(state::State& state){
 void HeuristicAI::updateMapNodes(state::State& state){
     for(auto &node : nodes){
         node.setOccupied(false);
-                for(auto &perso : state.getPersonnages())
-                    if(perso->getPosition().getX() == node.getX()
-                    && perso->getPosition().getY() == node.getY())
-                        node.setOccupied(true);
+        for(auto &perso : state.getPersonnages()){
+            if(perso->getPosition().getX() == node.getX() && perso->getPosition().getY() == node.getY()){
+                node.setOccupied(true);
+                for (auto &node2 : nodes){
+                    if ( node2.getOccupied() != true && abs(node.getX() - node2.getX()) + abs(node.getY() - node2.getY()) <= 2 ) node.alentours.push_back(node2);
+                }
+            }
+        }
+        for(int i= 0; i< node.alentours.size();i++){
+            if (node.alentours[i].getOccupied() == true) node.alentours.erase(node.alentours.begin()+i,node.alentours.begin()+i+1);
+        }
+        
     }
 }
 /*
@@ -111,9 +170,10 @@ std::list<Node> HeuristicAI::shortestPath (Node& depart, Node& finish){
 }
 */
 std::vector<Node> const & HeuristicAI::getNodes() const{
-    
+    return nodes;
 }
 
 void HeuristicAI::setNodes(const std::vector<Node>& node){
-    
+    this-> nodes = node;
 }
+
