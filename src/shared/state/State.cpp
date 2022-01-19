@@ -25,10 +25,21 @@ const std::vector<std::shared_ptr<Personnage>>&State::getPersonnages() const{
 
 void State::initPersonnage (ID_PType PType,int x, int y, int Invocateur){
     
-
-    std::unique_ptr<Personnage> ptrC1(new Personnage("Ultimate Warrior of DOOM APOCALYPSE",PType,Invocateur));
-    ptrC1->setPosition({x,y});
-    Personnages.push_back(move(ptrC1));
+    if (PType == Guerrier){
+        std::unique_ptr<Personnage> ptrC1(new Personnage("Ultimate Warrior of DOOM APOCALYPSE",PType,Invocateur));
+        ptrC1->setPosition({x,y});
+        Personnages.push_back(move(ptrC1));
+    }
+    if (PType == Mage){
+        std::unique_ptr<Personnage> ptrC1(new Personnage("White Magician of the Enchanted Forest",PType,Invocateur));
+        ptrC1->setPosition({x,y});
+        Personnages.push_back(move(ptrC1));
+    }
+    if (PType == Archer){
+        std::unique_ptr<Personnage> ptrC1(new Personnage("Wild Archer of the Old Mountain",PType,Invocateur));
+        ptrC1->setPosition({x,y});
+        Personnages.push_back(move(ptrC1));
+    }
 
 
     

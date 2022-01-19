@@ -4,10 +4,10 @@
 using namespace std;
 namespace state {
 
-Personnage::Personnage(std::string Nom, ID_PType PType, int ID_invocateur){
+Personnage::Personnage(std::string Nom, ID_PType PType, int ID_Invocateur){
     this->Nom = Nom;
     this->PType = PType;
-    this->ID_Invocateur = ID_invocateur;
+    this->ID_Invocateur = ID_Invocateur;
 
     if(PType == Guerrier){
         PV = 90;

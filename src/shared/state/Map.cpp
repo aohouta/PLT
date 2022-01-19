@@ -53,7 +53,7 @@ void Map::initMap (){
 
     for (i = 0; i < 20; ++i)
     {
-        std::vector<std::unique_ptr<Cell>> newline;
+        std::vector<std::shared_ptr<Cell>> newline;
         for (j = 0; j < 25; ++j)
         {
             cout << map_tile[k] << ",";
@@ -61,12 +61,12 @@ void Map::initMap (){
             {
                 if (mapp_spaces.find(map_tile[k]) != mapp_spaces.end())
                 {
-                    std::unique_ptr<Cell> spc(new Cell(mapp_spaces[map_tile[k]], j, i, map_tile[k]));
+                    std::shared_ptr<Cell> spc(new Cell(mapp_spaces[map_tile[k]], j, i, map_tile[k]));
                     newline.push_back(move(spc));
                 }
                 else
                 {
-                    std::unique_ptr<Cell> spc(new Cell(mapp_spaces[map_tile[8]], j, i, map_tile[8]));
+                    std::shared_ptr<Cell> spc(new Cell(mapp_spaces[map_tile[8]], j, i, map_tile[8]));
                     newline.push_back(move(spc));
                 }
             }
