@@ -19,7 +19,7 @@ BOOST_AUTO_TEST_CASE(TestState)
 {
     //Test method of class "Personnage"
     {
-        Personnage Attila("Attila le guerrier",Guerrier);
+        Personnage Attila("Attila le guerrier",Guerrier,1);
         
         //constructor test via method getStats
         //{PV,PVmax ,Mana, ManaMax, ATK, MAG, RM, DEF, VIT, MOB, ESQ}
@@ -153,13 +153,13 @@ BOOST_AUTO_TEST_CASE(TestState)
 
     
         //other test
-        Personnage MagicienDesTenebres{"Dark Mage of Eternal Doom",Mage};
+        Personnage MagicienDesTenebres{"Dark Mage of Eternal Doom",Mage,1};
         vector<int> statsmag = {50,50,0,100,30,90,90,30,50,5,50};
         vector<int> Mstats = MagicienDesTenebres.getStats();
         BOOST_CHECK_EQUAL_COLLECTIONS(Mstats.begin(),Mstats.end(),statsmag.begin(),statsmag.end());
         
         
-        Personnage Legolas{"Legolas Vertefeuille",Archer};
+        Personnage Legolas{"Legolas Vertefeuille",Archer,1};
         vector<int> statsarcher = {30,30,0,70,90,50,30,50,30,9,90};
         vector<int> Lstats = Legolas.getStats();
         BOOST_CHECK_EQUAL_COLLECTIONS(Lstats.begin(),Lstats.end(),statsarcher.begin(),statsarcher.end());
@@ -263,9 +263,10 @@ BOOST_AUTO_TEST_CASE(TestState)
     //Test method of class "Joueur"
     {
       //constructor
-      Joueur joueur1("Papapc",Humain);
+      Joueur joueur1("Papapc",Humain,1);
       BOOST_CHECK_EQUAL(joueur1.getNomJoueur(),"Papapc");
       BOOST_CHECK_EQUAL(joueur1.getPlayerType(),Humain);
+        
 
       //setter Nom
       joueur1.setNomJoueur("BOT OF DOOM");
@@ -280,8 +281,8 @@ BOOST_AUTO_TEST_CASE(TestState)
       BOOST_CHECK_EQUAL(joueur1.getGameStatus(),Joue);
 
       //getter and setter Personnages
-      Personnage persoA("Dark Mage of Eternal Doom",Mage);
-      Personnage persoB("Attila le guerrier",Guerrier);
+      Personnage persoA("Dark Mage of Eternal Doom",Mage,1);
+      Personnage persoB("Attila le guerrier",Guerrier,2);
       vector<Personnage> listePersonnage = {persoA,persoB};
       joueur1.setPersonnages(listePersonnage);
       BOOST_CHECK_EQUAL(joueur1.getPersonnages()[0].getNom(),"Dark Mage of Eternal Doom");

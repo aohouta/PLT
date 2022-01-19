@@ -58,11 +58,11 @@ int main(int argc,char* argv[])
             cout << "--- Render ---" << endl;
             State state{"render"};
             state.map.initMap();
-            state.initPersonnage(Mage,2,2);
-            state.initPersonnage(Archer,5,5);
-            state.initPersonnage(Guerrier,5,6);
-            state.initPersonnage(Mage,6,5);
-            state.initPersonnage(Archer,10,2);
+            state.initPersonnage(Mage,2,2,1);
+            state.initPersonnage(Archer,5,5,1);
+            state.initPersonnage(Guerrier,5,6,1);
+            state.initPersonnage(Mage,6,5,2);
+            state.initPersonnage(Archer,10,2,2);
             Position newPosition;
             newPosition.setX(10);
             newPosition.setY(10);
@@ -89,11 +89,11 @@ int main(int argc,char* argv[])
             State state{"render"};
             Engine ngine(state);
             state.map.initMap();
-            state.initPersonnage(Mage,2,2);
-            state.initPersonnage(Archer,5,5);
-            state.initPersonnage(Guerrier,5,6);
-            state.initPersonnage(Mage,6,5);
-            state.initPersonnage(Archer,10,2);
+            state.initPersonnage(Mage,2,2,1);
+            state.initPersonnage(Archer,5,5,1);
+            state.initPersonnage(Guerrier,5,6,1);
+            state.initPersonnage(Mage,6,5,2);
+            state.initPersonnage(Archer,10,2,2);
             //todo changer ordre position initperso
             sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
             //window.setSize(sf::Vector2u(2624, 1408));
@@ -154,11 +154,11 @@ int main(int argc,char* argv[])
             State state{"render"};
             engine::Engine ngine(state);
             state.map.initMap();
-            state.initPersonnage(Mage,2,2);
-            state.initPersonnage(Archer,5,5);
-            state.initPersonnage(Guerrier,5,6);
-            state.initPersonnage(Mage,6,5);
-            state.initPersonnage(Archer,10,2);
+            state.initPersonnage(Mage,2,2,1);
+            state.initPersonnage(Archer,5,5,1);
+            state.initPersonnage(Guerrier,5,6,1);
+            state.initPersonnage(Mage,6,5,2);
+            state.initPersonnage(Archer,10,2,2);
             //todo changer ordre position initperso
             sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
             //window.setSize(sf::Vector2u(2624, 1408));
