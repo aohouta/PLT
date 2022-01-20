@@ -58,7 +58,7 @@ int main(int argc,char* argv[])
             cout << "--- Render ---" << endl;
             State state{"render"};
             state.map.initMap();
-            state.initPersonnage(Mage,2,2,1);
+            /*state.initPersonnage(Mage,2,2,1);
             state.initPersonnage(Archer,5,5,1);
             state.initPersonnage(Guerrier,5,6,1);
             state.initPersonnage(Mage,6,5,2);
@@ -67,11 +67,25 @@ int main(int argc,char* argv[])
             newPosition.setX(10);
             newPosition.setY(10);
             state.getPersonnages()[2]->setPosition(newPosition);
+            */
+            state.initPersonnage(Mage,1,1,1);
+            state.initPersonnage(Mage,1,3,1);
+            state.initPersonnage(Mage,3,1,1);
+            state.initPersonnage(Guerrier,5,5,1);
+            state.initPersonnage(Guerrier,5,7,1);
+            state.initPersonnage(Guerrier,7,5,1);
+
+            state.initPersonnage(Archer,10,10,1);
+            state.initPersonnage(Archer,12,10,1);
+            state.initPersonnage(Archer,10,12,1);
+
             sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
             //window.setSize(sf::Vector2u(2624, 1408));
             StateLayer Slayer(state, window);
             Slayer.initLayer(state);
+            cout << " ----- init sprite ------" << endl;
             Slayer.initSprite();
+            cout << " ----- end init sprite ------" << endl;
             while (window.isOpen())
             {
                 sf::Event event;

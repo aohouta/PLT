@@ -23,6 +23,7 @@ namespace engine{
                     if(perso->VitessePos >= vitMax){
                         vitMax = perso->VitessePos;
                         state->activePlayer = perso;
+                        //Start turn
                     }
                 }
                 cout << endl;

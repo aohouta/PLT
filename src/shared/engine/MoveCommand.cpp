@@ -37,6 +37,7 @@ namespace engine{
         auto posCell = TargetCell.getPosition();
         auto posPerso = Perso->getPosition();
         int dist = abs(posCell.getX()-posPerso.getX())+abs(posCell.getY()-posPerso.getY());
-        return dist<Perso->getMOB();
+        if(dist <= Perso->getMOB() ){return true;}
+        else{return false;}
     }
 }
