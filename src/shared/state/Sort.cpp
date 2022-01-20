@@ -46,11 +46,13 @@ void Sort::setRange(int Range){
     this->Range = Range;
 }
 
-const std::vector<std::array<int,2> >& Sort::getZone() const{
+ 
+
+const std::vector<state::Position >& Sort::getZone() const{
     return Zone;
 }
 
-void Sort::setZone(const std::vector<std::array<int,2> >& Zone){
+void Sort::setZone(const std::vector<state::Position >& Zone){
     this->Zone = Zone;
 }
 

@@ -29,8 +29,8 @@ void Position::setY(int newY){
 }
 
 bool Position::Compare (const Position& position) const{
-    if(this->x == position.getX()){
-        return (this->y == position.getY());
+    if(this->x == position.getX() && this->y == position.getY()){
+        return true;
     }
     else {return false;}
 }

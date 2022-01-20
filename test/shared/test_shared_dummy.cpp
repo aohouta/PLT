@@ -2,11 +2,16 @@
 #include <boost/test/unit_test.hpp>
 
 #include "../../src/shared/state.h"
+#include "../../src/shared/engine.h"
 
 #include <string>
 #include <vector>
 
+
+
+
 using namespace ::state;
+using namespace ::engine;
 using namespace std;
 
 
@@ -42,6 +47,74 @@ BOOST_AUTO_TEST_CASE(TestState)
 
         BOOST_CHECK_EQUAL(effetAttila[0].getType_Effet(),Ralentissement);
         BOOST_CHECK_EQUAL(effetAttila[1].getType_Effet(),Etourdissement);
+
+        //getTotal
+
+          //buff ATK
+
+        Effet Buff1(BoostAtk, 1, 5);
+        effetAttila.push_back(Buff1);
+        Attila.setListeEffet(effetAttila);
+
+        BOOST_CHECK_EQUAL(Attila.getTotalAttack(), 45);
+
+        Effet Buff2(BoostAtk, 1, 1);
+        effetAttila.push_back(Buff2);
+        Attila.setListeEffet(effetAttila);
+
+        BOOST_CHECK_EQUAL(Attila.getTotalAttack(), 45);
+
+        Effet Buff3(BoostAtk, 1, 10);
+        effetAttila.push_back(Buff3);
+        Attila.setListeEffet(effetAttila);
+
+        BOOST_CHECK_EQUAL(Attila.getTotalAttack(), 60);
+
+         //Buff Def
+
+        Effet BuffD1(BoostDef, 1, 5);
+        effetAttila.push_back(BuffD1);
+        Attila.setListeEffet(effetAttila);
+
+        BOOST_CHECK_EQUAL(Attila.getTotalDef(), 135);
+
+        Effet BuffD2(BoostDef, 1, 1);
+        effetAttila.push_back(BuffD2);
+        Attila.setListeEffet(effetAttila);
+
+        BOOST_CHECK_EQUAL(Attila.getTotalDef(), 135);
+
+        Effet BuffD3(BoostDef, 1, 10);
+        effetAttila.push_back(BuffD3);
+        Attila.setListeEffet(effetAttila);
+        BOOST_CHECK_EQUAL(Attila.getTotalDef(), 180);
+
+          //debuff
+
+        
+        Effet Debuff1(Affaiblissement, 1, 5);
+        effetAttila.push_back(Debuff1);
+        Attila.setListeEffet(effetAttila);
+
+        BOOST_CHECK_EQUAL(Attila.getTotalAttack(), 45);
+        BOOST_CHECK_EQUAL(Attila.getTotalDef(), 135);
+
+        Effet Debuff2(Affaiblissement, 1, 1);
+        effetAttila.push_back(Debuff2);
+        Attila.setListeEffet(effetAttila);
+
+        BOOST_CHECK_EQUAL(Attila.getTotalAttack(), 45);
+        BOOST_CHECK_EQUAL(Attila.getTotalDef(), 135);
+
+        Effet Debuff3(Affaiblissement, 1, 10);
+        effetAttila.push_back(Debuff3);
+        Attila.setListeEffet(effetAttila);
+
+        BOOST_CHECK_EQUAL(Attila.getTotalAttack(), 30);
+        BOOST_CHECK_EQUAL(Attila.getTotalDef(), 90);
+
+
+         
 
         //setter and getter Position
 
@@ -254,6 +327,11 @@ BOOST_AUTO_TEST_CASE(TestState)
       BOOST_CHECK_EQUAL(posB.getX(),5);
       BOOST_CHECK_EQUAL(posB.getY(),10);
 
+      BOOST_CHECK_EQUAL(posB.Compare(pos),false);
+      Position posC(5,10);
+      BOOST_CHECK_EQUAL(posB.Compare(posC),true);
+      
+
 
 
 
@@ -323,6 +401,131 @@ BOOST_AUTO_TEST_CASE(TestState)
   }*/
 }
 
-/* vim: set sw=2 sts=2 et : */
 
+BOOST_AUTO_TEST_CASE(TestEngine)
+{ 
+
+  State TestState{"state de test"};
+  Engine TestEngine(TestState);
+
+  //init a 20 by 25 map
+  for (int i = 0; i < 20; ++i)
+    {
+        std::vector<std::shared_ptr<Cell>> newline;
+        for (int j = 0; j < 25; ++j)
+        {
+            
+               
+          std::shared_ptr<Cell> spc(new Cell(GROUND, i, j, i+j));
+          newline.push_back(move(spc));
+        }
+
+         TestState.map.layout.push_back(move(newline));
+    }
+
+  //guerrier 
+  TestState.initPersonnage(Guerrier,1,1,1);
+  TestState.initPersonnage(Guerrier,1,2,1);
+  TestState.initPersonnage(Guerrier,2,1,1);
+  TestState.initPersonnage(Guerrier,1,0,1); 
+
+  //set guerrier as active player
+  TestState.activePlayer = TestState.getPersonnages()[0];
+
+  {
+    //Test method of ActionCommand
+
+    ActionCommand ac;
+    float orientation;
+    shared_ptr<state::Personnage> perso;
+    //face to face
+    perso = TestState.getPersonnages()[1];
+    orientation = ac.OrientationMult(TestState.activePlayer,perso);
+    BOOST_CHECK_EQUAL(1,orientation);
+    //face to side
+    perso = TestState.getPersonnages()[2];
+    orientation = ac.OrientationMult(TestState.activePlayer,perso);
+    BOOST_CHECK_EQUAL(1.5,orientation);
+    //face to back
+    perso = TestState.getPersonnages()[3];
+    orientation = ac.OrientationMult(TestState.activePlayer,perso);
+    BOOST_CHECK_EQUAL(2,orientation);
+  }
+
+  {
+    //Test method of AttackCommand
+    cout << "---------------- Test AttackCommand -------------- \n";
+  
+    
+    
+    //target cell is 1,2
+    shared_ptr<state::Cell> targetCell;
+
+    targetCell = TestState.map.layout[1][2];
+
+    //attack command
+    AttackCommand atk(*targetCell);
+    atk.setCaster(TestState.activePlayer);
+
+    bool testRange = atk.InRange(*targetCell);
+    BOOST_CHECK_EQUAL(true,testRange);
+
+    //target cell is 2,2, you need range >=2 to by in range
+    targetCell = TestState.map.layout[2][2];
+    atk.setTargetCell(*targetCell);
+    testRange = atk.InRange(*targetCell);
+
+    BOOST_CHECK_EQUAL(false,testRange);
+
+
+    //Guerrier in 1,1 try to attack position 2,2
+    cout << "Guerrier en 1,1 attaque la postition 2,2 \n";
+    int testExecute = atk.Execute(TestState); // = 1 because he can't
+    BOOST_CHECK_EQUAL(1,testExecute);
+
+    //Guerrier in 1,1 try to attack position 1,2
+    cout << "Guerrier en 1,1 attaque la postition 0,1 \n";
+    atk.setTargetCell(*TestState.map.layout[0][1]);
+    testExecute = atk.Execute(TestState); // = 0 because he can, but no other player here
+    BOOST_CHECK_EQUAL(0,testExecute);
+    //Guerrier in 1,1 try to attack another guerrier in 1,2
+    cout << "Un nouveau guerrier arrive en 1,2, il se font face \n";
+    cout << "Guerrier en 1,1 attaque la guerrier en 1,2 \n";
+       
+    testExecute = atk.Execute(TestState);
+    BOOST_CHECK_EQUAL(0,testExecute);
+
+    //Guerrier in 1,1 try to attack another guerrier in 2,1
+    cout << "Un nouveau guerrier arrive en 2,1, il se présente de côté \n";
+    cout << "Guerrier en 1,1 attaque la guerrier en 2,1 \n";    
+    atk.setTargetCell(*TestState.map.layout[2][1]);  
+    testExecute = atk.Execute(TestState);
+    BOOST_CHECK_EQUAL(0,testExecute);
+
+    //Guerrier in 1,1 try to attack another guerrier in 1,0
+    cout << "Un nouveau guerrier arrive en 1,0, il se présente de dos \n";
+    cout << "Guerrier en 1,1 attaque la guerrier en 1,0 \n";   
+    atk.setTargetCell(*TestState.map.layout[1][0]);  
+    testExecute = atk.Execute(TestState);
+    BOOST_CHECK_EQUAL(0,testExecute);
+
+
+
+
+
+
+
+    
+
+
+    //int resultAck  = atk.Execute();
+  }
+
+
+
+
+
+
+  
+}
 
