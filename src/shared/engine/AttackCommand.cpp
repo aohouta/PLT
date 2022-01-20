@@ -28,7 +28,7 @@ namespace engine{
     int AttackCommand::Execute(state::State& state){
 
         //set active player as caster
-        auto& Caster = state.activePlayer;
+        this->Caster = state.activePlayer;
 
         //Check if caster have enought range
         if(InRange(TargetCell) == false) {
@@ -40,14 +40,24 @@ namespace engine{
         shared_ptr<state::Personnage> Defender;
         int CellOccupation = 0;
         int posInlist = 0;
-        for(auto& perso : state.getPersonnages()){
-            posInlist ++;
-            if(perso->getPosition().Compare(TargetCell.getPosition())){
-                Defender = perso;
+        int sizeListeP = static_cast<int>(state.getPersonnages().size());
+
+        
+        
+        for(posInlist = 0; posInlist < sizeListeP; posInlist++){
+            
+            
+            
+            if(state.getPersonnages()[posInlist]->getPosition().Compare(TargetCell.getPosition())){
+           
+                Defender = state.getPersonnages()[posInlist];
                 CellOccupation = 2;
+                cout << "Cible acquise \n";
                 break;
             }
         }
+
+        
         switch (CellOccupation)
         {
         case 0:
@@ -91,11 +101,14 @@ namespace engine{
 
         }
             break;
-        default:
+        default: 
             cout << "Ceci n'est pas censé apparaitre \n";
             return 1;
             break;
+        
+        
         }
+        
         Caster->setActionLeft(Caster->getActionLeft()-1);
         return 0;
     }

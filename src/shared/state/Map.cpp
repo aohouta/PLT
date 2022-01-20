@@ -30,6 +30,7 @@ void Map::initMap (){
     //this way we read the txt file.
     std::string content, line, tilecode;
     if (!file)
+        cout << "--- map init failed ---" << endl;
         return;
     while (getline(file, line))
     {

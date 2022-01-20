@@ -26,21 +26,23 @@ float ActionCommand::OrientationMult(std::shared_ptr<state::Personnage>& Attacke
     int vectTarX = 0;
     int vectTarY = 0;
 
-    switch (Target->getOrientation())
-    {
-        case state::Face:
-            vectTarY = -1;
-        case state::Front:
-            vectTarY = 1;
-        case state::Left:
-            vectTarX = -1;
-        case state::Right:
-            vectTarX = 1;
-        default :
-            cout << "Ceci n'est pas censé apparaitre \n";
-            return 1;
-            break;
+    if(Target->getOrientation() == state::Face) {
+         vectTarY = -1;
     }
+    else if(Target->getOrientation() == state::Front){
+        vectTarY = 1;
+    }
+    else if(Target->getOrientation() == state::Left){
+        vectTarX = -1;
+    }
+    else if(Target->getOrientation() == state::Right){
+        vectTarX = 1;
+    }
+    else { 
+        cout << "Ceci n'est pas censé apparaitre \n";
+        return 1;
+        }
+    
 
     int vectPathX = Attacker->getPosition().getX()-Target->getPosition().getX();
     int vectPathY = Attacker->getPosition().getY()-Target->getPosition().getY();
@@ -54,6 +56,19 @@ float ActionCommand::OrientationMult(std::shared_ptr<state::Personnage>& Attacke
         return 1.5;
     }
     else return 2;
+}
+
+const state::Cell& ActionCommand::getTargetCell() const{
+    return TargetCell;
+}
+void ActionCommand::setTargetCell(const state::Cell& targetCell){
+    this->TargetCell = targetCell;
+}
+const std::shared_ptr<state::Personnage>& ActionCommand::getCaster() const{
+    return Caster;
+}
+void ActionCommand::setCaster(const std::shared_ptr<state::Personnage>& caster){
+    this->Caster = caster;
 }
 
 }
