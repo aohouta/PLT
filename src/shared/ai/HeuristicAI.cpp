@@ -46,6 +46,9 @@ void HeuristicAI::run(engine::Engine &engine,state::State& state)
         atck.Execute(state);
     }
     else{
+        for (auto &voisin : cible.alentours){
+            cout << voisin.getX() <<","<<voisin.getY() << endl;
+        }
         cout << state.activePlayer->getNom() << " s'apprête à avancer à la position -> ("<< cible.alentours[0].getX() << "," << cible.alentours[0].getY() <<")...\n"<< endl;
         ID_Action Action = MOVING;
         state.activePlayer->setAction(Action) ;
@@ -103,7 +106,7 @@ bool HeuristicAI::initMapNode(state::State& state){
         if (node.getOccupied() == true){
             for (auto &node2 : nodes){
                 if ( node2.getOccupied() != true && abs(node.getX() - node2.getX()) + abs(node.getY() - node2.getY()) <= 2 ){
-                    cout << "distance : " << abs(node.getX() - node2.getX()) + abs(node.getY() - node2.getY()) << endl;
+                    //cout << "distance : " << abs(node.getX() - node2.getX()) + abs(node.getY() - node2.getY()) << endl;
                     node.alentours.push_back(node2);
                 }
             }

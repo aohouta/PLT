@@ -203,6 +203,7 @@ int main(int argc,char* argv[])
             Slayer.initSprite();
             
             ai::HeuristicAI hai;
+            hai.initMapNode(state);
             ngine.Start();
             while (window.isOpen()){
                 sf::Event event;
