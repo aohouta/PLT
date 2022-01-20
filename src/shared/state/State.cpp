@@ -14,8 +14,7 @@ State::State (std::string mode){
     mode = mode;
     std::cout << "Creating a state object in >>>" + mode + "<<< mode\n";
     //std::vector<std::unique_ptr<Personnage>> Personnages;
-    
-    ListeJoueur ;
+   
 }
 
 const std::vector<std::shared_ptr<Personnage>>&State::getPersonnages() const{
@@ -24,13 +23,23 @@ const std::vector<std::shared_ptr<Personnage>>&State::getPersonnages() const{
     
 }
 
-void State::initPersonnage (ID_PType PType,int x, int y){
+void State::initPersonnage (ID_PType PType,int x, int y,int ID_Invocateur){
     
-
-    std::unique_ptr<Personnage> ptrC1(new Personnage("Ultimate Warrior of DOOM APOCALYPSE",PType));
-    ptrC1->setPosition({x,y});
-    Personnages.push_back(move(ptrC1));
-
+    if (PType == Guerrier){
+        std::unique_ptr<Personnage> ptrC1(new Personnage("Ultimate Warrior of DOOM APOCALYPSE",PType,ID_Invocateur));
+        ptrC1->setPosition({x,y});
+        Personnages.push_back(move(ptrC1));
+    }
+    if (PType == Mage){
+        std::unique_ptr<Personnage> ptrC1(new Personnage("Dark mage of the Lost Forest",PType,ID_Invocateur));
+        ptrC1->setPosition({x,y});
+        Personnages.push_back(move(ptrC1));
+    }
+    if (PType == Mage){
+        std::unique_ptr<Personnage> ptrC1(new Personnage("Wild Archer of the Old Mountain",PType,ID_Invocateur));
+        ptrC1->setPosition({x,y});
+        Personnages.push_back(move(ptrC1));
+    }
 
     
     
@@ -50,6 +59,10 @@ void State::initPersonnage (ID_PType PType,int x, int y){
     cout << "characters inits finished\n";
     return sprite;*/
     
+}
+
+void State::DeletePerso(int posInList){
+    Personnages.erase(Personnages.begin() + posInList);
 }
 
 }

@@ -360,17 +360,31 @@ Les classes commandes, ce sont les classes qui représentent les différentes co
 \section{Intelligence Artificielle}
 
 \subsection{Stratégies}
+\subsubsection{Intelligence aléatoire}
+L'intelligence artificielle que nous implémentons consiste à sélectionner un personnage aléatoirement dans la liste des personnages encore vivant. Après avoir sélectionner le personnage, l'intelligence va choisir aléatoirement une action entre "déplacer le personnage" et "attaquer un personnage".\\
+Pout générer de l'aléatoire nous utilisons la fonction \textbf{rand()} de la librairie \textit{<cstdlib>}.
+\subsubsection{Intelligence heuristiques}
+Pour avoir un meilleur comportement que le hasard, nous décidons d'implémenter un ensemble d'heuristiques afin que l'intelligence artificielle puisse répondre au problème suivant :\\
+\begin{center}
+\textbf{Tuer tous les personnages de l'adversaire}.
+\end{center}
+Pour commencer nous avons choisis les heuristiques suivantes :\\
+\begin{itemize}
+\item Si un personnage est à portée, on l'attaque !
+\item Si un personnage a moins de 30\% de ses PV max, on s'approche de lui.
+\end{itemize}
+\clearpage
 
 \clearpage
 \subsection{Conception logiciel}
 
 
-%\begin{landscape}
-%\begin{figure}[p]
-%\includegraphics[width=0.9\paperheight]{ai.pdf}
-%\caption{\label{uml:ai}Diagramme des classes d'intelligence artificielle.} 
-%\end{figure}
-%\end{landscape}
+\begin{landscape}
+\begin{figure}[p]
+\includegraphics[width=0.6\paperheight,angle=270]{ai.pdf}
+\caption{\label{uml:ai}Diagramme des classes d'intelligence artificielle.} 
+\end{figure}
+\end{landscape}
 
 
 \section{Modularisation}
