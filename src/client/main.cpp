@@ -257,7 +257,7 @@ int main(int argc,char* argv[])
                 hai.run(ngine,state);
                 ngine.EndTurn();
                 if(timeRoll == 10){
-                    cout << "Rolling BACK !!"
+                    cout << "Rolling BACK !!"<<endl;
                     state = rollback.LoadState();
                 }
                 else {timeRoll++;}

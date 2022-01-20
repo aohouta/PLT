@@ -42,7 +42,7 @@ void State::initPersonnage (ID_PType PType,int x, int y,int ID_Invocateur){
         Personnages.push_back(move(ptrC1));
         
     }
-    if (PType == Mage){
+    if (PType == Archer){
         std::shared_ptr<Personnage> ptrC1(new Personnage("Wild Archer of the Old Mountain",PType,ID_Invocateur));
         ptrC1->setPosition({x,y});
         ptrC1->setOrientation(Face);

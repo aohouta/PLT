@@ -22,37 +22,42 @@ using namespace std;
 void HeuristicAI::run(engine::Engine &engine,state::State& state)
 {
     updateMapNodes(state);
-    cout << "Le personnage sélectionné est ... " << state.activePlayer->getNom() << "!" << endl;
+    cout << "Le personnage sélectionné est ... " << state.activePlayer->getNom() <<" de l'équipe "<< state.activePlayer->getID_Invocateur()<<" !" << endl;
     
-    cout << "La cible est ... " << selectTarget(state)->getNom() << "!" << endl;
+    cout << "La cible est ... " << selectTarget(state)->getNom() <<" de l'équipe "<< selectTarget(state)->getID_Invocateur()<< " !" << endl;
     
-    cout << "Recherche des nodes correpondante"<<endl;
     Node cible{selectTarget(state)->getPosition().getX(),selectTarget(state)->getPosition().getY(),0,true};
     Node player{state.activePlayer->getPosition().getX(),state.activePlayer->getPosition().getY(),0,true};
     for (auto &node : nodes){
         if (node.getX() == selectTarget(state)->getPosition().getX() && node.getY() == selectTarget(state)->getPosition().getY() ) cible = node;
         if (node.getX() == state.activePlayer->getPosition().getX() && node.getY() == state.activePlayer->getPosition().getY() ) player = node;
-        
     }
     
     cout << "player : "<< player.getX() <<","<< player.getY() <<endl;
     cout << "cible : "<< cible.getX() <<","<< cible.getY() <<endl;
     int distance = abs(player.getX() - cible.getX()) + abs(player.getY() - cible.getY());
-    if (distance <= 2 ){
-        cout << state.activePlayer->getNom() << " s'apprête à attaquer la cible ! \n"<< endl;
+    if (distance <= 1 ){
+        cout << state.activePlayer->getNom() <<" de l'équipe "<< state.activePlayer->getID_Invocateur()<<" s'apprête à attaquer la cible ! \n"<< endl;
         ID_Action Action = ATTACKING;
         state.activePlayer->setAction(Action);
         AttackCommand atck(*state.map.layout[selectTarget(state)->getPosition().getX()][selectTarget(state)->getPosition().getY()]);
         atck.Execute(state);
     }
     else{
-        for (auto &voisin : cible.alentours){
-            cout << voisin.getX() <<","<<voisin.getY() << endl;
+        Node destination = cible;
+        for (auto &voisin : player.alentours){
+            int minimalDist = distance;
+            int dist = abs(destination.getX() - voisin.getX()) + abs(destination.getY() - voisin.getY());
+            if (dist < minimalDist ){
+                minimalDist = distance;
+                cible = voisin;
+            }
         }
-        cout << state.activePlayer->getNom() << " s'apprête à avancer à la position -> ("<< cible.alentours[0].getX() << "," << cible.alentours[0].getY() <<")...\n"<< endl;
+        
+        cout << state.activePlayer->getNom() <<" de l'équipe "<< state.activePlayer->getID_Invocateur()<< " s'apprête à avancer à la position -> ("<< cible.getX() << "," << cible.getY() <<")...\n"<< endl;
         ID_Action Action = MOVING;
         state.activePlayer->setAction(Action) ;
-        MoveCommand move(*state.map.layout[cible.alentours[0].getX()][cible.alentours[0].getY()]);
+        MoveCommand move(*state.map.layout[cible.getX()][cible.getY()]);
         move.Execute(state);
     }
     
@@ -80,6 +85,7 @@ shared_ptr<state::Personnage> HeuristicAI::selectTarget(state::State& state){
                 ennemiPerso = perso;
             }
         }
+        
     }
     return ennemiPerso;
 }
