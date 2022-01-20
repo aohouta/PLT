@@ -21,15 +21,15 @@ namespace engine{
         if(occupation == 0){
             if(Pathfinding()){
                 Perso->setPosition(TargetCell.getPosition());
-                cout << "Moved"<<endl;
+                cout << "Moved to X:"<< Perso->getPosition().getX() << " Y: " << Perso->getPosition().getY() << endl ;
                 return 1;
             }
             else {
-                cout << "Too far\n";
+                cout << "Can't move because too far\n";
             }
         }
         else {
-            cout << "You can't do that\n";
+            cout << "You can't do that someone is already here\n";
         }
         return 0;
     }

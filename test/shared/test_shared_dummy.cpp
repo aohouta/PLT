@@ -508,9 +508,39 @@ BOOST_AUTO_TEST_CASE(TestEngine)
     atk.setTargetCell(*TestState.map.layout[1][0]);  
     testExecute = atk.Execute(TestState);
     BOOST_CHECK_EQUAL(0,testExecute);
+  }
 
+  {
+    //Test method of MoveCommand
+    cout << "---------------- MoveCommand -------------- \n";
+    shared_ptr<state::Cell> targetCell = TestState.map.layout[0][1];
+    MoveCommand mov(*targetCell);
 
+    shared_ptr<state::Personnage> perso = TestState.activePlayer;
+    // Mov from 1,1 to 0,1 =>Distance = 1
+    cout << "Guerrier start from X:1 Y:1 \n";
+    int testMov = mov.Execute(TestState);
+    BOOST_CHECK_EQUAL(1,testMov);
+    BOOST_CHECK_EQUAL(0,perso->getPosition().getX());
+    BOOST_CHECK_EQUAL(1,perso->getPosition().getY());
 
+    // Mov from 0,1 to 10,10 =>Distance = 19 > range guerrier =3
+    targetCell = TestState.map.layout[10][10];
+    mov.TargetCell = *targetCell;
+    cout << "Guerrier start from X:0 Y:1 \n";
+    testMov = mov.Execute(TestState);
+    BOOST_CHECK_EQUAL(0,testMov);
+    BOOST_CHECK_EQUAL(0,perso->getPosition().getX());
+    BOOST_CHECK_EQUAL(1,perso->getPosition().getY());
+
+    // Mov from 0,1 to 2,1 =>Distance = 2 but someone already here
+    targetCell = TestState.map.layout[2][1];
+    mov.TargetCell = *targetCell;
+    cout << "Guerrier start from X:0 Y:1 \n";
+    testMov = mov.Execute(TestState);
+    BOOST_CHECK_EQUAL(0,testMov);
+    BOOST_CHECK_EQUAL(0,perso->getPosition().getX());
+    BOOST_CHECK_EQUAL(1,perso->getPosition().getY());
 
 
 
@@ -518,7 +548,7 @@ BOOST_AUTO_TEST_CASE(TestEngine)
     
 
 
-    //int resultAck  = atk.Execute();
+
   }
 
 
