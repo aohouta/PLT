@@ -47,21 +47,39 @@ void HeuristicAI::run(engine::Engine &engine,state::State& state)
     }
     else{
         Node destination = cible;
+        int minimalDist = abs(destination.getX() - state.activePlayer->getPosition().getX()) + abs(destination.getY() - state.activePlayer->getPosition().getY());
         for (auto &voisin : player.alentours){
-            int minimalDist = distance;
+            
             int dist = abs(destination.getX() - voisin.getX()) + abs(destination.getY() - voisin.getY());
-            if (dist < minimalDist ){
-                minimalDist = distance;
+            int range = abs(voisin.getX() - state.activePlayer->getPosition().getX()) + abs(voisin.getY() - state.activePlayer->getPosition().getY());
+            if (dist < minimalDist && range <= state.activePlayer->getMOB() ){
+                minimalDist = dist;
                 cible = voisin;
             }
         }
-        
+        cout << " dist optimal = " << minimalDist << endl;
         cout << state.activePlayer->getNom() <<" de l'équipe "<< state.activePlayer->getID_Invocateur()<< " s'apprête à avancer à la position -> ("<< cible.getX() << "," << cible.getY() <<")...\n"<< endl;
         ID_Action Action = MOVING;
         state.activePlayer->setAction(Action) ;
         MoveCommand move(*state.map.layout[cible.getX()][cible.getY()]);
         move.Execute(state);
+
+        //to optimise
+        //if in range after move
+        cout << "player : "<< player.getX() <<","<< player.getY() <<endl;
+        cout << "cible : "<< cible.getX() <<","<< cible.getY() <<endl;
+        
+
+        if (minimalDist <= state.activePlayer->getBasicRange())
+        {
+            cout << state.activePlayer->getNom() <<" de l'équipe "<< state.activePlayer->getID_Invocateur()<<" s'apprête à attaquer la cible ! \n"<< endl;
+            ID_Action Action = ATTACKING;
+            state.activePlayer->setAction(Action);
+            AttackCommand atck(*state.map.layout[selectTarget(state)->getPosition().getX()][selectTarget(state)->getPosition().getY()]);
+            atck.Execute(state);
+        }
     }
+    
     
     
     
@@ -113,12 +131,13 @@ bool HeuristicAI::initMapNode(state::State& state){
     bool valid;
     int tailleMapX = static_cast<int>(state.map.layout.size());
     int tailleMapY = static_cast<int>(state.map.layout[0].size());
+    cout << "Initialisation des voisins 2" << endl;
     for (auto &node : nodes){
         if (node.getOccupied() == true){
             for (auto &node2 : nodes){
                 valid = true;
                 // if ( node2.getOccupied() != true && abs(node.getX() - node2.getX()) + abs(node.getY() - node2.getY()) <= 2 ){
-                valid = abs(node.getX() - node2.getX()) + abs(node.getY() - node2.getY()) <= state.activePlayer->getMOB();
+                valid = abs(node.getX() - node2.getX()) + abs(node.getY() - node2.getY()) <= state.getPersonnages()[0]->getMOB();
                 //check if in map
                 if (node2.getX() >= tailleMapX || node2.getX() < 0){
                     valid = false;
@@ -129,7 +148,7 @@ bool HeuristicAI::initMapNode(state::State& state){
                 
 
                 if ( node2.getOccupied() != true && valid == true  ){
-                    //cout << "distance : " << abs(node.getX() - node2.getX()) + abs(node.getY() - node2.getY()) << endl;
+                    cout << "distance : " << abs(node.getX() - node2.getX()) + abs(node.getY() - node2.getY()) << endl;
                     node.alentours.push_back(node2);
                 }
             }
@@ -139,15 +158,31 @@ bool HeuristicAI::initMapNode(state::State& state){
 }
 
 void HeuristicAI::updateMapNodes(state::State& state){
+    int tailleMapX = static_cast<int>(state.map.layout.size());
+    int tailleMapY = static_cast<int>(state.map.layout[0].size());
     for(auto &node : nodes){
         node.setOccupied(false);
+        int i = 0;
         for(auto &perso : state.getPersonnages()){
             if(perso->getPosition().getX() == node.getX() && perso->getPosition().getY() == node.getY()){
+                
                 node.setOccupied(true);
+                bool valid;
                 for (auto &node2 : nodes){
-                    if ( node2.getOccupied() != true && abs(node.getX() - node2.getX()) + abs(node.getY() - node2.getY()) <= 2 ) node.alentours.push_back(node2);
+                     valid = true;
+                    // if ( node2.getOccupied() != true && abs(node.getX() - node2.getX()) + abs(node.getY() - node2.getY()) <= 2 ){
+                    valid = abs(node.getX() - node2.getX()) + abs(node.getY() - node2.getY()) <= state.getPersonnages()[i]->getMOB();
+                    //check if in map
+                    if (node2.getX() >= tailleMapX || node2.getX() < 0){
+                        valid = false;
+                    }
+                    if (node2.getY() >= tailleMapY || node2.getY() < 0){
+                        valid = false;
+                    }
+                    if ( node2.getOccupied() != true && valid ==true ) node.alentours.push_back(node2);
                 }
             }
+            i++;
         }
         for(int i= 0; i< node.alentours.size();i++){
             if (node.alentours[i].getOccupied() == true) node.alentours.erase(node.alentours.begin()+i,node.alentours.begin()+i+1);
