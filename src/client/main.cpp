@@ -168,11 +168,14 @@ int main(int argc,char* argv[])
             State state{"render"};
             engine::Engine ngine(state);
             state.map.initMap();
-            state.initPersonnage(Mage,2,2,1);
-            state.initPersonnage(Archer,5,5,1);
-            state.initPersonnage(Guerrier,5,6,1);
-            state.initPersonnage(Mage,6,5,2);
-            state.initPersonnage(Archer,10,2,2);
+            //team 1
+            state.initPersonnage(Mage,1,11,1);
+            state.initPersonnage(Archer,1,12,1);
+            state.initPersonnage(Guerrier,1,13,1);
+            //team 2
+            state.initPersonnage(Mage,19,11,2);
+            state.initPersonnage(Archer,19,12,2);
+            state.initPersonnage(Guerrier,19,13,2);
             //todo changer ordre position initperso
             sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
             //window.setSize(sf::Vector2u(2624, 1408));
@@ -194,7 +197,7 @@ int main(int argc,char* argv[])
                 }
                 Slayer.draw(window);
                 sleep(3);
-                cout << "--- Selection du personnage aléatoirement ---"<< endl;
+                cout << "--- Selection du personnage ---"<< endl;
                 rai.run(state);
                 ngine.EndTurn();
             }

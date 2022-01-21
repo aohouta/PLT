@@ -19,7 +19,7 @@ namespace engine{
             }
         }
         if(occupation == 0){
-            if(Pathfinding()){
+            if(Pathfinding()){            
                 Perso->setPosition(TargetCell.getPosition());
                 cout << "Moved to X:"<< Perso->getPosition().getX() << " Y: " << Perso->getPosition().getY() << endl ;
                 return 1;
