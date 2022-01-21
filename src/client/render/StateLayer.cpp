@@ -67,7 +67,7 @@ void StateLayer::draw (sf::RenderWindow& window){
     
    
     
-    for (unsigned int i=0;i<currentState.getPersonnages().size();i++){
+    for (size_t i=0; i< currentState.getPersonnages().size() ; i++){
         sprites[i].setPosition(currentState.getPersonnages()[i]->getPosition().getX()*16,(currentState.getPersonnages()[i]->getPosition().getY()*16)-20);
         window.draw(sprites[i]);
     }
@@ -95,12 +95,14 @@ void StateLayer::initSprite (){
             }
         }
         else if (currentState.getPersonnages()[i]->getPType()==Guerrier){
-            if (!texture.loadFromFile("res/tank.png")){
+            if (!texture.loadFromFile("res/tank.png"))            
+            {
                 std::cout << "\nOOPSIE DOOPSIE\n";
             }
         }
         else if (currentState.getPersonnages()[i]->getPType()==Archer){
-            if (!texture.loadFromFile("res/archer.png")){
+            if (!texture.loadFromFile("res/archer.png"))
+            {
                 std::cout << "\nOOPSIE DOOPSIE\n";
             }
         }

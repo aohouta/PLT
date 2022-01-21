@@ -19,7 +19,7 @@ namespace engine{
             }
         }
         if(occupation == 0){
-            if(Pathfinding()){
+            if(Pathfinding()){            
                 Perso->setPosition(TargetCell.getPosition());
                 cout << "Moved to X:"<< Perso->getPosition().getX() << " Y: " << Perso->getPosition().getY() << endl ;
                 return 1;
@@ -37,6 +37,7 @@ namespace engine{
         auto posCell = TargetCell.getPosition();
         auto posPerso = Perso->getPosition();
         int dist = abs(posCell.getX()-posPerso.getX())+abs(posCell.getY()-posPerso.getY());
-        return dist<Perso->getMOB();
+        if(dist <= Perso->getMOB() ){return true;}
+        else{return false;}
     }
 }

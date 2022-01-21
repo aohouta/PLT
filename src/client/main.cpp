@@ -58,7 +58,7 @@ int main(int argc,char* argv[])
             cout << "--- Render ---" << endl;
             State state{"render"};
             state.map.initMap();
-            state.initPersonnage(Mage,2,2,1);
+            /*state.initPersonnage(Mage,2,2,1);
             state.initPersonnage(Archer,5,5,1);
             state.initPersonnage(Guerrier,5,6,1);
             state.initPersonnage(Mage,6,5,2);
@@ -67,11 +67,25 @@ int main(int argc,char* argv[])
             newPosition.setX(10);
             newPosition.setY(10);
             state.getPersonnages()[2]->setPosition(newPosition);
+            */
+            state.initPersonnage(Mage,1,1,1);
+            state.initPersonnage(Mage,1,3,1);
+            state.initPersonnage(Mage,3,1,1);
+            state.initPersonnage(Guerrier,5,5,1);
+            state.initPersonnage(Guerrier,5,7,1);
+            state.initPersonnage(Guerrier,7,5,1);
+
+            state.initPersonnage(Archer,10,10,1);
+            state.initPersonnage(Archer,12,10,1);
+            state.initPersonnage(Archer,10,12,1);
+
             sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
             //window.setSize(sf::Vector2u(2624, 1408));
             StateLayer Slayer(state, window);
             Slayer.initLayer(state);
+            cout << " ----- init sprite ------" << endl;
             Slayer.initSprite();
+            cout << " ----- end init sprite ------" << endl;
             while (window.isOpen())
             {
                 sf::Event event;
@@ -154,11 +168,14 @@ int main(int argc,char* argv[])
             State state{"render"};
             engine::Engine ngine(state);
             state.map.initMap();
-            state.initPersonnage(Mage,2,2,1);
-            state.initPersonnage(Archer,5,5,1);
-            state.initPersonnage(Guerrier,5,6,1);
-            state.initPersonnage(Mage,6,5,2);
-            state.initPersonnage(Archer,10,2,2);
+            //team 1
+            state.initPersonnage(Mage,1,11,1);
+            state.initPersonnage(Archer,1,12,1);
+            state.initPersonnage(Guerrier,1,13,1);
+            //team 2
+            state.initPersonnage(Mage,19,11,2);
+            state.initPersonnage(Archer,19,12,2);
+            state.initPersonnage(Guerrier,19,13,2);
             //todo changer ordre position initperso
             sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
             //window.setSize(sf::Vector2u(2624, 1408));
@@ -180,7 +197,7 @@ int main(int argc,char* argv[])
                 }
                 Slayer.draw(window);
                 sleep(3);
-                cout << "--- Selection du personnage aléatoirement ---"<< endl;
+                cout << "--- Selection du personnage ---"<< endl;
                 rai.run(state);
                 ngine.EndTurn();
             }
@@ -220,6 +237,61 @@ int main(int argc,char* argv[])
                 hai.run(ngine,state);
                 ngine.EndTurn();
             }
+        }
+        else if (strcmp(argv[1], "battle") == 0){
+
+            cout << "--- Battle Random AI vs HeuristicAI ---" << endl;
+            State state{"render"};
+            engine::Engine ngine(state);
+            state.map.initMap();
+
+            //team 1
+            cout << "Team 1 will be random AI" << endl;
+            state.initPersonnage(Mage,1,11,1);
+            state.initPersonnage(Archer,1,12,1);
+            state.initPersonnage(Guerrier,1,13,1);
+            //team 2
+            cout << "Team 2 will be HeuristicAI" << endl;
+            state.initPersonnage(Mage,19,11,2);
+            state.initPersonnage(Archer,19,12,2);
+            state.initPersonnage(Guerrier,19,13,2);
+
+            //todo changer ordre position initperso
+            sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
+            //window.setSize(sf::Vector2u(2624, 1408));
+            StateLayer Slayer(state, window);
+            Slayer.initLayer(state);
+            Slayer.initSprite();
+            
+            ai::RandomAI rai;
+            ai::HeuristicAI hai;
+            hai.initMapNode(state);
+
+            ngine.Start();
+            while (window.isOpen()){
+                sf::Event event;
+                while (window.pollEvent(event))
+                {
+                    if (event.type == sf::Event::Closed){
+                        state.gameOver = true;
+                        ngine.Stop();
+                        window.close();
+                    }
+                }
+                Slayer.draw(window);
+                sleep(3);
+                if(state.activePlayer->getID_Invocateur()==1){
+                    cout << "- Random AI-"<< endl;
+                    rai.run(state);
+                }
+                else{
+                    cout << "-Heuristic AI-"<< endl;
+                    hai.run(ngine,state);
+                }
+                
+                ngine.EndTurn();
+            }
+
         }
         else if (strcmp(argv[1], "rollback") == 0){
             cout << "--- rollback ---" << endl;
