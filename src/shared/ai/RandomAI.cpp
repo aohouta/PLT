@@ -105,7 +105,7 @@ void RandomAI::randomAtk(state::State& state) {
                 }
 
                 range = abs(targetX-posX)+abs(targetY-posY);
-                cout << "tente d'attaquer à " << range << endl;
+                //cout << "tente d'attaquer à " << range << endl;
 
             }while(range > atkRange || offLimit == 1);
             
@@ -190,8 +190,8 @@ void RandomAI::randomMov(state::State& state) {
 
 
         cout << Perso->getNom() << " bouge de -> ("<< posX << "," << posY <<")...\n"<< endl;
-        cout << "soit un déplacement de " << abs(newX-posX)+abs(newY-posY) <<endl;
         cout << Perso->getNom() << " s'apprête à avancer à la position -> ("<< newX << "," << newY <<")...\n"<< endl;
+        cout << "soit un déplacement de " << abs(newX-posX)+abs(newY-posY) <<endl;
         MoveCommand move(*state.map.layout[newX][newY]);
         move.Execute(state);
         cout << "Fin de l'action.\n" << endl;

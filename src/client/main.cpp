@@ -238,6 +238,61 @@ int main(int argc,char* argv[])
                 ngine.EndTurn();
             }
         }
+        else if (strcmp(argv[1], "battle") == 0){
+
+            cout << "--- Battle Random AI vs HeuristicAI ---" << endl;
+            State state{"render"};
+            engine::Engine ngine(state);
+            state.map.initMap();
+
+            //team 1
+            cout << "Team 1 will be random AI" << endl;
+            state.initPersonnage(Mage,1,11,1);
+            state.initPersonnage(Archer,1,12,1);
+            state.initPersonnage(Guerrier,1,13,1);
+            //team 2
+            cout << "Team 2 will be HeuristicAI" << endl;
+            state.initPersonnage(Mage,19,11,2);
+            state.initPersonnage(Archer,19,12,2);
+            state.initPersonnage(Guerrier,19,13,2);
+
+            //todo changer ordre position initperso
+            sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
+            //window.setSize(sf::Vector2u(2624, 1408));
+            StateLayer Slayer(state, window);
+            Slayer.initLayer(state);
+            Slayer.initSprite();
+            
+            ai::RandomAI rai;
+            ai::HeuristicAI hai;
+            hai.initMapNode(state);
+
+            ngine.Start();
+            while (window.isOpen()){
+                sf::Event event;
+                while (window.pollEvent(event))
+                {
+                    if (event.type == sf::Event::Closed){
+                        state.gameOver = true;
+                        ngine.Stop();
+                        window.close();
+                    }
+                }
+                Slayer.draw(window);
+                sleep(3);
+                if(state.activePlayer->getID_Invocateur()==1){
+                    cout << "- Random AI-"<< endl;
+                    rai.run(state);
+                }
+                else{
+                    cout << "-Heuristic AI-"<< endl;
+                    hai.run(ngine,state);
+                }
+                
+                ngine.EndTurn();
+            }
+
+        }
         else if (strcmp(argv[1], "rollback") == 0){
             cout << "--- rollback ---" << endl;
             State state{"render"};

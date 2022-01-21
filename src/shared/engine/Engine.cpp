@@ -19,7 +19,7 @@ namespace engine{
                 int vitMax = 100;
                 for(auto& perso : state->getPersonnages()){
                     perso->VitessePos += perso->getVIT();
-                    cout << "name = " << perso->getPType() << "Vitesse actuelle =" << perso->VitessePos << endl ;
+                    cout << "name = " << perso->getNom() << " de l'équipe " <<  perso->getID_Invocateur() << " Vitesse actuelle =" << perso->VitessePos << endl ;
                     if(perso->VitessePos >= vitMax){
                         vitMax = perso->VitessePos;
                         state->activePlayer = perso;
@@ -39,7 +39,7 @@ namespace engine{
         state->activePlayer = nullptr;
         int vitMax = 100;
         for(auto& perso : state->getPersonnages()){
-            cout << "name = " << perso->getPType() << "Vitesse actuelle =" << perso->VitessePos << endl;
+            cout << "name = " << perso->getNom() << " de l'équipe " <<  perso->getID_Invocateur() << " Vitesse actuelle =" << perso->VitessePos << endl ;
             if(perso->VitessePos >= vitMax){
                 vitMax = perso->VitessePos;
                 state->activePlayer = perso;
