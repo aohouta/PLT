@@ -36,7 +36,9 @@ void HeuristicAI::run(engine::Engine &engine,state::State& state)
     cout << "player : "<< player.getX() <<","<< player.getY() <<endl;
     cout << "cible : "<< cible.getX() <<","<< cible.getY() <<endl;
     int distance = abs(player.getX() - cible.getX()) + abs(player.getY() - cible.getY());
-    if (distance <= 1 ){
+    //if (distance <= 1 ) //attack range
+    if (distance <= state.activePlayer->getBasicRange())
+    {
         cout << state.activePlayer->getNom() <<" de l'équipe "<< state.activePlayer->getID_Invocateur()<<" s'apprête à attaquer la cible ! \n"<< endl;
         ID_Action Action = ATTACKING;
         state.activePlayer->setAction(Action);
@@ -108,10 +110,25 @@ bool HeuristicAI::initMapNode(state::State& state){
     }
     //calcule des voisins
     cout << "Initialisation des voisins" << endl;
+    bool valid;
+    int tailleMapX = static_cast<int>(state.map.layout.size());
+    int tailleMapY = static_cast<int>(state.map.layout[0].size());
     for (auto &node : nodes){
         if (node.getOccupied() == true){
             for (auto &node2 : nodes){
-                if ( node2.getOccupied() != true && abs(node.getX() - node2.getX()) + abs(node.getY() - node2.getY()) <= 2 ){
+                valid = true;
+                // if ( node2.getOccupied() != true && abs(node.getX() - node2.getX()) + abs(node.getY() - node2.getY()) <= 2 ){
+                valid = abs(node.getX() - node2.getX()) + abs(node.getY() - node2.getY()) <= state.activePlayer->getMOB();
+                //check if in map
+                if (node2.getX() >= tailleMapX || node2.getX() < 0){
+                    valid = false;
+                }
+                if (node2.getY() >= tailleMapY || node2.getY() < 0){
+                    valid = false;
+                }
+                
+
+                if ( node2.getOccupied() != true && valid == true  ){
                     //cout << "distance : " << abs(node.getX() - node2.getX()) + abs(node.getY() - node2.getY()) << endl;
                     node.alentours.push_back(node2);
                 }
