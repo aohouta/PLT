@@ -280,6 +280,7 @@ int main(int argc,char* argv[])
                 }
                 Slayer.draw(window);
                 sleep(3);
+                while(state.activePlayer == nullptr){;}
                 if(state.activePlayer->getID_Invocateur()==1){
                     cout << "- Random AI-"<< endl;
                     rai.run(state);
@@ -333,6 +334,40 @@ int main(int argc,char* argv[])
                     state = rollback.LoadState();
                 }
                 else {timeRoll++;}
+            }
+        }
+        else if (strcmp(argv[1], "deep_ai") == 0){
+            cout << "--- DeepAI ---" << endl;
+            State state{"render"};
+            engine::Engine ngine(state);
+            state.map.initMap();
+            state.initPersonnage(Mage,2,2,1);
+            state.initPersonnage(Archer,5,5,1);
+            state.initPersonnage(Guerrier,5,6,1);
+            state.initPersonnage(Mage,6,5,2);
+            state.initPersonnage(Archer,10,2,2);
+            //todo changer ordre position initperso
+            sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
+            //window.setSize(sf::Vector2u(2624, 1408));
+            StateLayer Slayer(state, window);
+            Slayer.initLayer(state);
+            Slayer.initSprite();
+            ai::DeepAI Dai;
+            ngine.Start();
+            while (window.isOpen()){
+                sf::Event event;
+                while (window.pollEvent(event))
+                {
+                    if (event.type == sf::Event::Closed){
+                        state.gameOver = true;
+                        ngine.Stop();
+                        window.close();
+                    }
+                }
+                Slayer.draw(window);
+                sleep(3);
+                Dai.run(state);
+                ngine.EndTurn();
             }
         }
     }

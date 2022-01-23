@@ -9,7 +9,8 @@ namespace engine{
     Engine::Engine(state::State& state){
         this->state = &state;
     }
-    void Engine::Start(){
+    void Engine::Start(int time){
+        timing = time;
         inc = thread(&Engine::Increment, this);
     }
     void Engine::Increment(){
@@ -18,33 +19,25 @@ namespace engine{
             if(state->activePlayer == nullptr){
                 int vitMax = 100;
                 for(auto& perso : state->getPersonnages()){
-                    perso->VitessePos += perso->getVIT();
                     cout << "name = " << perso->getNom() << " de l'équipe " <<  perso->getID_Invocateur() << " Vitesse actuelle =" << perso->VitessePos << endl ;
                     if(perso->VitessePos >= vitMax){
                         vitMax = perso->VitessePos;
                         state->activePlayer = perso;
                         //Start turn
                     }
+                    if(state->activePlayer == nullptr){
+                        perso->VitessePos += perso->getVIT();
+                    }
                 }
                 cout << endl;
             }
-            if(!(state->activePlayer == nullptr)) {
-                state->activePlayer->VitessePos = 0;
-            }
             stateMute.unlock();
-            sleep(1);
+            sleep(timing);
         }
     }
     void Engine::EndTurn(){
+        state->activePlayer->VitessePos = 0;
         state->activePlayer = nullptr;
-        int vitMax = 100;
-        for(auto& perso : state->getPersonnages()){
-            cout << "name = " << perso->getNom() << " de l'équipe " <<  perso->getID_Invocateur() << " Vitesse actuelle =" << perso->VitessePos << endl ;
-            if(perso->VitessePos >= vitMax){
-                vitMax = perso->VitessePos;
-                state->activePlayer = perso;
-            }
-        }
     }
     void Engine::Stop(){
         inc.join();
