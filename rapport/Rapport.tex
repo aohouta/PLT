@@ -373,6 +373,14 @@ Pour commencer nous avons choisis les heuristiques suivantes :\\
 \item Sinon, on cible un personnage qui possède moins de 30\% de ses PVMax pour s'en approcher.
 \item Sinon, on cible un personnage qui possède une défense inférieure à notre attaque.
 \end{itemize}
+\subsubsection{Intelligence avancé}
+Pour avoir une intelligence qui réfléchit par-elle même, nous avons opté pour une intelligence utilisant
+un arbre de recherche. 
+\\ Notre IA avancé va commencer par faire une liste de tous les personnages faisant partie de l'équipe ennemie,
+puis, dans une copie du "state", elle va essayer de se rapprocher de chacun de ces ennemis et de les attaquer, 
+on va ensuite laisser l'IA heuristique jouée quelques tours, et on note le résultat, si un allié est mort, on a une
+mauvaise note, si un ennemi est mort, alors on a une bonne note, on prend alors le coup qui a permis d'avoir
+la meilleure note, et on le joue.
 \clearpage
 
 \clearpage
@@ -383,6 +391,9 @@ Pout générer de l'aléatoire nous utilisons la fonction \textbf{rand()} de la 
 \paragraph{HeuristiqueIA}
 Nous avons introduit un système de \textbf{node}, les nodes sont crées en parcourant la map et chaque cellule sera associée à une node, elles sont distinguées selon si un personnage est présent dans la case.\\
 De plus à chaque node et associée un alentours qui est une liste de node "libre" autour d'elle. Ceci permet aux personnages de se déplacer tout en esquivant les autres personnages. 
+\paragraph{DeepIA}
+Pour l'IA avancén nous nous sommes inspiré de l'IA heuristique, en y ajoutant un système d'état temporaire
+de simulation, et un système de note, qui permet de classifier les différents coups.
 \begin{landscape}
 \begin{figure}[p]
 \includegraphics[width=0.6\paperheight,angle=270]{ai.pdf}
