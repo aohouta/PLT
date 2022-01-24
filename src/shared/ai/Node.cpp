@@ -19,14 +19,15 @@ using namespace state;
 using namespace std;
 
 
-Node::Node(int x,int y,int id, bool occupied, int poids){
+Node::Node(int x,int y,int id, shared_ptr<state::Personnage> occupent, int poids){
     this->x = x;
     this->y = y;
     this->id = id;
-    this->occupied = occupied;
+    //this->occupied = occupied;
+    this->occupiedBy = occupent;
     this->poids = poids;
 }
-
+Node::Node(){}
 
 int Node::getX() const{
     return x;
@@ -44,6 +45,7 @@ void Node::setY(int y){
     this->y = y;
 }
 
+/*
 bool Node::getOccupied() const{
     return occupied;
 }
@@ -51,6 +53,7 @@ bool Node::getOccupied() const{
 void Node::setOccupied(bool occupied){
     this->occupied=occupied;
 }
+*/
 
 int Node::getId() const{
     return id;
@@ -58,13 +61,14 @@ int Node::getId() const{
 void Node::setId(int id){
     this->id = id;
 }
-
+/*
 int Node::getPoids() const{
     return poids;
 }
 void Node::setPoids(int poids){
     this->poids = poids;
 }
+*/
 int Node::distance(Node& other){
     return abs(this->x - other.getX()) + abs(this->y - other.getY());
 }

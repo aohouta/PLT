@@ -5,7 +5,27 @@
 
 using namespace std;
 
+
+
 namespace engine{
+
+    bool Engine::IsGameOver(state::State& state){
+        int team1 = 0;
+        int team2 = 0;
+        for(auto &perso : state.getPersonnages()){
+            if(perso->getID_Invocateur() == 1) {
+                team1 = 1;
+            }
+            if(perso->getID_Invocateur() == 2) {
+                team2 = 1;
+            }
+        }
+        if (team1 == 0 || team2 == 0){ 
+            //set state to over
+            return true;}
+        return false;
+    }
+
     Engine::Engine(state::State& state){
         this->state = &state;
     }
