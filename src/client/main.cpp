@@ -252,9 +252,9 @@ int main(int argc,char* argv[])
             state.initPersonnage(Guerrier,1,13,1);
             //team 2
             cout << "Team 2 will be HeuristicAI" << endl;
-            state.initPersonnage(Mage,19,11,2);
+            //state.initPersonnage(Mage,19,11,2);
             state.initPersonnage(Archer,19,12,2);
-            state.initPersonnage(Guerrier,19,13,2);
+            //state.initPersonnage(Guerrier,19,13,2);
 
             //todo changer ordre position initperso
             sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
@@ -268,6 +268,7 @@ int main(int argc,char* argv[])
             hai.initMapNode(state);
 
             ngine.Start();
+
             while (window.isOpen()){
                 sf::Event event;
                 while (window.pollEvent(event))
@@ -289,8 +290,13 @@ int main(int argc,char* argv[])
                     cout << "-Heuristic AI-"<< endl;
                     hai.run(ngine,state);
                 }
+
+            
+
                 
                 ngine.EndTurn();
+                
+                
             }
 
         }

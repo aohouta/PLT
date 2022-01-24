@@ -19,7 +19,7 @@ namespace engine{
 
     bool AttackCommand::InRange(state::Cell& TargetCell){
         int Range = abs(Caster->getPosition().getX() - TargetCell.getPosition().getX()) + abs(Caster->getPosition().getY() - TargetCell.getPosition().getY());
-        if(Caster->getBasicRange()>= Range){
+        if(Range <= Caster->getBasicRange()){
             return true;
         }
         else{ return false; }
@@ -76,7 +76,7 @@ namespace engine{
             //else
 
             int BaseATK = Caster->getTotalAttack();
-            int BaseDEF = Caster->getTotalDef();
+            int BaseDEF = Defender->getTotalDef();
             float BaseDmg = BaseATK*(1-(BaseDEF/100));
 
             //sans crit
