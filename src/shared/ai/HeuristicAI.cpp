@@ -62,6 +62,7 @@ void HeuristicAI::run(engine::Engine &engine,state::State& state)
             }
             if ( dist == state.activePlayer->getBasicRange()) {
                 caseCibleN = voisin;
+                minimalDist = dist;
                 break;
             }
         }
