@@ -252,9 +252,9 @@ int main(int argc,char* argv[])
             state.initPersonnage(Guerrier,1,13,1);
             //team 2
             cout << "Team 2 will be HeuristicAI" << endl;
-            //state.initPersonnage(Mage,19,11,2);
+            state.initPersonnage(Mage,19,11,2);
             state.initPersonnage(Archer,19,12,2);
-            //state.initPersonnage(Guerrier,19,13,2);
+            state.initPersonnage(Guerrier,19,13,2);
 
             //todo changer ordre position initperso
             sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
@@ -263,11 +263,13 @@ int main(int argc,char* argv[])
             Slayer.initLayer(state);
             Slayer.initSprite();
             
-            ai::RandomAI rai;
+            //ai::RandomAI rai;
+            ai::DeepAI rai;
             ai::HeuristicAI hai;
             hai.initMapNode(state);
 
-            ngine.Start();
+            //ngine.Start();
+            ngine.Increment();
 
             while (window.isOpen()){
                 sf::Event event;
@@ -278,11 +280,19 @@ int main(int argc,char* argv[])
                         ngine.Stop();
                         window.close();
                     }
+                    
                 }
                 Slayer.draw(window);
-                sleep(3);
+                sleep(2);
+                
+                
+                
+                
+
+                
                 if(state.activePlayer->getID_Invocateur()==1){
-                    cout << "- Random AI-"<< endl;
+                    //cout << "- Random AI-"<< endl;
+                    cout << "- Deep AI-"<< endl;
                     rai.run(state);
                 }
                 else{
@@ -290,10 +300,16 @@ int main(int argc,char* argv[])
                     hai.run(ngine,state);
                 }
 
+                if (ngine.IsGameOver(state)){
+                    window.close();
+                }
+                
+                
+                ngine.Increment();
             
 
                 
-                ngine.EndTurn();
+                //ngine.EndTurn();
                 
                 
             }

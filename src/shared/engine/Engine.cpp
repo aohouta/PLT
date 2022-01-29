@@ -20,19 +20,38 @@ namespace engine{
                 team2 = 1;
             }
         }
-        if (team1 == 0 || team2 == 0){ 
+        
+        if (team1 == 0 && team2 == 0){ 
+            cout << "négalité" << endl;
             //set state to over
             return true;}
-        return false;
+        else if (team1 == 0){
+            cout << "team 2 win" << endl;
+            //set state to over
+            return true;
+        }
+        else if (team2 == 0){
+            cout << "team 1 win" << endl;
+            //set state to over
+            return true;
+        }
+        else {
+            return false;
+        }
+        
     }
 
     Engine::Engine(state::State& state){
         this->state = &state;
     }
-    void Engine::Start(){
+    
+    void Engine::Start(int time){
+        timing = time;
         inc = thread(&Engine::Increment, this);
     }
+    
     void Engine::Increment(){
+        /*
         while(!state->gameOver){
             stateMute.lock();
             if(state->activePlayer == nullptr){
@@ -54,7 +73,45 @@ namespace engine{
             stateMute.unlock();
             sleep(1);
         }
+        */
+       int vitMax = 0;
+       int vitSeuil = 100;
+       int i = 0;
+       int j = 0;
+
+       for(auto& perso : state->getPersonnages()){
+           cout << "name = " << perso->getNom() << " de l'équipe " <<  perso->getID_Invocateur() << " Vitesse init =" << perso->VitessePos << endl ;
+
+           if(perso->VitessePos >= vitMax){
+               vitMax = perso->VitessePos;
+               j = i;
+           }
+           i++;
+       }
+       
+       //init
+        while (vitMax < vitSeuil ) {      
+            i = 0; 
+                for(auto& perso : state->getPersonnages()){
+                    perso->VitessePos += perso->getVIT();
+                    cout << "name = " << perso->getNom() << " de l'équipe " <<  perso->getID_Invocateur() << " Vitesse actuelle =" << perso->VitessePos << endl ;
+                    if(perso->VitessePos >= vitMax){
+                        vitMax = perso->VitessePos;
+                        j = i;
+                    }
+                    i++;
+                }
+        }
+
+        cout << "name = " << state->getPersonnages()[j]->getNom() << " de l'équipe " <<  state->getPersonnages()[j]->getID_Invocateur() << " Vitesse actuelle =" << state->getPersonnages()[j]->VitessePos << endl ;
+        state->activePlayer = state->getPersonnages()[j];
+        state->activePlayer->VitessePos = 0;
+
+
+                        
     }
+
+
     void Engine::EndTurn(){
         state->activePlayer = nullptr;
         int vitMax = 100;
