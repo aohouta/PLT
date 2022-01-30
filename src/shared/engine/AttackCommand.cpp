@@ -1,6 +1,7 @@
 #include "AttackCommand.h"
 #include <stdio.h>
 #include <iostream>
+#include <string>
 
 
 
@@ -110,6 +111,8 @@ namespace engine{
         }
         
         Caster->setActionLeft(Caster->getActionLeft()-1);
+        string CommandName ("Attack");
+        Command::save(CommandName,TargetCell);
         return 0;
     }
 }

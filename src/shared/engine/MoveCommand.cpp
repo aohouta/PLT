@@ -11,6 +11,8 @@ namespace engine{
         this->TargetCell = TargetCell;
     }
     int MoveCommand::Execute(state::State& state){
+        string CommandName ("Moved");
+        Command::save(CommandName,TargetCell);
         Perso = state.activePlayer;
         int occupation = 0;
         for(auto& personn : state.getPersonnages()){
@@ -31,6 +33,7 @@ namespace engine{
         else {
             cout << "You can't do that someone is already here\n";
         }
+
         return 0;
     }
     bool MoveCommand::Pathfinding(){

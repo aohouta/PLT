@@ -277,7 +277,9 @@ int main(int argc,char* argv[])
             ai::HeuristicAI hai;
             hai.initMapNode(state);
 
+            state.SaveInitSate();
             ngine.Start();
+
 
             while (window.isOpen()){
                 sf::Event event;
