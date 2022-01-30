@@ -112,7 +112,7 @@ namespace engine{
         
         Caster->setActionLeft(Caster->getActionLeft()-1);
         string CommandName ("Attack");
-        Command::save(CommandName,TargetCell);
+        Command::save(CommandName,TargetCell, state);
         return 0;
     }
 }

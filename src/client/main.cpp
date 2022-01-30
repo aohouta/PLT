@@ -11,6 +11,9 @@
 #include <netinet/in.h>
 #include <sys/types.h>
 
+#include "../json.hpp"
+using json = nlohmann::json;
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
@@ -262,9 +265,9 @@ int main(int argc,char* argv[])
             state.initPersonnage(Guerrier,1,13,1);
             //team 2
             cout << "Team 2 will be HeuristicAI" << endl;
-            //state.initPersonnage(Mage,19,11,2);
+            state.initPersonnage(Mage,19,11,2);
             state.initPersonnage(Archer,19,12,2);
-            //state.initPersonnage(Guerrier,19,13,2);
+            state.initPersonnage(Guerrier,19,13,2);
 
             //todo changer ordre position initperso
             sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
@@ -397,7 +400,74 @@ int main(int argc,char* argv[])
                 }
             }
         }
+        else if (strcmp(argv[1], "play") == 0){
+
+            std::ifstream  src("replay.txt", std::ios::binary);
+            std::ofstream  dst("savereplay.txt",   std::ios::binary);
+            dst << src.rdbuf();
+
+            //play last game
+            ifstream i("savereplay.txt");
+            json replay;
+            i >> replay;
+            cout << replay << endl;
+
+            
+
+            cout << "--- Replay Battle ---" << endl;
+            State state{"render"};
+            state.initFromReplay(replay.dump());
+            
+
+
+            
+            engine::Engine ngine(state);
+            state.map.initMap();
+
+            //init state
+            int increment =0;
+
+            sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
+            StateLayer Slayer(state, window);
+            Slayer.initLayer(state);
+            Slayer.initSprite();
+            
+            
+
+            state.SaveInitSate();
+            ngine.Start();
+
+
+            while (window.isOpen()){
+                sf::Event event;
+                while (window.pollEvent(event))
+                {
+                    if (event.type == sf::Event::Closed){
+                        state.gameOver = true;
+                        ngine.Stop();
+                        window.close();
+                    }
+                }
+                Slayer.draw(window);
+                sleep(3);
+                while(state.activePlayer == nullptr){;}
+                //replay actibePlayer action        
+                state.Replay(replay.dump(), increment);
+                
+                ngine.EndTurn();
+                increment ++;
+                
+                if(ngine.IsGameOver(state)){
+                    state.gameOver = true;
+                    ngine.Stop();
+                    window.close();
+                }
+            }
+            
+
+        }
     }
+
     return 0;
 }
 

@@ -5,12 +5,15 @@
 #include <memory>
 #include <vector>
 #include <map>
+#include <string.h>
+#include "engine.h"
 
 #include <stdio.h>
 #include "../../json.hpp"
 
 using namespace std;
 using json = nlohmann::json;
+using namespace engine;
 
 namespace state{
 
@@ -88,9 +91,11 @@ void State::SaveInitSate (){
     out.open("replay.txt", std::ios::app);
     json header;
     vector<json> listePerso;
+    vector<json> listeCommand;
     for(auto& perso : Personnages){     
         json j ={
             {"Name", perso->getNom()},
+            {"Type", perso->getPType()},
             {"Team", perso->getID_Invocateur()},
             {"x", perso->getPosition().getX()},
             {"y",perso->getPosition().getY()}
@@ -100,7 +105,58 @@ void State::SaveInitSate (){
         //out << std::setw(4) << j << std::endl;
     }
     header["PersonnagesList"] = listePerso;
+    header["CommandList"] = listeCommand;
     out << std::setw(4) << header << std::endl;
 } 
+
+void State::initFromReplay(const std::string replay){
+    json r = json::parse(replay);
+    for(size_t i = 0; i < r["PersonnagesList"].size(); i++){
+        initPersonnage(r["PersonnagesList"][i]["Type"],r["PersonnagesList"][i]["x"],r["PersonnagesList"][i]["y"],r["PersonnagesList"][i]["Team"]);
+    }
+
+}
+void State::Replay(const std::string& replay, int& i){
+
+    cout << "Le personnage sélectionné est ... " << activePlayer->getNom() <<" de l'équipe "<< activePlayer->getID_Invocateur()<<" !" << endl;
+
+    json r = json::parse(replay);
+    string command = r["CommandList"][i]["Command"].get<std::string>();
+    int x,y;
+    x = r["CommandList"][i]["x"];
+    y = r["CommandList"][i]["y"];
+    cout << command << endl;
+
+    if(command.compare("Moved") == 0){
+        
+        MoveCommand move(*map.layout[x][y]);
+        move.Execute(*this);
+        if (r["CommandList"][i+1]["Type"] == r["CommandList"][i]["Type"]  && r["CommandList"][i+1]["Team"] == r["CommandList"][i]["Team"]  ) {
+            i=i+1;
+            x = r["CommandList"][i]["x"];
+            y = r["CommandList"][i]["y"];
+            AttackCommand atck(*map.layout[x][y]);
+            atck.Execute(*this);
+
+        }
+    }
+    else if(command.compare("Attack") == 0){
+        
+        AttackCommand atck(*map.layout[x][y]);
+        atck.Execute(*this);
+        if (r["CommandList"][i+1]["Type"] == r["CommandList"][i]["Type"]  && r["CommandList"][i+1]["Team"] == r["CommandList"][i]["Team"]  ) {
+            i=i+1;
+            x = r["CommandList"][i]["x"];
+            y = r["CommandList"][i]["y"];
+            MoveCommand move(*map.layout[x][y]);
+            move.Execute(*this);
+        }
+    }
+    else if(command.compare("Do nothing") == 0){
+        cout << "Le personnage ne fait rien ! flemmard va" << endl;
+    }
+
+
+}
 
 }

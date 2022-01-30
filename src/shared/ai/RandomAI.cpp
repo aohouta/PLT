@@ -1,9 +1,6 @@
 //
 //  RandomAI.cpp
-//  
-//
-//  Created by abdel houta on 23/12/2021.
-//
+
 
 #include "../ai.h"
 #include "engine.h"
@@ -13,13 +10,47 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <random>
+#include <fstream>
+#include "../../json.hpp"
+
+using json = nlohmann::json;
 
 using namespace ai;
 using namespace engine;
 using namespace state;
 using namespace std;
 
+void CommandNothing() {
+    //Command Do nothing
+    // Not optimal at all but working !
+    //save last json
+    ifstream i("replay.txt");
+    json replay,header;
+    i >> replay;
+    vector<json> listePerso = replay["PersonnagesList"];
+    vector<json> listeCommand = replay["CommandList"];
 
+    //remove it
+    remove("replay.txt");
+
+    
+    //create new with new command
+    std::ofstream out;
+   
+    json j ={
+        {"Command", "Do nothing"},
+        {"x", 0},
+        {"y",0}
+    };
+
+    listeCommand.push_back(j);
+
+    out.open("replay.txt", std::ios::app);
+    header["PersonnagesList"] = listePerso;
+    header["CommandList"] = listeCommand;
+    out << std::setw(4) << header << std::endl;
+
+}
 
 void RandomAI::run(state::State& state){
 
@@ -38,7 +69,9 @@ void RandomAI::run(state::State& state){
     {
         case 0: //do nothing
             cout << "Le personnage ne fait rien, quel flemmard !\n" << endl;
+            CommandNothing();                
             break;
+
         case 1: //just attacking
             randomAtk(state);
             break;
