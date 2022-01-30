@@ -20,10 +20,25 @@ namespace engine{
                 team2 = 1;
             }
         }
-        if (team1 == 0 || team2 == 0){ 
+        
+        if (team1 == 0 && team2 == 0){ 
+            cout << "négalité" << endl;
             //set state to over
             return true;}
-        return false;
+        else if (team1 == 0){
+            cout << "team 2 win" << endl;
+            //set state to over
+            return true;
+        }
+        else if (team2 == 0){
+            cout << "team 1 win" << endl;
+            //set state to over
+            return true;
+        }
+        else {
+            return false;
+        }
+        
     }
 
     Engine::Engine(state::State& state){

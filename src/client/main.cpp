@@ -200,6 +200,11 @@ int main(int argc,char* argv[])
                 cout << "--- Selection du personnage ---"<< endl;
                 rai.run(state);
                 ngine.EndTurn();
+                if(ngine.IsGameOver(state)){
+                    state.gameOver = true;
+                    ngine.Stop();
+                    window.close();
+                }
             }
         }
         else if (strcmp(argv[1], "heuristicAI") == 0){
@@ -236,6 +241,11 @@ int main(int argc,char* argv[])
                 sleep(3);
                 hai.run(ngine,state);
                 ngine.EndTurn();
+                if(ngine.IsGameOver(state)){
+                    state.gameOver = true;
+                    ngine.Stop();
+                    window.close();
+                }
             }
         }
         else if (strcmp(argv[1], "battle") == 0){
@@ -296,7 +306,11 @@ int main(int argc,char* argv[])
                 
                 ngine.EndTurn();
                 
-                
+                if(ngine.IsGameOver(state)){
+                    state.gameOver = true;
+                    ngine.Stop();
+                    window.close();
+                }
             }
 
         }
@@ -374,6 +388,11 @@ int main(int argc,char* argv[])
                 sleep(3);
                 Dai.run(state);
                 ngine.EndTurn();
+                if(ngine.IsGameOver(state)){
+                    state.gameOver = true;
+                    ngine.Stop();
+                    window.close();
+                }
             }
         }
     }
