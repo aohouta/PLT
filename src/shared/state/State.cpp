@@ -6,7 +6,12 @@
 #include <vector>
 #include <map>
 
+#include <stdio.h>
+#include "../../json.hpp"
+
 using namespace std;
+using json = nlohmann::json;
+
 namespace state{
 
 
@@ -74,5 +79,28 @@ void State::initPersonnage (ID_PType PType,int x, int y,int ID_Invocateur){
 void State::DeletePerso(int posInList){
     Personnages.erase(Personnages.begin() + posInList);
 }
+
+void State::SaveInitSate (){
+    //remove("CommandSave.json");
+    remove("replay.txt");
+    std::ofstream out;
+    //out.open("CommandSave.json", std::ios::app);
+    out.open("replay.txt", std::ios::app);
+    json header;
+    vector<json> listePerso;
+    for(auto& perso : Personnages){     
+        json j ={
+            {"Name", perso->getNom()},
+            {"Team", perso->getID_Invocateur()},
+            {"x", perso->getPosition().getX()},
+            {"y",perso->getPosition().getY()}
+        };
+        listePerso.push_back(j);
+        
+        //out << std::setw(4) << j << std::endl;
+    }
+    header["PersonnagesList"] = listePerso;
+    out << std::setw(4) << header << std::endl;
+} 
 
 }

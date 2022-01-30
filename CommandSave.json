@@ -1,0 +1,28 @@
+{
+    "PersonnagesList": [
+        {
+            "Name": "Dark mage of the Lost Forest",
+            "Team": 1,
+            "x": 1,
+            "y": 11
+        },
+        {
+            "Name": "Wild Archer of the Old Mountain",
+            "Team": 1,
+            "x": 1,
+            "y": 12
+        },
+        {
+            "Name": "Ultimate Warrior of DOOM APOCALYPSE",
+            "Team": 1,
+            "x": 1,
+            "y": 13
+        },
+        {
+            "Name": "Wild Archer of the Old Mountain",
+            "Team": 2,
+            "x": 19,
+            "y": 12
+        }
+    ]
+}

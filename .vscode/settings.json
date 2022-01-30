@@ -60,6 +60,9 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "condition_variable": "cpp",
-        "mutex": "cpp"
+        "mutex": "cpp",
+        "codecvt": "cpp",
+        "forward_list": "cpp",
+        "valarray": "cpp"
     }
 }
