@@ -16,18 +16,42 @@ using namespace std;
 namespace engine{
 
 
-int Command::save(const std::string& CommandName, state::Cell& Target){
+int Command::save(const std::string& CommandName, state::Cell& Target, state::State& state){
     int x = Target.getPosition().getX();
-    int y = Target.getPosition().getX();
+    int y = Target.getPosition().getY();
+
+
+
+    // Not optimal at all but working !
+    //save last json
+    ifstream i("replay.txt");
+    json replay,header;
+    i >> replay;
+    vector<json> listePerso = replay["PersonnagesList"];
+    vector<json> listeCommand = replay["CommandList"];
+
+    //remove it
+    remove("replay.txt");
+
+    
+    //create new with new command
     std::ofstream out;
-    //out.open("CommandSave.json", std::ios::app);
-    out.open("replay.txt", std::ios::app);
+   
     json j ={
         {"Command", CommandName},
         {"x", x},
-        {"y",y}
+        {"y",y},
+        {"Type", state.activePlayer->getPType()},
+        {"Team", state.activePlayer->getID_Invocateur()}
     };
-    out << std::setw(4) << j << std::endl;
+
+    listeCommand.push_back(j);
+
+    out.open("replay.txt", std::ios::app);
+    header["PersonnagesList"] = listePerso;
+    header["CommandList"] = listeCommand;
+    out << std::setw(4) << header << std::endl;
+
     return 0;
 }
 

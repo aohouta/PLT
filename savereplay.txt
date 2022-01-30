@@ -36,6 +36,11 @@
             "y": 13
         },
         {
+            "Command": "Do nothing",
+            "x": 0,
+            "y": 0
+        },
+        {
             "Command": "Moved",
             "Team": 2,
             "Type": 1,
