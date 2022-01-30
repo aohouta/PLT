@@ -407,16 +407,33 @@ de simulation, et un système de note, qui permet de classifier les différents 
 
 \subsection{Organisation des modules}
 
+Comme notre jeu a une partie "temps réel", nous avons été forcé d'implémenter un thread supplémentaire
+directement dans notre engine.
+Nous avons donc une partie de l'engine, qui est dans un thread a part, et l'affichage se charge uniquement
+lorsqu'il y a un changement dans le state, comme nous n'utilisons pas de d'animation d'attente ou "idle animation",
+on peut charger le render que lors d'un changement, pour optimiser la gestion des ressources.
+Le thread a part, lui, va incrémenter toutes les secondes la vitesse des personnages, lorsqu'on arrive a 100 pour un 
+personnage, le thread tourne dans le vide, et attend que le tours du personnages soit finit, tout cela est gérer dans 
+le thread principal.
+
 \clearpage
 \subsection{Conception logiciel}
 
+Comme la modularisation est directement une partie de l'engine, alors le thread supplémentaire est directement
+intégré a l'engine. Dans l'engine, on a une classe "engine" qui s'occupe de d'interfacer le thread.
+On utilise un conststructeur, pour initialisé l'engine sur un state particulier.
+On peut ensuite lancé l'engine avec la méthode start, qui va appeler la méthode increment dans un nouveau thread.
+C'est cette méthode increment, qui va s'occuper de gérer les différents tours des personnages.
+On peut ensuite mettre fin au tour du personnages, avec la fonction EndTurn.
+On a aussi la fonction IsGameOver, qui check pour savoir si la partie est terminé.
+Et finalement la fonction Stop, qui va attendre que le thread soit bien terminé, quand la partie est terminé.
 
-%
-%\begin{landscape}
-%\begin{figure}[p]
-%\includegraphics[width=0.9\paperheight]{module.pdf}
-%\caption{\label{uml:module}Diagramme des classes pour la modularisation.} 
-%\end{figure}
-%\end{landscape}
+
+\begin{landscape}
+\begin{figure}[p]
+\includegraphics[width=0.9\paperwidth,angle=270]{module.pdf}
+\caption{\label{uml:module}Diagramme des classes pour la modularisation.} 
+\end{figure}
+\end{landscape}
 
 \end{document}
