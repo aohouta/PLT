@@ -401,7 +401,8 @@ int main(int argc,char* argv[])
             }
         }
         else if (strcmp(argv[1], "play") == 0){
-
+            
+            //copy last replay to savereplay.txt
             std::ifstream  src("replay.txt", std::ios::binary);
             std::ofstream  dst("savereplay.txt",   std::ios::binary);
             dst << src.rdbuf();
@@ -415,6 +416,7 @@ int main(int argc,char* argv[])
             
 
             cout << "--- Replay Battle ---" << endl;
+            //init state
             State state{"render"};
             state.initFromReplay(replay.dump());
             
@@ -424,8 +426,8 @@ int main(int argc,char* argv[])
             engine::Engine ngine(state);
             state.map.initMap();
 
-            //init state
-            int increment =0;
+            
+            int increment =0; //incremement keep track of action
 
             sf::RenderWindow window(sf::VideoMode(state.map.layout[0].size() * 16 + 256, state.map.layout.size() * 16 + 32, 32), "map");
             StateLayer Slayer(state, window);
@@ -451,7 +453,7 @@ int main(int argc,char* argv[])
                 Slayer.draw(window);
                 sleep(3);
                 while(state.activePlayer == nullptr){;}
-                //replay actibePlayer action        
+                //replay activePlayer action        
                 state.Replay(replay.dump(), increment);
                 
                 ngine.EndTurn();

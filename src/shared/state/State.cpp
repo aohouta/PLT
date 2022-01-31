@@ -110,6 +110,7 @@ void State::SaveInitSate (){
 } 
 
 void State::initFromReplay(const std::string replay){
+    //init Personnage on map from replay.txt
     json r = json::parse(replay);
     for(size_t i = 0; i < r["PersonnagesList"].size(); i++){
         initPersonnage(r["PersonnagesList"][i]["Type"],r["PersonnagesList"][i]["x"],r["PersonnagesList"][i]["y"],r["PersonnagesList"][i]["Team"]);
@@ -117,7 +118,7 @@ void State::initFromReplay(const std::string replay){
 
 }
 void State::Replay(const std::string& replay, int& i){
-
+    //Replay turn of current active player
     cout << "Le personnage sélectionné est ... " << activePlayer->getNom() <<" de l'équipe "<< activePlayer->getID_Invocateur()<<" !" << endl;
 
     json r = json::parse(replay);
