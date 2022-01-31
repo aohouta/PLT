@@ -407,27 +407,78 @@ de simulation, et un système de note, qui permet de classifier les différents 
 
 \subsection{Organisation des modules}
 
-Comme notre jeu a une partie "temps réel", nous avons été forcé d'implémenter un thread supplémentaire
+Comme notre jeu a une partie "temps réelle", nous avons été forcés d'implémenter un thread supplémentaire
 directement dans notre engine.
-Nous avons donc une partie de l'engine, qui est dans un thread a part, et l'affichage se charge uniquement
+Nous avons donc une partie de l'engine, qui est dans un thread à part, et l'affichage se charge uniquement
 lorsqu'il y a un changement dans le state, comme nous n'utilisons pas de d'animation d'attente ou "idle animation",
 on peut charger le render que lors d'un changement, pour optimiser la gestion des ressources.
-Le thread a part, lui, va incrémenter toutes les secondes la vitesse des personnages, lorsqu'on arrive a 100 pour un 
-personnage, le thread tourne dans le vide, et attend que le tours du personnages soit finit, tout cela est gérer dans 
+Le thread à part, lui, va incrémenter toutes les secondes la vitesse des personnages, lorsqu'on arrive à 100 pour un 
+personnage, le thread tourne dans le vide, et attend que le tour du personnage soit fini, tout cela est gérer dans 
 le thread principal.
+
+\subsection{Sérialisation des commandes}
+
+Pour la sérialisation des commandes, on a décider de rajouter une fonction dans le state, qui a chaque éxecution de 
+commande va l'écrire dans un fichier json, on a également une autre fonction qui permet de rejouer les commandes du
+fichier json.
 
 \clearpage
 \subsection{Conception logiciel}
 
+\paragraph{Modularisation}
 Comme la modularisation est directement une partie de l'engine, alors le thread supplémentaire est directement
-intégré a l'engine. Dans l'engine, on a une classe "engine" qui s'occupe de d'interfacer le thread.
-On utilise un conststructeur, pour initialisé l'engine sur un state particulier.
-On peut ensuite lancé l'engine avec la méthode start, qui va appeler la méthode increment dans un nouveau thread.
+intégré à l'engine. Dans l'engine, on a une classe "engine" qui s'occupe de d'interfacer le thread.
+On utilise un constructeur, pour initialiser l'engine sur un state particulier.
+On peut ensuite lancer l'engine avec la méthode start, qui va appeler la méthode increment dans un nouveau thread.
 C'est cette méthode increment, qui va s'occuper de gérer les différents tours des personnages.
-On peut ensuite mettre fin au tour du personnages, avec la fonction EndTurn.
-On a aussi la fonction IsGameOver, qui check pour savoir si la partie est terminé.
-Et finalement la fonction Stop, qui va attendre que le thread soit bien terminé, quand la partie est terminé.
+On peut ensuite mettre fin au tour du personnage, avec la fonction EndTurn.
+On a aussi la fonction IsGameOver, qui check pour savoir si la partie est terminée.
+Et finalement la fonction Stop, qui va attendre que le thread soit bien terminé, quand la partie est terminée.
 
+\paragraph{Sérialisation des commandes}
+Nous avons utilisé la bibliothèque nlohmann/json afin de manipuler les fichiers JSON permettant de sauvegarder les commandes successives d'une partie dans le fichier replay.txt.
+Notre fichier de sauvegarde se compose d'un objet contenant 2 vecteurs :
+
+\begin{figure}[h]
+  \includegraphics{SavedCommand.png}
+  \caption{\label{img:saved}Contenue du fichier de sauvegarde.} 
+\end{figure}
+
+Un vecteur CommandList contenant l'ensemble des commandes de la partie sauvegardée.
+Un vecteur PersonnageList contenant l'ensemble personnages de la partie sauvegardée.
+
+Chaque élément de CommandList :
+Command = nom de la commande : Moved , Attacked ou Do nothing.
+Team = équipe du personnage ayant effectué l'action
+Type = type (sa classe) du personnage ayant effectué l'action
+X,y = Coordonnée de la case Cible de l'action
+
+Chaque élément de PersonnageList :
+Nom = nom du personnage
+Team = équipe du personnage ayant effectué l'action
+Type = type (sa classe) du personnage ayant effectué l'action
+X,y = Coordonnée initiale du personnage
+
+Le vecteur PersonnageList est obtenu via l'appel de la fonction void State::SaveInitSate ()
+Avant le début de d'une partie, elle permet d'enregistrer chaque personnage à l'initialisation.
+Le vecteur CommandList est obtenu via l'appel de la fonction Command::save(const std::string\& CommandName, state::Cell\& Target, state::State\& state)
+Qui est appelé à chaque commande d'action effectuée et sauvegarde celle-ci dans replay.txt
+
+Une fois une partie arrivée à son terme enregistrée, on peut lancer la commande ./bin/client play qui rejoue celle-ci.
+La fonction void State::initFromReplay(const std::string replay)
+Permet d'initialiser les personnages dans notre state.
+Une fois la partie commencée, c'est la fonction State::Replay(const std::string\& replay, int\& i)
+Qui permet d'effectuer les actions du personnage actif, on garde trace du nombre d'action effectué via un entier incrément. En effet, si un personnage n'a pas effectué 2 actions pendant son tour, l'action du personnage suivant est donc la n+2 et non la n+1( cas similaire s'il n'a effectué aucune action).
+
+Dans notre démo, afin de faire fonctionner le replay, il faut d'abord lancer la commande ./bin/client  battle qui correspond à une bataille entre l'ia aléatoire et heuristic.
+Une fois la partie terminée, on peut rejouer celle-ci via ./bin/client play
+
+Attention, si on veut relancer plusieurs fois le replay, il faut bien le laisser terminer à chaque fois !
+
+\begin{figure}[h]
+  \includegraphics{replay.PNG}
+  \caption{\label{img:replay}Fonction replay dans la classe state.} 
+\end{figure}
 
 \begin{landscape}
 \begin{figure}[p]
